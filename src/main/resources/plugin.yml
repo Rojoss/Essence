@@ -1,0 +1,7 @@
+main : ${project.groupId}.Essence
+name: ${project.name}
+version: ${project.version}
+description: ${project.description}
+website: ${project.url}
+authors: [Worstboy]
+softdepend: [Vault]

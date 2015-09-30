@@ -30,7 +30,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerGameModeChangeEvent;
-import org.essencemc.essence.Message;
+import org.essencemc.essence.EssMessage;
 import org.essencemc.essencecore.EssenceCore;
 import org.essencemc.essencecore.aliases.AliasType;
 import org.essencemc.essencecore.aliases.Aliases;
@@ -83,9 +83,9 @@ public class GamemodeCmd extends EssenceCommand {
         player.setGameMode(gm);
 
         if (!result.hasModifier("-s")) {
-            player.sendMessage(Message.CMD_GAMEMODE_CHANGED.msg().getMsg(true, mode));
+            player.sendMessage(EssMessage.CMD_GAMEMODE_CHANGED.msg().getMsg(true, mode));
             if (!sender.equals(player)) {
-                sender.sendMessage(Message.CMD_GAMEMODE_OTHER.msg().getMsg(true, mode, player.getDisplayName()));
+                sender.sendMessage(EssMessage.CMD_GAMEMODE_OTHER.msg().getMsg(true, mode, player.getDisplayName()));
             }
         }
         return true;

@@ -28,6 +28,7 @@ package org.essencemc.essence.commands.teleport;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.essencemc.essence.EssMessage;
 import org.essencemc.essencecore.commands.EssenceCommand;
 import org.essencemc.essencecore.EssenceCore;
 import org.essencemc.essencecore.commands.arguments.PlayerArgument;
@@ -69,7 +70,7 @@ public class TpHereCmd extends EssenceCommand {
         target.teleport(player);
 
         if (!result.hasModifier("-s")) {
-            player.sendMessage(Message.CMD_TPHERE.msg().getMsg(true, target.getDisplayName()));
+            player.sendMessage(EssMessage.CMD_TPHERE.msg().getMsg(true, target.getDisplayName()));
         }
         return true;
     }

@@ -28,6 +28,7 @@ package org.essencemc.essence.commands.misc;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.essencemc.essence.EssMessage;
 import org.essencemc.essencecore.commands.EssenceCommand;
 import org.essencemc.essencecore.EssenceCore;
 import org.essencemc.essencecore.commands.arguments.StringArgument;
@@ -49,7 +50,7 @@ public class SummonCmd extends EssenceCommand {
                 new StringArgument("entity[(data)][(>|-)entity(>|-)...] [amount] [location]", ArgumentRequirement.REQUIRED, ""),
         };
 
-        addModifier("-r", Message.MOD_RIDE_ENTITY.msg());
+        addModifier("-r", EssMessage.MOD_RIDE_ENTITY.msg());
 
         register();
     }
@@ -73,7 +74,7 @@ public class SummonCmd extends EssenceCommand {
         }
 
         if (!result.hasModifier("-s")) {
-            sender.sendMessage(Message.CMD_SUMMON.msg().getMsg(true));
+            sender.sendMessage(EssMessage.CMD_SUMMON.msg().getMsg(true));
         }
         return true;
     }

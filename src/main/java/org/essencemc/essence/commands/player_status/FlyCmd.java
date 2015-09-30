@@ -29,6 +29,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerToggleFlightEvent;
+import org.essencemc.essence.EssMessage;
 import org.essencemc.essencecore.commands.EssenceCommand;
 import org.essencemc.essencecore.EssenceCore;
 import org.essencemc.essencecore.arguments.BoolArg;
@@ -51,7 +52,7 @@ public class FlyCmd extends EssenceCommand {
                 new BoolArgument("state", ArgumentRequirement.OPTIONAL, "")
         };
 
-        addCommandOption("allow-fly", Message.OPT_BURN_TICKS.msg(), new BoolArg(true));
+        addCommandOption("allow-fly", EssMessage.OPT_BURN_TICKS.msg(), new BoolArg(true));
         //addCommandOption("flying", new BoolArg(true, Message.OPT_BURN_TICKS.msg()));
 
         register();
@@ -69,7 +70,7 @@ public class FlyCmd extends EssenceCommand {
         Boolean state = (Boolean)result.getArg("state", !player.isFlying());
 
         PlayerToggleFlightEvent event = new PlayerToggleFlightEvent(player, state);
-        ess.getServer().getPluginManager().callEvent(event);
+        plugin.getServer().getPluginManager().callEvent(event);
         if (event.isCancelled()) return true;
 
         player.setAllowFlight(true);
@@ -77,9 +78,9 @@ public class FlyCmd extends EssenceCommand {
         player.setAllowFlight((Boolean)result.getOptionalArg("allow-fly"));
 
         if (!result.hasModifier("-s")) {
-            player.sendMessage(Message.CMD_FLY.msg().getMsg(true, state.toString()));
+            player.sendMessage(EssMessage.CMD_FLY.msg().getMsg(true, state.toString()));
             if (!sender.equals(player)) {
-                sender.sendMessage(Message.CMD_FLY_OTHER.msg().getMsg(true, player.getDisplayName(), state.toString()));
+                sender.sendMessage(EssMessage.CMD_FLY_OTHER.msg().getMsg(true, player.getDisplayName(), state.toString()));
             }
         }
 

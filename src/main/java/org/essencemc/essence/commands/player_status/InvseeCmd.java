@@ -28,6 +28,7 @@ package org.essencemc.essence.commands.player_status;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.essencemc.essence.EssMessage;
 import org.essencemc.essencecore.commands.EssenceCommand;
 import org.essencemc.essencecore.EssenceCore;
 import org.essencemc.essencecore.commands.arguments.PlayerArgument;
@@ -68,14 +69,14 @@ public class InvseeCmd extends EssenceCommand {
         // TODO: Find a way to call InventoryOpenEvent.
 
         if (hasPermission(invOwner, "exempt")) {
-            sender.sendMessage(Message.CMD_INVSEE_EXEMPT.msg().getMsg(true, invOwner.getName()));
+            sender.sendMessage(EssMessage.CMD_INVSEE_EXEMPT.msg().getMsg(true, invOwner.getName()));
             return true;
         }
 
         player.openInventory(invOwner.getInventory());
 
         if (!result.hasModifier("-s")) {
-            player.sendMessage(Message.CMD_INVSEE.msg().getMsg(true, invOwner.getName()));
+            player.sendMessage(EssMessage.CMD_INVSEE.msg().getMsg(true, invOwner.getName()));
         }
 
         return true;

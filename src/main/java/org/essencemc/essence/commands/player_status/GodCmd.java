@@ -30,7 +30,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageEvent;
-import org.essencemc.essence.Message;
+import org.essencemc.essence.EssMessage;
 import org.essencemc.essencecore.EssenceCore;
 import org.essencemc.essencecore.arguments.BoolArg;
 import org.essencemc.essencecore.commands.EssenceCommand;
@@ -52,9 +52,9 @@ public class GodCmd extends EssenceCommand {
                 new BoolArgument("state", ArgumentRequirement.OPTIONAL, "")
         };
 
-        addModifier("-r", Message.MOD_GOD_RESET.msg());
-        addCommandOption("no-hunger-loss", Message.OPT_NO_HUNGER_LOSS.msg(), new BoolArg(true));
-        addCommandOption("no-damage", Message.OPT_NO_DAMAGE.msg(), new BoolArg(true));
+        addModifier("-r", EssMessage.MOD_GOD_RESET.msg());
+        addCommandOption("no-hunger-loss", EssMessage.OPT_NO_HUNGER_LOSS.msg(), new BoolArg(true));
+        addCommandOption("no-damage", EssMessage.OPT_NO_DAMAGE.msg(), new BoolArg(true));
 
         register();
 

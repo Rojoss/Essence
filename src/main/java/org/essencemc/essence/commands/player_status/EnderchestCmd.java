@@ -28,6 +28,7 @@ package org.essencemc.essence.commands.player_status;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.essencemc.essence.EssMessage;
 import org.essencemc.essencecore.commands.EssenceCommand;
 import org.essencemc.essencecore.EssenceCore;
 import org.essencemc.essencecore.commands.arguments.PlayerArgument;
@@ -70,9 +71,9 @@ public class EnderchestCmd extends EssenceCommand {
         player.openInventory(targetPlayer.getEnderChest());
 
         if (!result.hasModifier("-s")) {
-            sender.sendMessage(Message.CMD_ENDERCHEST.msg().getMsg(true));
+            sender.sendMessage(EssMessage.CMD_ENDERCHEST.msg().getMsg(true));
             if (!sender.equals(player)) {
-                sender.sendMessage(Message.CMD_ENDERCHEST_OTHER.msg().getMsg(true, player.getName()));
+                sender.sendMessage(EssMessage.CMD_ENDERCHEST_OTHER.msg().getMsg(true, player.getName()));
             }
         }
 

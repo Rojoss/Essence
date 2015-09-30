@@ -28,6 +28,7 @@ package org.essencemc.essence.commands.player;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.essencemc.essence.EssMessage;
 import org.essencemc.essencecore.commands.EssenceCommand;
 import org.essencemc.essencecore.EssenceCore;
 import org.essencemc.essencecore.commands.arguments.PlayerArgument;
@@ -63,10 +64,10 @@ public class MessageCmd extends EssenceCommand {
         Player target = (Player)result.getArg("player");
         String message = Util.implode(args, " ", 1);
 
-        target.sendMessage(Message.CMD_MESSAGE.msg().getMsg(true, "You", sender.getName(), Util.color(Message.PREFIX.msg().getDefault()) + message));
+        target.sendMessage(EssMessage.CMD_MESSAGE.msg().getMsg(true, "You", sender.getName(), Util.color(Message.PREFIX.msg().getDefault()) + message));
 
         if (!result.hasModifier("-s")) {
-            sender.sendMessage(Message.CMD_MESSAGE.msg().getMsg(true, target.getName(), "You", Util.color(Message.PREFIX.msg().getDefault()) + message));
+            sender.sendMessage(EssMessage.CMD_MESSAGE.msg().getMsg(true, target.getName(), "You", Util.color(Message.PREFIX.msg().getDefault()) + message));
         }
 
         return true;

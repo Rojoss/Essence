@@ -29,8 +29,8 @@ import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.essencemc.essence.EssMessage;
 import org.essencemc.essence.Essence;
-import org.essencemc.essence.Message;
 import org.essencemc.essencecore.EssenceCore;
 import org.essencemc.essencecore.commands.EssenceCommand;
 import org.essencemc.essencecore.commands.arguments.LocationArgument;
@@ -67,7 +67,7 @@ public class SetWarpCmd extends EssenceCommand {
 
         Essence.inst().getWarps().setWarp(name, location);
         if (!result.hasModifier("-s")) {
-            sender.sendMessage(Message.CMD_WARP_SET.msg().getMsg(true, name));
+            sender.sendMessage(EssMessage.CMD_WARP_SET.msg().getMsg(true, name));
         }
         return true;
     }

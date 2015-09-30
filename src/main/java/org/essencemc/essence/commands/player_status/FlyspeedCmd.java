@@ -28,6 +28,7 @@ package org.essencemc.essence.commands.player_status;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.essencemc.essence.EssMessage;
 import org.essencemc.essencecore.commands.EssenceCommand;
 import org.essencemc.essencecore.EssenceCore;
 import org.essencemc.essencecore.commands.arguments.IntArgument;
@@ -68,9 +69,9 @@ public class FlyspeedCmd extends EssenceCommand {
         speed *= 100;
 
         if (!result.hasModifier("-s")) {
-            player.sendMessage(Message.CMD_FLYSPEED.msg().getMsg(true, speed.toString()));
+            player.sendMessage(EssMessage.CMD_FLYSPEED.msg().getMsg(true, speed.toString()));
             if (!sender.equals(player)) {
-                sender.sendMessage(Message.CMD_FLYSPEED_OTHER.msg().getMsg(true, player.getDisplayName(), speed.toString()));
+                sender.sendMessage(EssMessage.CMD_FLYSPEED_OTHER.msg().getMsg(true, player.getDisplayName(), speed.toString()));
             }
         }
 

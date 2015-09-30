@@ -72,7 +72,7 @@ public class Essence extends JavaPlugin {
     }
 
 
-    private void registerCommands() {
+    public void registerCommands() {
         Commands cmds = core.getCommands();
         cmds.registerCommand(this, TestCmd.class, "test", "", "Command for testing plugin functionality.", new String[]{});
         cmds.registerCommand(this, MainPluginCmd.class, "essence", "", "Main plugin command and config reloading", new String[]{"essentials", "essential"});
@@ -105,7 +105,7 @@ public class Essence extends JavaPlugin {
         cmds.registerCommand(this, MessageCmd.class, "message", "message", "Sends a private message to another online player.", new String[]{"msg", "tell"});
     }
 
-    private void registerModules() {
+    public void registerModules() {
         Modules modules = core.getModules();
         modules.registerModule(BanModule.class, ModuleCategory.COMMAND, "ban");
     }

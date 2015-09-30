@@ -31,6 +31,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.essencemc.essence.EssMessage;
 import org.essencemc.essencecore.commands.EssenceCommand;
 import org.essencemc.essencecore.EssenceCore;
 import org.essencemc.essencecore.aliases.AliasType;
@@ -60,8 +61,8 @@ public class RemoveEffectCmd extends EssenceCommand {
                 new PlayerArgument("player", ArgumentRequirement.OPTIONAL, "others")
         };
 
-        addModifier("-n", Message.MOD_REMOVEEFFECT_NEGATIVE.msg());
-        addModifier("-p", Message.MOD_REMOVEEFFECT_POSITIVE.msg());
+        addModifier("-n", EssMessage.MOD_REMOVEEFFECT_NEGATIVE.msg());
+        addModifier("-p", EssMessage.MOD_REMOVEEFFECT_POSITIVE.msg());
 
         register();
     }
@@ -93,15 +94,15 @@ public class RemoveEffectCmd extends EssenceCommand {
         if (!result.hasModifier("-s")) {
             if (sender.equals(player)) {
                 if (single == true) {
-                    player.sendMessage(Message.CMD_REMOVEEFFECT.msg().getMsg(true, effectType.toLowerCase()));
+                    player.sendMessage(EssMessage.CMD_REMOVEEFFECT.msg().getMsg(true, effectType.toLowerCase()));
                 } else {
-                    player.sendMessage(Message.CMD_REMOVEEFFECT_ALL.msg().getMsg(true));
+                    player.sendMessage(EssMessage.CMD_REMOVEEFFECT_ALL.msg().getMsg(true));
                 }
             } else {
                 if (single == true) {
-                    player.sendMessage(Message.CMD_REMOVEEFFECT_OTHER.msg().getMsg(true, player.getName(), effectType.toLowerCase()));
+                    player.sendMessage(EssMessage.CMD_REMOVEEFFECT_OTHER.msg().getMsg(true, player.getName(), effectType.toLowerCase()));
                 } else {
-                    player.sendMessage(Message.CMD_REMOVEEFFECT_OTHER_ALL.msg().getMsg(true));
+                    player.sendMessage(EssMessage.CMD_REMOVEEFFECT_OTHER_ALL.msg().getMsg(true));
                 }
             }
         }

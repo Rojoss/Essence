@@ -28,6 +28,7 @@ package org.essencemc.essence.commands.player_status;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.essencemc.essence.EssMessage;
 import org.essencemc.essencecore.commands.EssenceCommand;
 import org.essencemc.essencecore.EssenceCore;
 import org.essencemc.essencecore.commands.arguments.PlayerArgument;
@@ -60,14 +61,14 @@ public class KillCmd extends EssenceCommand {
         Player player = (Player)result.getArg("player");
 
         if (hasPermission(player, "exempt")) {
-            sender.sendMessage(Message.CMD_KILL_EXEMPT.msg().getMsg(true, player.getName()));
+            sender.sendMessage(EssMessage.CMD_KILL_EXEMPT.msg().getMsg(true, player.getName()));
             return true;
         }
 
         player.setHealth(0);
 
         if (!result.hasModifier("-s")) {
-            sender.sendMessage(Message.CMD_KILL.msg().getMsg(true, player.getName()));
+            sender.sendMessage(EssMessage.CMD_KILL.msg().getMsg(true, player.getName()));
         }
 
         return true;

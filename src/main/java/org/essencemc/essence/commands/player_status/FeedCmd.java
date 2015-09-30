@@ -29,7 +29,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
-import org.essencemc.essence.Message;
+import org.essencemc.essence.EssMessage;
 import org.essencemc.essencecore.EssenceCore;
 import org.essencemc.essencecore.arguments.BoolArg;
 import org.essencemc.essencecore.arguments.IntArg;
@@ -52,8 +52,8 @@ public class FeedCmd extends EssenceCommand {
                 new IntArgument("amount", ArgumentRequirement.OPTIONAL, "", 0, 20, false)
         };
 
-        addCommandOption("saturation", Message.OPT_FEED_SATURATION.msg(), new IntArg(5));
-        addCommandOption("exhaustion", Message.OPT_FEED_EXHAUSTION.msg(), new BoolArg(true));
+        addCommandOption("saturation", EssMessage.OPT_FEED_SATURATION.msg(), new IntArg(5));
+        addCommandOption("exhaustion", EssMessage.OPT_FEED_EXHAUSTION.msg(), new BoolArg(true));
 
         register();
     }
@@ -82,9 +82,9 @@ public class FeedCmd extends EssenceCommand {
         }
 
         if (!result.hasModifier("-s")) {
-            player.sendMessage(Message.CMD_FEED_FEEDED.msg().getMsg(true));
+            player.sendMessage(EssMessage.CMD_FEED_FEEDED.msg().getMsg(true));
             if (!sender.equals(player)) {
-                sender.sendMessage(Message.CMD_FEED_OTHER.msg().getMsg(true, player.getDisplayName()));
+                sender.sendMessage(EssMessage.CMD_FEED_OTHER.msg().getMsg(true, player.getDisplayName()));
             }
         }
         return true;

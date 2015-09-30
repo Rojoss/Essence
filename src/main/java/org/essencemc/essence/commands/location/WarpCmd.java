@@ -28,6 +28,8 @@ package org.essencemc.essence.commands.location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.essencemc.essence.EssMessage;
+import org.essencemc.essence.Essence;
 import org.essencemc.essencecore.commands.EssenceCommand;
 import org.essencemc.essencecore.EssenceCore;
 import org.essencemc.essencecore.arguments.BoolArg;
@@ -50,7 +52,7 @@ public class WarpCmd extends EssenceCommand {
                 new PlayerArgument("player", ArgumentRequirement.REQUIRED_CONSOLE, "others")
         };
 
-        addCommandOption("permission-based-warps", Message.OPT_WARP_PERM_BASED.msg(), new BoolArg(true), false);
+        addCommandOption("permission-based-warps", EssMessage.OPT_WARP_PERM_BASED.msg(), new BoolArg(true), false);
 
         register();
     }
@@ -66,8 +68,8 @@ public class WarpCmd extends EssenceCommand {
         String name = (String)result.getArg("name");
         Player player = (Player)result.getArg("player", castPlayer(sender));
 
-        if (ess.getWarps().getWarp(name) == null) {
-            sender.sendMessage(Message.CMD_WARP_INVALID.msg().getMsg(true, name));
+        if (Essence.inst().getWarps().getWarp(name) == null) {
+            sender.sendMessage(EssMessage.CMD_WARP_INVALID.msg().getMsg(true, name));
             return true;
         }
 
@@ -78,11 +80,11 @@ public class WarpCmd extends EssenceCommand {
             }
         }
 
-        player.teleport(ess.getWarps().getWarp(name));
+        player.teleport(Essence.inst().getWarps().getWarp(name));
         if (!result.hasModifier("-s")) {
-            player.sendMessage(Message.CMD_WARP_USE.msg().getMsg(true, name));
+            player.sendMessage(EssMessage.CMD_WARP_USE.msg().getMsg(true, name));
             if (!sender.equals(player)) {
-                sender.sendMessage(Message.CMD_WARP_OTHER.msg().getMsg(true, player.getDisplayName(), name));
+                sender.sendMessage(EssMessage.CMD_WARP_OTHER.msg().getMsg(true, player.getDisplayName(), name));
             }
         }
         return true;

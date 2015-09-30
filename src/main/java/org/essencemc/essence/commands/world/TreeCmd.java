@@ -31,6 +31,7 @@ import org.bukkit.block.BlockFace;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.essencemc.essence.EssMessage;
 import org.essencemc.essencecore.commands.EssenceCommand;
 import org.essencemc.essencecore.EssenceCore;
 import org.essencemc.essencecore.aliases.AliasType;
@@ -75,9 +76,9 @@ public class TreeCmd extends EssenceCommand {
         boolean success = location.getWorld().generateTree(location, type);
 
         if (success) {
-            sender.sendMessage(Message.CMD_TREE.msg().getMsg(true));
+            sender.sendMessage(EssMessage.CMD_TREE.msg().getMsg(true));
         } else {
-            sender.sendMessage(Message.CMD_TREE_FAILURE.msg().getMsg(true));
+            sender.sendMessage(EssMessage.CMD_TREE_FAILURE.msg().getMsg(true));
         }
 
         return true;

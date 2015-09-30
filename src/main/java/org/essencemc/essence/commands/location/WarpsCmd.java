@@ -29,6 +29,8 @@ import org.bukkit.Location;
 import org.bukkit.World;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.essencemc.essence.EssMessage;
+import org.essencemc.essence.Essence;
 import org.essencemc.essencecore.commands.EssenceCommand;
 import org.essencemc.essencecore.EssenceCore;
 import org.essencemc.essencecore.commands.arguments.WorldArgument;
@@ -63,10 +65,10 @@ public class WarpsCmd extends EssenceCommand {
 
         World world = (World)result.getArg("world");
 
-        List<String> warps = ess.getWarps().getWarpNames();
+        List<String> warps = Essence.inst().getWarps().getWarpNames();
         if (world != null) {
             warps.clear();
-            Map<String, Location> warpsMap = ess.getWarps().getWarps();
+            Map<String, Location> warpsMap = Essence.inst().getWarps().getWarps();
             for (Map.Entry<String, Location> warp : warpsMap.entrySet()) {
                 if (warp.getValue().getWorld().equals(world)) {
                     warps.add(warp.getKey());
@@ -74,7 +76,7 @@ public class WarpsCmd extends EssenceCommand {
             }
         }
 
-        sender.sendMessage(Message.CMD_WARPS.msg().getMsg(true, warps.size() <= 0 ? Message.CMD_WARPS_NONE.msg().getMsg(false) : Util.implode(warps, ", ")));
+        sender.sendMessage(EssMessage.CMD_WARPS.msg().getMsg(true, warps.size() <= 0 ? EssMessage.CMD_WARPS_NONE.msg().getMsg(false) : Util.implode(warps, ", ")));
         return true;
     }
 

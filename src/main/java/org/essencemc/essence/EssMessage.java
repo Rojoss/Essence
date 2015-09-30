@@ -28,7 +28,7 @@ package org.essencemc.essence;
 import org.essencemc.essencecore.message.EMessage;
 import org.essencemc.essencecore.message.MsgCat;
 
-public enum Message {
+public enum EssMessage {
     //Command messages
     CMD_ESSENCE_INFO(MsgCat.COMMAND, "&8===== &4&lEssence plugin &8=====\n&8&o{0}\n&6Version&8: &7{1}\n&6Website&8: &9{2}\n&6Authors&8: &7{3}"),
     CMD_ESSENCE_RELOAD(MsgCat.COMMAND, "Configs and commands reloaded."),
@@ -109,7 +109,7 @@ public enum Message {
 
     private EMessage message;
 
-    Message(MsgCat category, String defaultMsg) {
+    EssMessage(MsgCat category, String defaultMsg) {
         message = new EMessage(category, this.toString(), defaultMsg);
     }
 
@@ -120,7 +120,7 @@ public enum Message {
     public static EMessage fromString(String name) {
         name = name.toLowerCase().replace("_", "");
         name = name.toLowerCase().replace("-", "");
-        for (Message msg : values()) {
+        for (EssMessage msg : values()) {
             if (msg.toString().toLowerCase().replace("_", "").equals(name)) {
                 return msg.msg();
             }

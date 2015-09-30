@@ -28,6 +28,8 @@ package org.essencemc.essence.commands.plugin;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.PluginDescriptionFile;
+import org.essencemc.essence.EssMessage;
+import org.essencemc.essence.Essence;
 import org.essencemc.essencecore.commands.EssenceCommand;
 import org.essencemc.essencecore.EssenceCore;
 import org.essencemc.essencecore.commands.arguments.StringArgument;
@@ -61,21 +63,22 @@ public class MainPluginCmd extends EssenceCommand {
 
         String option = (String)result.getArg("reload", "");
         if (option.equalsIgnoreCase("reload")) {
-            ess.getMessages().load();
-            ess.getModuleCfg().load();
-            ess.getCommandsCfg().load();
-            ess.getCmdOptions().load();
-            ess.getCommands().registerCommands();
-            ess.getModules().registerModules();
+            EssenceCore core = Essence.core();
+            core.getMessages().load();
+            core.getModuleCfg().load();
+            core.getCommandsCfg().load();
+            core.getCmdOptions().load();
+            Essence.inst().registerCommands();
+            Essence.inst().registerModules();
 
             if (!result.hasModifier("-s")) {
-                sender.sendMessage(Message.CMD_ESSENCE_RELOAD.msg().getMsg(true));
+                sender.sendMessage(EssMessage.CMD_ESSENCE_RELOAD.msg().getMsg(true));
             }
             return true;
         }
 
-        PluginDescriptionFile pdf = ess.getDescription();
-        sender.sendMessage(Util.color(Message.CMD_ESSENCE_INFO.msg().getMsg(false, pdf.getDescription(), pdf.getVersion(), pdf.getWebsite(),
+        PluginDescriptionFile pdf = plugin.getDescription();
+        sender.sendMessage(Util.color(EssMessage.CMD_ESSENCE_INFO.msg().getMsg(false, pdf.getDescription(), pdf.getVersion(), pdf.getWebsite(),
                 "&7" + Util.implode(pdf.getAuthors(), "&8, &7", " &8& &7"))));
         return true;
     }

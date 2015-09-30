@@ -28,6 +28,7 @@ package org.essencemc.essence.commands.player_status;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.essencemc.essence.EssMessage;
 import org.essencemc.essencecore.commands.EssenceCommand;
 import org.essencemc.essencecore.EssenceCore;
 import org.essencemc.essencecore.arguments.BoolArg;
@@ -50,9 +51,9 @@ public class BurnCmd extends EssenceCommand {
                 new PlayerArgument("player", ArgumentRequirement.REQUIRED_CONSOLE, "others")
         };
 
-        addModifier("-i", Message.MOD_BURN_INCREMENT.msg());
+        addModifier("-i", EssMessage.MOD_BURN_INCREMENT.msg());
 
-        addCommandOption("ticks-instead-of-seconds", Message.OPT_BURN_TICKS.msg(), new BoolArg(true));
+        addCommandOption("ticks-instead-of-seconds", EssMessage.OPT_BURN_TICKS.msg(), new BoolArg(true));
 
         register();
 
@@ -86,9 +87,9 @@ public class BurnCmd extends EssenceCommand {
         }
 
         if (!result.hasModifier("-s")) {
-            player.sendMessage(Message.CMD_BURN.msg().getMsg(true, Integer.toString(ticks)));
+            player.sendMessage(EssMessage.CMD_BURN.msg().getMsg(true, Integer.toString(ticks)));
             if (!sender.equals(player)) {
-                sender.sendMessage(Message.CMD_HEAL_OTHER.msg().getMsg(true, player.getDisplayName(), Integer.toString(ticks)));
+                sender.sendMessage(EssMessage.CMD_HEAL_OTHER.msg().getMsg(true, player.getDisplayName(), Integer.toString(ticks)));
             }
         }
 

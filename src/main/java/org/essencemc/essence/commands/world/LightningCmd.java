@@ -28,7 +28,7 @@ package org.essencemc.essence.commands.world;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.essencemc.essence.Message;
+import org.essencemc.essence.EssMessage;
 import org.essencemc.essencecore.EssenceCore;
 import org.essencemc.essencecore.commands.EssenceCommand;
 import org.essencemc.essencecore.commands.arguments.LocationArgument;
@@ -64,7 +64,7 @@ public class LightningCmd extends EssenceCommand {
         location.getWorld().strikeLightning(location);
 
         if (!result.hasModifier("-s")) {
-            sender.sendMessage(Message.CMD_LIGHTNING.msg().getMsg(true));
+            sender.sendMessage(EssMessage.CMD_LIGHTNING.msg().getMsg(true));
         }
 
         return true;

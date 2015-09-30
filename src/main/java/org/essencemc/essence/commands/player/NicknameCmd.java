@@ -28,7 +28,7 @@ package org.essencemc.essence.commands.player;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.essencemc.essence.Message;
+import org.essencemc.essence.EssMessage;
 import org.essencemc.essencecore.EssenceCore;
 import org.essencemc.essencecore.arguments.IntArg;
 import org.essencemc.essencecore.arguments.StringArg;
@@ -47,16 +47,16 @@ public class NicknameCmd extends EssenceCommand {
     public NicknameCmd(EssenceCore ess, String command, String description, String permission, List<String> aliases) {
         super(ess, command, description, permission, aliases);
 
-        addCommandOption("prefix", Message.OPT_NICK_PREFIX.msg(), new StringArg("~"), false);
-        addCommandOption("min-characters", Message.OPT_NICK_MIN_CHARS.msg(), new IntArg(3), false);
-        addCommandOption("max-characters", Message.OPT_NICK_MAX_CHARS.msg(), new IntArg(16), false);
+        addCommandOption("prefix", EssMessage.OPT_NICK_PREFIX.msg(), new StringArg("~"), false);
+        addCommandOption("min-characters", EssMessage.OPT_NICK_MIN_CHARS.msg(), new IntArg(3), false);
+        addCommandOption("max-characters", EssMessage.OPT_NICK_MAX_CHARS.msg(), new IntArg(16), false);
 
         cmdArgs = new CmdArgument[] {
                 new StringArgument("nickname", ArgumentRequirement.REQUIRED, "", (Integer)cmdOptions.get("min-characters").getArg().getValue(), (Integer)cmdOptions.get("max-characters").getArg().getValue()),
                 new PlayerArgument("player", ArgumentRequirement.REQUIRED_CONSOLE, "others")
         };
 
-        addModifier("-r", Message.MOD_NICK_REMOVE.msg());
+        addModifier("-r", EssMessage.MOD_NICK_REMOVE.msg());
 
         register();
     }
@@ -79,9 +79,9 @@ public class NicknameCmd extends EssenceCommand {
         }
 
         if (!result.hasModifier("-s")) {
-            player.sendMessage(Message.CMD_NICK_CHANGED.msg().getMsg(true, hasPermission(sender, "color") ? player.getDisplayName() : Util.removeColor(player.getDisplayName())));
+            player.sendMessage(EssMessage.CMD_NICK_CHANGED.msg().getMsg(true, hasPermission(sender, "color") ? player.getDisplayName() : Util.removeColor(player.getDisplayName())));
             if (!sender.equals(player)) {
-                sender.sendMessage(Message.CMD_NICK_OTHER.msg().getMsg(true, hasPermission(sender, "color") ? player.getDisplayName() : Util.removeColor(player.getDisplayName()), player.getName()));
+                sender.sendMessage(EssMessage.CMD_NICK_OTHER.msg().getMsg(true, hasPermission(sender, "color") ? player.getDisplayName() : Util.removeColor(player.getDisplayName()), player.getName()));
             }
         }
         return true;

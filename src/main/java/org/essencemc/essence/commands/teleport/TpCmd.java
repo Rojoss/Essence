@@ -28,6 +28,7 @@ package org.essencemc.essence.commands.teleport;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.essencemc.essence.EssMessage;
 import org.essencemc.essencecore.commands.EssenceCommand;
 import org.essencemc.essencecore.EssenceCore;
 import org.essencemc.essencecore.commands.arguments.PlayerArgument;
@@ -64,9 +65,9 @@ public class TpCmd extends EssenceCommand {
 
         player.teleport(target);
         if (!result.hasModifier("-s")) {
-            player.sendMessage(Message.CMD_TP.msg().getMsg(true, target.getDisplayName()));
+            player.sendMessage(EssMessage.CMD_TP.msg().getMsg(true, target.getDisplayName()));
             if (!sender.equals(player)) {
-                sender.sendMessage(Message.CMD_TP_OTHER.msg().getMsg(true, player.getDisplayName(), target.getDisplayName()));
+                sender.sendMessage(EssMessage.CMD_TP_OTHER.msg().getMsg(true, player.getDisplayName(), target.getDisplayName()));
             }
         }
         return true;

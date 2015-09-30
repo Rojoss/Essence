@@ -19,6 +19,10 @@
             <id>spigot-repo</id>
             <url>https://hub.spigotmc.org/nexus/content/repositories/snapshots/</url>
         </repository>
+        <repository>
+            <id>essence-repo</id>
+            <url>http://essencemc.org/maven/maven2/</url>
+        </repository>
     </repositories>
 
     <dependencies>

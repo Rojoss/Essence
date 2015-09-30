@@ -28,13 +28,13 @@ package org.essencemc.essence.commands.world;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
-import org.essencemc.essencecore.commands.EssenceCommand;
+import org.essencemc.essence.Message;
 import org.essencemc.essencecore.EssenceCore;
+import org.essencemc.essencecore.commands.EssenceCommand;
 import org.essencemc.essencecore.commands.arguments.LocationArgument;
 import org.essencemc.essencecore.commands.arguments.internal.ArgumentParseResults;
 import org.essencemc.essencecore.commands.arguments.internal.ArgumentRequirement;
 import org.essencemc.essencecore.commands.arguments.internal.CmdArgument;
-import org.essencemc.essencecore.message.Message;
 
 import java.util.List;
 

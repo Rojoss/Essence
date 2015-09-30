@@ -28,14 +28,14 @@ package org.essencemc.essence.commands.player;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.essencemc.essencecore.commands.EssenceCommand;
+import org.essencemc.essence.Message;
 import org.essencemc.essencecore.EssenceCore;
+import org.essencemc.essencecore.commands.EssenceCommand;
 import org.essencemc.essencecore.commands.arguments.PlayerArgument;
 import org.essencemc.essencecore.commands.arguments.StringArgument;
 import org.essencemc.essencecore.commands.arguments.internal.ArgumentParseResults;
 import org.essencemc.essencecore.commands.arguments.internal.ArgumentRequirement;
 import org.essencemc.essencecore.commands.arguments.internal.CmdArgument;
-import org.essencemc.essencecore.message.Message;
 import org.essencemc.essencecore.util.Util;
 
 import java.util.List;
@@ -63,7 +63,7 @@ public class SudoCmd extends EssenceCommand {
         Player target = (Player)result.getArg("player");
         String command = Util.implode(args, " ", 1);
 
-        ess.getServer().dispatchCommand(target, command);
+        plugin.getServer().dispatchCommand(target, command);
 
         if (!result.hasModifier("-s")) {
             sender.sendMessage(Message.CMD_SUDO.msg().getMsg(true, target.getName(), command));

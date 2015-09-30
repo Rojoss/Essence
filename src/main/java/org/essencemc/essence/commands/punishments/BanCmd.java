@@ -29,8 +29,9 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.essencemc.essencecore.commands.EssenceCommand;
+import org.essencemc.essence.modules.ban.BanModule;
 import org.essencemc.essencecore.EssenceCore;
+import org.essencemc.essencecore.commands.EssenceCommand;
 import org.essencemc.essencecore.commands.arguments.IntArgument;
 import org.essencemc.essencecore.commands.arguments.OfflinePlayerArgument;
 import org.essencemc.essencecore.commands.arguments.StringArgument;
@@ -38,7 +39,6 @@ import org.essencemc.essencecore.commands.arguments.internal.ArgumentParseResult
 import org.essencemc.essencecore.commands.arguments.internal.ArgumentRequirement;
 import org.essencemc.essencecore.commands.arguments.internal.CmdArgument;
 import org.essencemc.essencecore.modules.Module;
-import org.essencemc.essencecore.modules.ban.BanModule;
 
 import java.util.List;
 
@@ -73,7 +73,7 @@ public class BanCmd extends EssenceCommand {
         //TODO: Get default reason.
         String reason = (String)result.getArg("reason", "IT WORKS!");
 
-        Module module = ess.getModules().getModule(BanModule.class);
+        Module module = EssenceCore.inst().getModules().getModule(BanModule.class);
         if (module == null) {
             sender.sendMessage("No ban module... (shouldn't happen EVER (I think?))");
             return true;

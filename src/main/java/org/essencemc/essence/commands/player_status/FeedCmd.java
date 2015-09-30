@@ -29,16 +29,16 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
-import org.essencemc.essencecore.commands.EssenceCommand;
+import org.essencemc.essence.Message;
 import org.essencemc.essencecore.EssenceCore;
 import org.essencemc.essencecore.arguments.BoolArg;
 import org.essencemc.essencecore.arguments.IntArg;
+import org.essencemc.essencecore.commands.EssenceCommand;
 import org.essencemc.essencecore.commands.arguments.IntArgument;
 import org.essencemc.essencecore.commands.arguments.PlayerArgument;
 import org.essencemc.essencecore.commands.arguments.internal.ArgumentParseResults;
 import org.essencemc.essencecore.commands.arguments.internal.ArgumentRequirement;
 import org.essencemc.essencecore.commands.arguments.internal.CmdArgument;
-import org.essencemc.essencecore.message.Message;
 
 import java.util.List;
 
@@ -70,7 +70,7 @@ public class FeedCmd extends EssenceCommand {
         int amount = (int)result.getArg("amount", 20);
 
         FoodLevelChangeEvent foodLevelChangeEvent = new FoodLevelChangeEvent(player, amount);
-        ess.getServer().getPluginManager().callEvent(foodLevelChangeEvent);
+        plugin.getServer().getPluginManager().callEvent(foodLevelChangeEvent);
         if (foodLevelChangeEvent.isCancelled()) {
             return true;
         }

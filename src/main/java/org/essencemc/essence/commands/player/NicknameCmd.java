@@ -28,16 +28,16 @@ package org.essencemc.essence.commands.player;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.essencemc.essencecore.commands.EssenceCommand;
+import org.essencemc.essence.Message;
 import org.essencemc.essencecore.EssenceCore;
 import org.essencemc.essencecore.arguments.IntArg;
 import org.essencemc.essencecore.arguments.StringArg;
+import org.essencemc.essencecore.commands.EssenceCommand;
 import org.essencemc.essencecore.commands.arguments.PlayerArgument;
 import org.essencemc.essencecore.commands.arguments.StringArgument;
 import org.essencemc.essencecore.commands.arguments.internal.ArgumentParseResults;
 import org.essencemc.essencecore.commands.arguments.internal.ArgumentRequirement;
 import org.essencemc.essencecore.commands.arguments.internal.CmdArgument;
-import org.essencemc.essencecore.message.Message;
 import org.essencemc.essencecore.util.Util;
 
 import java.util.List;

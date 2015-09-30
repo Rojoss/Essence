@@ -30,16 +30,16 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerGameModeChangeEvent;
-import org.essencemc.essencecore.commands.EssenceCommand;
+import org.essencemc.essence.Message;
 import org.essencemc.essencecore.EssenceCore;
 import org.essencemc.essencecore.aliases.AliasType;
 import org.essencemc.essencecore.aliases.Aliases;
+import org.essencemc.essencecore.commands.EssenceCommand;
 import org.essencemc.essencecore.commands.arguments.MappedListArgument;
 import org.essencemc.essencecore.commands.arguments.PlayerArgument;
 import org.essencemc.essencecore.commands.arguments.internal.ArgumentParseResults;
 import org.essencemc.essencecore.commands.arguments.internal.ArgumentRequirement;
 import org.essencemc.essencecore.commands.arguments.internal.CmdArgument;
-import org.essencemc.essencecore.message.Message;
 
 import java.util.List;
 
@@ -75,7 +75,7 @@ public class GamemodeCmd extends EssenceCommand {
         }
 
         PlayerGameModeChangeEvent gamemodeChangeEvent = new PlayerGameModeChangeEvent(player, gm);
-        ess.getServer().getPluginManager().callEvent(gamemodeChangeEvent);
+        plugin.getServer().getPluginManager().callEvent(gamemodeChangeEvent);
         if (gamemodeChangeEvent.isCancelled()) {
             return true;
         }

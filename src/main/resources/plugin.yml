@@ -4,4 +4,5 @@ version: ${project.version}
 description: ${project.description}
 website: ${project.url}
 authors: [Worstboy]
+depend: [EssenceCore]
 softdepend: [Vault]

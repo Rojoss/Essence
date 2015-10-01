@@ -28,6 +28,7 @@ package org.essencemc.essence.commands.player;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
 import org.essencemc.essence.EssMessage;
 import org.essencemc.essencecore.EssenceCore;
 import org.essencemc.essencecore.arguments.IntArg;
@@ -44,8 +45,8 @@ import java.util.List;
 
 public class NicknameCmd extends EssenceCommand {
 
-    public NicknameCmd(EssenceCore ess, String command, String description, String permission, List<String> aliases) {
-        super(ess, command, description, permission, aliases);
+    public NicknameCmd(Plugin plugin, String command, String description, String permission, List<String> aliases) {
+        super(plugin, command, description, permission, aliases);
 
         addCommandOption("prefix", EssMessage.OPT_NICK_PREFIX.msg(), new StringArg("~"), false);
         addCommandOption("min-characters", EssMessage.OPT_NICK_MIN_CHARS.msg(), new IntArg(3), false);

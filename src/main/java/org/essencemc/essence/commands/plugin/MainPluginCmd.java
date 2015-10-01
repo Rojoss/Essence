@@ -27,6 +27,7 @@ package org.essencemc.essence.commands.plugin;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.essencemc.essence.EssMessage;
 import org.essencemc.essence.Essence;
@@ -43,8 +44,8 @@ import java.util.List;
 
 public class MainPluginCmd extends EssenceCommand {
 
-    public MainPluginCmd(EssenceCore ess, String command, String description, String permission, List<String> aliases) {
-        super(ess, command, description, permission, aliases);
+    public MainPluginCmd(Plugin plugin, String command, String description, String permission, List<String> aliases) {
+        super(plugin, command, description, permission, aliases);
 
         cmdArgs = new CmdArgument[] {
                 new StringArgument("reload", ArgumentRequirement.OPTIONAL, "reload", "reload")

@@ -29,6 +29,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.plugin.Plugin;
 import org.essencemc.essencecore.EssenceCore;
 import org.essencemc.essencecore.commands.EssenceCommand;
 import org.essencemc.essencecore.commands.arguments.internal.ArgumentParseResults;
@@ -39,8 +40,8 @@ import java.util.List;
 
 public class SuicideCmd extends EssenceCommand {
 
-    public SuicideCmd(EssenceCore ess, String label, String description, String permission, List<String> aliases) {
-        super(ess, label, description, permission, aliases);
+    public SuicideCmd(Plugin plugin, String command, String description, String permission, List<String> aliases) {
+        super(plugin, command, description, permission, aliases);
 
         cmdArgs = new CmdArgument[] {};
 

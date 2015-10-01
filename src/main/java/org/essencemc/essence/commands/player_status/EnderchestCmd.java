@@ -28,6 +28,7 @@ package org.essencemc.essence.commands.player_status;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
 import org.essencemc.essence.EssMessage;
 import org.essencemc.essencecore.commands.EssenceCommand;
 import org.essencemc.essencecore.EssenceCore;
@@ -41,8 +42,8 @@ import java.util.List;
 
 public class EnderchestCmd extends EssenceCommand {
 
-    public EnderchestCmd(EssenceCore ess, String label, String description, String permission, List<String> aliases) {
-        super(ess, label, description, permission, aliases);
+    public EnderchestCmd(Plugin plugin, String command, String description, String permission, List<String> aliases) {
+        super(plugin, command, description, permission, aliases);
 
         cmdArgs = new CmdArgument[] {
                 new PlayerArgument("player", ArgumentRequirement.OPTIONAL, "others")

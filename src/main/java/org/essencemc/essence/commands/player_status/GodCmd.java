@@ -30,6 +30,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.plugin.Plugin;
 import org.essencemc.essence.EssMessage;
 import org.essencemc.essencecore.EssenceCore;
 import org.essencemc.essencecore.arguments.BoolArg;
@@ -44,8 +45,8 @@ import java.util.List;
 
 public class GodCmd extends EssenceCommand {
 
-    public GodCmd(EssenceCore ess, String command, String description, String permission, List<String> aliases) {
-        super(ess, command, description, permission, aliases);
+    public GodCmd(Plugin plugin, String command, String description, String permission, List<String> aliases) {
+        super(plugin, command, description, permission, aliases);
 
         cmdArgs = new CmdArgument[] {
                 new PlayerArgument("player", ArgumentRequirement.REQUIRED_CONSOLE, "others"),

@@ -31,6 +31,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.enchantments.Enchantment;
 import org.bukkit.entity.EntityType;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.essencemc.essencecore.commands.EssenceCommand;
@@ -52,8 +53,8 @@ import java.util.List;
 
 public class TestCmd extends EssenceCommand {
 
-    public TestCmd(EssenceCore ess, String command, String description, String permission, List<String> aliases) {
-        super(ess, command, description, permission, aliases);
+    public TestCmd(Plugin plugin, String command, String description, String permission, List<String> aliases) {
+        super(plugin, command, description, permission, aliases);
 
         List<String> testArgs = Arrays.asList("items", "itemstring", "entity");
 

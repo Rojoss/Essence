@@ -28,6 +28,7 @@ package org.essencemc.essence.commands.world;
 import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.plugin.Plugin;
 import org.essencemc.essence.EssMessage;
 import org.essencemc.essencecore.EssenceCore;
 import org.essencemc.essencecore.commands.EssenceCommand;
@@ -40,8 +41,8 @@ import java.util.List;
 
 public class LightningCmd extends EssenceCommand {
 
-    public LightningCmd(EssenceCore ess, String command, String description, String permission, List<String> aliases) {
-        super(ess, command, description, permission, aliases);
+    public LightningCmd(Plugin plugin, String command, String description, String permission, List<String> aliases) {
+        super(plugin, command, description, permission, aliases);
 
         cmdArgs = new CmdArgument[] {
                 new LocationArgument("location", ArgumentRequirement.REQUIRED, "")

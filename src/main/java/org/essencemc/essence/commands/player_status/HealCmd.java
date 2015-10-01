@@ -29,6 +29,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityRegainHealthEvent;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.potion.PotionEffect;
 import org.essencemc.essence.EssMessage;
 import org.essencemc.essencecore.commands.EssenceCommand;
@@ -47,8 +48,8 @@ import java.util.List;
 
 public class HealCmd extends EssenceCommand {
 
-    public HealCmd(EssenceCore ess, String command, String description, String permission, List<String> aliases) {
-        super(ess, command, description, permission, aliases);
+    public HealCmd(Plugin plugin, String command, String description, String permission, List<String> aliases) {
+        super(plugin, command, description, permission, aliases);
 
         cmdArgs = new CmdArgument[] {
                 new PlayerArgument("player", ArgumentRequirement.REQUIRED_CONSOLE, "others"),

@@ -29,6 +29,7 @@ import org.bukkit.OfflinePlayer;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
 import org.essencemc.essence.modules.ban.BanModule;
 import org.essencemc.essencecore.EssenceCore;
 import org.essencemc.essencecore.commands.EssenceCommand;
@@ -46,8 +47,8 @@ public class BanCmd extends EssenceCommand {
 
     //TODO: Implement this properly.........
 
-    public BanCmd(EssenceCore ess, String command, String description, String permission, List<String> aliases) {
-        super(ess, command, description, permission, aliases);
+    public BanCmd(Plugin plugin, String command, String description, String permission, List<String> aliases) {
+        super(plugin, command, description, permission, aliases);
 
         cmdArgs = new CmdArgument[] {
                 new OfflinePlayerArgument("player", ArgumentRequirement.REQUIRED, ""),

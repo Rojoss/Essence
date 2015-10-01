@@ -27,6 +27,7 @@ package org.essencemc.essence.commands.item;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.plugin.Plugin;
 import org.essencemc.essencecore.commands.EssenceCommand;
 import org.essencemc.essencecore.EssenceCore;
 import org.essencemc.essencecore.aliases.ItemAlias;
@@ -40,8 +41,8 @@ import java.util.List;
 
 public class ItemInfoCmd extends EssenceCommand {
 
-    public ItemInfoCmd(EssenceCore ess, String command, String description, String permission, List<String> aliases) {
-        super(ess, command, description, permission, aliases);
+    public ItemInfoCmd(Plugin plugin, String command, String description, String permission, List<String> aliases) {
+        super(plugin, command, description, permission, aliases);
 
         cmdArgs = new CmdArgument[] {
                 new StringArgument("[item[:data]]", ArgumentRequirement.REQUIRED_CONSOLE, "others", 1, 100)

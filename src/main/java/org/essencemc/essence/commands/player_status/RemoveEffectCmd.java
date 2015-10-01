@@ -29,6 +29,7 @@ package org.essencemc.essence.commands.player_status;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
+import org.bukkit.plugin.Plugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.essencemc.essence.EssMessage;
@@ -50,8 +51,8 @@ import java.util.Map;
 
 public class RemoveEffectCmd extends EssenceCommand {
 
-    public RemoveEffectCmd(EssenceCore ess, String command, String description, String permission, List<String> aliases) {
-        super(ess, command, description, permission, aliases);
+    public RemoveEffectCmd(Plugin plugin, String command, String description, String permission, List<String> aliases) {
+        super(plugin, command, description, permission, aliases);
 
         Map<String, List<String>> effects = Aliases.getAliasesMap(AliasType.POTION_EFFECT);
         effects.put("ALL", Arrays.asList("all", "*"));

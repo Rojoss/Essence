@@ -27,6 +27,7 @@ package org.essencemc.essence.commands.location;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
+import org.bukkit.plugin.Plugin;
 import org.essencemc.essence.Essence;
 import org.essencemc.essence.EssMessage;
 import org.essencemc.essencecore.commands.EssenceCommand;
@@ -40,8 +41,8 @@ import java.util.List;
 
 public class DelWarpCmd extends EssenceCommand {
 
-    public DelWarpCmd(EssenceCore ess, String command, String description, String permission, List<String> aliases) {
-        super(ess, command, description, permission, aliases);
+    public DelWarpCmd(Plugin plugin, String command, String description, String permission, List<String> aliases) {
+        super(plugin, command, description, permission, aliases);
 
         cmdArgs = new CmdArgument[] {
                 new StringArgument("name", ArgumentRequirement.REQUIRED, "", 2, 32)

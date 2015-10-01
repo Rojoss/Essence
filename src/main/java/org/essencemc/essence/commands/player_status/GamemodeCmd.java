@@ -30,6 +30,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.event.player.PlayerGameModeChangeEvent;
+import org.bukkit.plugin.Plugin;
 import org.essencemc.essence.EssMessage;
 import org.essencemc.essencecore.EssenceCore;
 import org.essencemc.essencecore.aliases.AliasType;
@@ -45,8 +46,8 @@ import java.util.List;
 
 public class GamemodeCmd extends EssenceCommand {
 
-    public GamemodeCmd(EssenceCore ess, String command, String description, String permission, List<String> aliases) {
-        super(ess, command, description, permission, aliases);
+    public GamemodeCmd(Plugin plugin, String command, String description, String permission, List<String> aliases) {
+        super(plugin, command, description, permission, aliases);
 
         cmdArgs = new CmdArgument[] {
                 new MappedListArgument("mode", ArgumentRequirement.REQUIRED, "", Aliases.getAliasesMap(AliasType.GAME_MODE)),

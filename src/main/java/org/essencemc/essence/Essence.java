@@ -21,7 +21,6 @@ import org.essencemc.essence.commands.world.TreeCmd;
 import org.essencemc.essence.config.Warps;
 import org.essencemc.essence.modules.ban.BanModule;
 import org.essencemc.essencecore.EssenceCore;
-import org.essencemc.essencecore.ModuleCategory;
 import org.essencemc.essencecore.commands.Commands;
 import org.essencemc.essencecore.modules.Modules;
 
@@ -74,40 +73,40 @@ public class Essence extends JavaPlugin {
 
     public void registerCommands() {
         Commands cmds = core.getCommands();
-        cmds.registerCommand(this, TestCmd.class, "test", "", "Command for testing plugin functionality.", new String[]{});
-        cmds.registerCommand(this, MainPluginCmd.class, "essence", "", "Main plugin command and config reloading", new String[]{"essentials", "essential"});
-        cmds.registerCommand(this, HealCmd.class, "heal", "heal", "Heal a player", new String[]{"health", "sethealth"});
-        cmds.registerCommand(this, FeedCmd.class, "feed", "feed", "Feed a player", new String[]{"hunger", "eat"});
-        cmds.registerCommand(this, LightningCmd.class, "lightning", "lightning", "Strike lightning somewhere", new String[]{"smite"});
-        cmds.registerCommand(this, GamemodeCmd.class, "gamemode", "gamemode", "Change a player his gamemmode", new String[]{"gm"});
-        cmds.registerCommand(this, SetWarpCmd.class, "setwarp", "warps", "Set a warp with the given name", new String[]{"addwarp", "warpset"});
-        cmds.registerCommand(this, DelWarpCmd.class, "delwarp", "warps", "Delete a warp with the given name", new String[]{"warpdel", "deletewarp", "rmwarp", "removewarp", "warpdelete", "warprm", "warpremove"});
-        cmds.registerCommand(this, WarpsCmd.class, "warps", "warps", "List all the warps (for a world)", new String[]{"warplist"});
-        cmds.registerCommand(this, WarpCmd.class, "warp", "warps", "Teleport to a warp", new String[]{});
-        cmds.registerCommand(this, TpCmd.class, "tp", "tp", "Teleport to a player", new String[]{"teleport", "tele"});
-        cmds.registerCommand(this, NicknameCmd.class, "nickname", "nickname", "Change your nickname", new String[]{"nick", "displayname", "name"});
-        cmds.registerCommand(this, RemoveEffectCmd.class, "removeeffect", "removeeffect", "Remove potion effects", new String[]{"remeffect", "remeffects", "cleareffect", "cleareffects", "removeeffects"});
-        cmds.registerCommand(this, ItemInfoCmd.class, "iteminfo", "iteminfo", "Show item detailed item information.", new String[]{"itemdb"});
-        cmds.registerCommand(this, BurnCmd.class, "burn", "burn", "Set yourself or another player on fire for the specified amount of seconds. (or ticks)", new String[]{"ignite"});
-        cmds.registerCommand(this, FlyCmd.class, "fly", "fly", "Toggle flight on/off.", new String[]{"flight"});
-        cmds.registerCommand(this, WalkspeedCmd.class, "walkspeed", "walkspeed", "Change your walking speed.", new String[]{"walkingspeed"});
-        cmds.registerCommand(this, FlyspeedCmd.class, "flyspeed", "flyspeed", "Change your flying speed.", new String[]{"flyingspeed"});
-        cmds.registerCommand(this, InvseeCmd.class, "invsee", "invsee", "View another player's inventory.", new String[]{});
-        cmds.registerCommand(this, EnderchestCmd.class, "enderchest", "enderchest", "View your or another player's enderchest", new String[]{});
-        cmds.registerCommand(this, SuicideCmd.class, "suicide", "suicide", "Kill yourself", new String[]{});
-        cmds.registerCommand(this, KillCmd.class, "kill", "kill", "Kill someone else", new String[]{"slay"});
-        cmds.registerCommand(this, TreeCmd.class, "tree", "tree", "Generate a tree somewhere in the world", new String[]{});
-        cmds.registerCommand(this, GodCmd.class, "god", "god", "Turns your or another player's god mode on or off.", new String[]{"immortal", "invulnerable", "immortality", "invulnerability"});
-        cmds.registerCommand(this, TpHereCmd.class, "tphere", "tphere", "Teleports a player to your location.", new String[]{});
-        cmds.registerCommand(this, SudoCmd.class, "sudo", "sudo", "Execute a command on someone's behalf.", new String[]{});
-        cmds.registerCommand(this, BanCmd.class, "ban", "ban", "Bans a player from the server.", new String[]{});
-        cmds.registerCommand(this, SummonCmd.class, "summon", "summon", "Summons any entity with any specified data.", new String[]{"spawnmob", "sm", "spawnentity", "se"});
-        cmds.registerCommand(this, MessageCmd.class, "message", "message", "Sends a private message to another online player.", new String[]{"msg", "tell"});
+        cmds.registerCommand(this, TestCmd.class, "test", "", "", "Command for testing plugin functionality.", new String[]{});
+        cmds.registerCommand(this, MainPluginCmd.class, "essence", "", "", "Main plugin command and config reloading", new String[]{"essentials", "essential"});
+        cmds.registerCommand(this, HealCmd.class, "heal", "", "heal", "Heal a player", new String[]{"health", "sethealth"});
+        cmds.registerCommand(this, FeedCmd.class, "feed", "", "feed", "Feed a player", new String[]{"hunger", "eat"});
+        cmds.registerCommand(this, LightningCmd.class, "lightning", "", "lightning", "Strike lightning somewhere", new String[]{"smite"});
+        cmds.registerCommand(this, GamemodeCmd.class, "gamemode", "", "gamemode", "Change a player his gamemmode", new String[]{"gm"});
+        cmds.registerCommand(this, SetWarpCmd.class, "setwarp", "warps", "setwarp", "Set a warp with the given name", new String[]{"addwarp", "warpset"});
+        cmds.registerCommand(this, DelWarpCmd.class, "delwarp", "warps", "delwarp", "Delete a warp with the given name", new String[]{"warpdel", "deletewarp", "rmwarp", "removewarp", "warpdelete", "warprm", "warpremove"});
+        cmds.registerCommand(this, WarpsCmd.class, "warps", "warps", "warplist", "List all the warps (for a world)", new String[]{"warplist"});
+        cmds.registerCommand(this, WarpCmd.class, "warp", "warps", "warp", "Teleport to a warp", new String[]{});
+        cmds.registerCommand(this, TpCmd.class, "tp", "", "tp", "Teleport to a player", new String[]{"teleport", "tele"});
+        cmds.registerCommand(this, NicknameCmd.class, "nickname", "", "nickname", "Change your nickname", new String[]{"nick", "displayname", "name"});
+        cmds.registerCommand(this, RemoveEffectCmd.class, "removeeffect", "", "removeeffect", "Remove potion effects", new String[]{"remeffect", "remeffects", "cleareffect", "cleareffects", "removeeffects"});
+        cmds.registerCommand(this, ItemInfoCmd.class, "iteminfo", "", "iteminfo", "Show item detailed item information.", new String[]{"itemdb"});
+        cmds.registerCommand(this, BurnCmd.class, "burn", "", "burn", "Set yourself or another player on fire for the specified amount of seconds. (or ticks)", new String[]{"ignite"});
+        cmds.registerCommand(this, FlyCmd.class, "fly", "", "fly", "Toggle flight on/off.", new String[]{"flight"});
+        cmds.registerCommand(this, WalkspeedCmd.class, "walkspeed", "", "walkspeed", "Change your walking speed.", new String[]{"walkingspeed"});
+        cmds.registerCommand(this, FlyspeedCmd.class, "flyspeed", "", "flyspeed", "Change your flying speed.", new String[]{"flyingspeed"});
+        cmds.registerCommand(this, InvseeCmd.class, "invsee", "", "invsee", "View another player's inventory.", new String[]{});
+        cmds.registerCommand(this, EnderchestCmd.class, "enderchest", "", "enderchest", "View your or another player's enderchest", new String[]{});
+        cmds.registerCommand(this, SuicideCmd.class, "suicide", "", "suicide", "Kill yourself", new String[]{});
+        cmds.registerCommand(this, KillCmd.class, "kill", "", "kill", "Kill someone else", new String[]{"slay"});
+        cmds.registerCommand(this, TreeCmd.class, "tree", "", "tree", "Generate a tree somewhere in the world", new String[]{});
+        cmds.registerCommand(this, GodCmd.class, "god", "", "god", "Turns your or another player's god mode on or off.", new String[]{"immortal", "invulnerable", "immortality", "invulnerability"});
+        cmds.registerCommand(this, TpHereCmd.class, "tphere", "", "tphere", "Teleports a player to your location.", new String[]{});
+        cmds.registerCommand(this, SudoCmd.class, "sudo", "", "sudo", "Execute a command on someone's behalf.", new String[]{});
+        cmds.registerCommand(this, BanCmd.class, "ban", "", "ban", "Bans a player from the server.", new String[]{});
+        cmds.registerCommand(this, SummonCmd.class, "summon", "", "summon", "Summons any entity with any specified data.", new String[]{"spawnmob", "sm", "spawnentity", "se"});
+        cmds.registerCommand(this, MessageCmd.class, "message", "", "message", "Sends a private message to another online player.", new String[]{"msg", "tell"});
     }
 
     public void registerModules() {
         Modules modules = core.getModules();
-        modules.registerModule(BanModule.class, ModuleCategory.COMMAND, "ban");
+        modules.registerModule(BanModule.class, "punishments", "ban");
     }
 
 

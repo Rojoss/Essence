@@ -25,6 +25,7 @@
 
 package org.essencemc.essence;
 
+import org.essencemc.essencecore.EssenceCore;
 import org.essencemc.essencecore.message.EMessage;
 import org.essencemc.essencecore.message.MsgCat;
 
@@ -110,7 +111,7 @@ public enum EssMessage {
     private EMessage message;
 
     EssMessage(MsgCat category, String defaultMsg) {
-        message = new EMessage(category, this.toString(), defaultMsg);
+        message = new EMessage(category, this.toString(), defaultMsg, EssenceCore.inst().getMessages());
     }
 
     public EMessage msg() {

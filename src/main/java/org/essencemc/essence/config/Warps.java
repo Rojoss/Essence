@@ -26,7 +26,7 @@
 package org.essencemc.essence.config;
 
 import org.bukkit.Location;
-import org.essencemc.essencecore.config.EasyConfig;
+import org.essencemc.essencecore.config.internal.EasyConfig;
 
 import java.util.ArrayList;
 import java.util.HashMap;

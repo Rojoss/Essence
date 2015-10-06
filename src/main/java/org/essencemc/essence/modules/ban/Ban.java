@@ -45,12 +45,9 @@ public class Ban {
     }
 
     public boolean isActive() {
-        if (state == false) {
-            return false;
-        }
-        if (getRemainingTime() <= 0) {
-            state = false;
-            return false;
+        if (!state || getRemainingTime() <= 0) {
+        state = false;
+        return false;
         }
         return true;
     }

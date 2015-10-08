@@ -31,7 +31,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.essencemc.essence.EssMessage;
 import org.essencemc.essencecore.commands.EssenceCommand;
-import org.essencemc.essencecore.EssenceCore;
 import org.essencemc.essencecore.commands.arguments.PlayerArgument;
 import org.essencemc.essencecore.commands.arguments.internal.ArgumentParseResults;
 import org.essencemc.essencecore.commands.arguments.internal.ArgumentRequirement;
@@ -55,7 +54,7 @@ public class EnderchestCmd extends EssenceCommand {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage(Message.CMD_PLAYER_ONLY.msg().getMsg(true));
+            Message.CMD_PLAYER_ONLY.msg(true, true, castPlayer(sender)).send(sender);
             return true;
         }
 
@@ -72,9 +71,9 @@ public class EnderchestCmd extends EssenceCommand {
         player.openInventory(targetPlayer.getEnderChest());
 
         if (!result.hasModifier("-s")) {
-            sender.sendMessage(EssMessage.CMD_ENDERCHEST.msg().getMsg(true));
+            EssMessage.CMD_ENDERCHEST.msg(true, true, castPlayer(sender)).send(player);
             if (!sender.equals(player)) {
-                sender.sendMessage(EssMessage.CMD_ENDERCHEST_OTHER.msg().getMsg(true, player.getName()));
+                EssMessage.CMD_ENDERCHEST_OTHER.msg(true, true, castPlayer(sender)).parseArgs(player.getDisplayName()).send(sender);
             }
         }
 

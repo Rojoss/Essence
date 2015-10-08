@@ -30,7 +30,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.essencemc.essence.EssMessage;
-import org.essencemc.essencecore.EssenceCore;
 import org.essencemc.essencecore.arguments.IntArg;
 import org.essencemc.essencecore.arguments.StringArg;
 import org.essencemc.essencecore.commands.EssenceCommand;
@@ -80,9 +79,9 @@ public class NicknameCmd extends EssenceCommand {
         }
 
         if (!result.hasModifier("-s")) {
-            player.sendMessage(EssMessage.CMD_NICK_CHANGED.msg().getMsg(true, hasPermission(sender, "color") ? player.getDisplayName() : Util.removeColor(player.getDisplayName())));
+            EssMessage.CMD_NICK_CHANGED.msg(true, true, player).parseArgs(hasPermission(sender, "color") ? player.getDisplayName() : Util.removeColor(player.getDisplayName())).send(player);
             if (!sender.equals(player)) {
-                sender.sendMessage(EssMessage.CMD_NICK_OTHER.msg().getMsg(true, hasPermission(sender, "color") ? player.getDisplayName() : Util.removeColor(player.getDisplayName()), player.getName()));
+                EssMessage.CMD_NICK_OTHER.msg(true, true, player).parseArgs(hasPermission(sender, "color") ? player.getDisplayName() : Util.removeColor(player.getDisplayName()), player.getName()).send(sender);
             }
         }
         return true;

@@ -34,7 +34,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.essencemc.essence.EssMessage;
 import org.essencemc.essencecore.commands.EssenceCommand;
-import org.essencemc.essencecore.EssenceCore;
 import org.essencemc.essencecore.aliases.AliasType;
 import org.essencemc.essencecore.aliases.Aliases;
 import org.essencemc.essencecore.commands.arguments.LocationArgument;
@@ -42,7 +41,6 @@ import org.essencemc.essencecore.commands.arguments.MappedListArgument;
 import org.essencemc.essencecore.commands.arguments.internal.ArgumentParseResults;
 import org.essencemc.essencecore.commands.arguments.internal.ArgumentRequirement;
 import org.essencemc.essencecore.commands.arguments.internal.CmdArgument;
-import org.essencemc.essencecore.message.Message;
 
 import java.util.HashSet;
 import java.util.List;
@@ -77,9 +75,9 @@ public class TreeCmd extends EssenceCommand {
         boolean success = location.getWorld().generateTree(location, type);
 
         if (success) {
-            sender.sendMessage(EssMessage.CMD_TREE.msg().getMsg(true));
+            EssMessage.CMD_TREE.msg(true, true, castPlayer(sender)).send(sender);
         } else {
-            sender.sendMessage(EssMessage.CMD_TREE_FAILURE.msg().getMsg(true));
+            EssMessage.CMD_TREE_FAILURE.msg(true, true, castPlayer(sender)).send(sender);
         }
 
         return true;

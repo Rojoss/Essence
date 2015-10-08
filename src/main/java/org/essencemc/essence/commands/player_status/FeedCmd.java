@@ -31,7 +31,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.bukkit.plugin.Plugin;
 import org.essencemc.essence.EssMessage;
-import org.essencemc.essencecore.EssenceCore;
 import org.essencemc.essencecore.arguments.BoolArg;
 import org.essencemc.essencecore.arguments.IntArg;
 import org.essencemc.essencecore.commands.EssenceCommand;
@@ -83,9 +82,9 @@ public class FeedCmd extends EssenceCommand {
         }
 
         if (!result.hasModifier("-s")) {
-            player.sendMessage(EssMessage.CMD_FEED_FEEDED.msg().getMsg(true));
+            EssMessage.CMD_FEED_FEEDED.msg(true, true, castPlayer(sender)).send(player);
             if (!sender.equals(player)) {
-                sender.sendMessage(EssMessage.CMD_FEED_OTHER.msg().getMsg(true, player.getDisplayName()));
+                EssMessage.CMD_FEED_OTHER.msg(true, true, castPlayer(sender)).parseArgs(player.getDisplayName()).send(sender);
             }
         }
         return true;

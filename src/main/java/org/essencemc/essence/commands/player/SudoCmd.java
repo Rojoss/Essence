@@ -30,7 +30,6 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.essencemc.essence.EssMessage;
-import org.essencemc.essencecore.EssenceCore;
 import org.essencemc.essencecore.commands.EssenceCommand;
 import org.essencemc.essencecore.commands.arguments.PlayerArgument;
 import org.essencemc.essencecore.commands.arguments.StringArgument;
@@ -67,7 +66,7 @@ public class SudoCmd extends EssenceCommand {
         plugin.getServer().dispatchCommand(target, command);
 
         if (!result.hasModifier("-s")) {
-            sender.sendMessage(EssMessage.CMD_SUDO.msg().getMsg(true, target.getName(), command));
+            EssMessage.CMD_SUDO.msg(true, true, castPlayer(sender)).parseArgs(target.getName(), command).send(sender);
         }
 
         return true;

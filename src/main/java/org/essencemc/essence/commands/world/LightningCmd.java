@@ -30,7 +30,6 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.Plugin;
 import org.essencemc.essence.EssMessage;
-import org.essencemc.essencecore.EssenceCore;
 import org.essencemc.essencecore.commands.EssenceCommand;
 import org.essencemc.essencecore.commands.arguments.LocationArgument;
 import org.essencemc.essencecore.commands.arguments.internal.ArgumentParseResults;
@@ -65,7 +64,7 @@ public class LightningCmd extends EssenceCommand {
         location.getWorld().strikeLightning(location);
 
         if (!result.hasModifier("-s")) {
-            sender.sendMessage(EssMessage.CMD_LIGHTNING.msg().getMsg(true));
+            EssMessage.CMD_LIGHTNING.msg(true, true, castPlayer(sender)).send(sender);
         }
 
         return true;

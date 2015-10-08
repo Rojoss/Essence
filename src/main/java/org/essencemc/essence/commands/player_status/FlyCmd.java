@@ -32,14 +32,12 @@ import org.bukkit.event.player.PlayerToggleFlightEvent;
 import org.bukkit.plugin.Plugin;
 import org.essencemc.essence.EssMessage;
 import org.essencemc.essencecore.commands.EssenceCommand;
-import org.essencemc.essencecore.EssenceCore;
 import org.essencemc.essencecore.arguments.BoolArg;
 import org.essencemc.essencecore.commands.arguments.BoolArgument;
 import org.essencemc.essencecore.commands.arguments.PlayerArgument;
 import org.essencemc.essencecore.commands.arguments.internal.ArgumentParseResults;
 import org.essencemc.essencecore.commands.arguments.internal.ArgumentRequirement;
 import org.essencemc.essencecore.commands.arguments.internal.CmdArgument;
-import org.essencemc.essencecore.message.Message;
 
 import java.util.List;
 
@@ -79,9 +77,9 @@ public class FlyCmd extends EssenceCommand {
         player.setAllowFlight((Boolean)result.getOptionalArg("allow-fly"));
 
         if (!result.hasModifier("-s")) {
-            player.sendMessage(EssMessage.CMD_FLY.msg().getMsg(true, state.toString()));
+            EssMessage.CMD_FEED_OTHER.msg(true, true, castPlayer(sender)).parseArgs(state.toString()).send(player);
             if (!sender.equals(player)) {
-                sender.sendMessage(EssMessage.CMD_FLY_OTHER.msg().getMsg(true, player.getDisplayName(), state.toString()));
+                EssMessage.CMD_FEED_OTHER.msg(true, true, castPlayer(sender)).parseArgs(player.getDisplayName(), state.toString()).send(sender);
             }
         }
 

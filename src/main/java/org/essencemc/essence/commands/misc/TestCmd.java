@@ -100,25 +100,25 @@ public class TestCmd extends EssenceCommand {
     public void itemTest(Player player) {
         ItemParser parser = new ItemParser("playerskull 1 texture:cbb311f3ba1c07c3d1147cd210d81fe11fd8ae9e3db212a0fa748946c3633", false);
         if (!parser.isValid()) {
-            player.sendMessage(parser.getError());
+            parser.getError().addPrefix().parsePlaceholders(player).toJSON().send(player);
         } else {
             InvUtil.addItems(player.getInventory(), parser.getItem());
         }
         parser = new ItemParser("leatherhelmet:10 1 name:&6Golden_helmet protection:1 protection:2 color:#CC9900", false);
         if (!parser.isValid()) {
-            player.sendMessage(parser.getError());
+            parser.getError().addPrefix().parsePlaceholders(player).toJSON().send(player);
         } else {
             InvUtil.addItems(player.getInventory(), parser.getItem());
         }
         parser = new ItemParser("diamond 1 name:&bDiamond sharpness:1 lore:&3Shiny_diamond!|&7With_lore!", false);
         if (!parser.isValid()) {
-            player.sendMessage(parser.getError());
+            parser.getError().addPrefix().parsePlaceholders(player).toJSON().send(player);
         } else {
             InvUtil.addItems(player.getInventory(), parser.getItem());
         }
         parser = new ItemParser("whitebanner 1 basecolor:lime stripes:black bricks:black", false);
         if (!parser.isValid()) {
-            player.sendMessage(parser.getError());
+            parser.getError().addPrefix().parsePlaceholders(player).toJSON().send(player);
         } else {
             InvUtil.addItems(player.getInventory(), parser.getItem());
         }
@@ -140,7 +140,7 @@ public class TestCmd extends EssenceCommand {
     public void itemString(Player player) {
         ItemParser parser = new ItemParser(player.getItemInHand());
         if (!parser.isValid()) {
-            player.sendMessage(parser.getError());
+            parser.getError().addPrefix().parsePlaceholders(player).toJSON().send(player);
         } else {
             player.sendMessage(parser.getString());
         }

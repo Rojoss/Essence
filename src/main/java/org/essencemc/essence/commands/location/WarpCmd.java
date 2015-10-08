@@ -32,7 +32,6 @@ import org.bukkit.plugin.Plugin;
 import org.essencemc.essence.EssMessage;
 import org.essencemc.essence.Essence;
 import org.essencemc.essencecore.commands.EssenceCommand;
-import org.essencemc.essencecore.EssenceCore;
 import org.essencemc.essencecore.arguments.BoolArg;
 import org.essencemc.essencecore.commands.arguments.PlayerArgument;
 import org.essencemc.essencecore.commands.arguments.StringArgument;
@@ -70,22 +69,22 @@ public class WarpCmd extends EssenceCommand {
         Player player = (Player)result.getArg("player", castPlayer(sender));
 
         if (Essence.inst().getWarps().getWarp(name) == null) {
-            sender.sendMessage(EssMessage.CMD_WARP_INVALID.msg().getMsg(true, name));
+            EssMessage.CMD_WARP_INVALID.msg(true, true, castPlayer(sender)).parseArgs(name).send(sender);
             return true;
         }
 
         if ((Boolean)cmdOptions.get("permission-based-warps").getArg().getValue()) {
             if (!sender.hasPermission("essence.*") && !sender.hasPermission("essence.warps.*") && !sender.hasPermission("essence.warps." + name)) {
-                player.sendMessage(Message.NO_PERM.msg().getMsg(true, "essence.warps." + name));
+                Message.NO_PERM.msg(true, true, castPlayer(sender)).parseArgs("essence.warps." + name).send(sender);
                 return true;
             }
         }
 
         player.teleport(Essence.inst().getWarps().getWarp(name));
         if (!result.hasModifier("-s")) {
-            player.sendMessage(EssMessage.CMD_WARP_USE.msg().getMsg(true, name));
+            EssMessage.CMD_WARP_USE.msg(true, true, castPlayer(sender)).parseArgs(name).send(sender);
             if (!sender.equals(player)) {
-                sender.sendMessage(EssMessage.CMD_WARP_OTHER.msg().getMsg(true, player.getDisplayName(), name));
+                EssMessage.CMD_WARP_OTHER.msg(true, true, castPlayer(sender)).parseArgs(player.getDisplayName(), name).send(sender);
             }
         }
         return true;

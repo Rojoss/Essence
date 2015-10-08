@@ -30,13 +30,12 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.essencemc.essence.EssMessage;
+import org.essencemc.essence.Essence;
 import org.essencemc.essencecore.commands.EssenceCommand;
-import org.essencemc.essencecore.EssenceCore;
 import org.essencemc.essencecore.commands.arguments.PlayerArgument;
 import org.essencemc.essencecore.commands.arguments.internal.ArgumentParseResults;
 import org.essencemc.essencecore.commands.arguments.internal.ArgumentRequirement;
 import org.essencemc.essencecore.commands.arguments.internal.CmdArgument;
-import org.essencemc.essencecore.message.Message;
 
 import java.util.List;
 
@@ -62,16 +61,18 @@ public class KillCmd extends EssenceCommand {
         Player player = (Player)result.getArg("player");
 
         if (hasPermission(player, "exempt")) {
-            sender.sendMessage(EssMessage.CMD_KILL_EXEMPT.msg().getMsg(true, player.getName()));
+            EssMessage.CMD_KILL_EXEMPT.msg(true, true, castPlayer(sender)).parseArgs(player.getName()).send(sender);
             return true;
         }
 
         player.setHealth(0);
 
         if (!result.hasModifier("-s")) {
-            sender.sendMessage(EssMessage.CMD_KILL.msg().getMsg(true, player.getName()));
+            EssMessage.CMD_KILL.msg(true, true, player).parseArgs(sender.getName()).send(player);
+            if (!sender.equals(player)) {
+                EssMessage.CMD_KILL_OTHER.msg(true, true, castPlayer(sender)).parseArgs(player.getDisplayName()).send(sender);
+            }
         }
-
         return true;
     }
 }

@@ -31,7 +31,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.essencemc.essence.EssMessage;
 import org.essencemc.essencecore.commands.EssenceCommand;
-import org.essencemc.essencecore.EssenceCore;
 import org.essencemc.essencecore.commands.arguments.PlayerArgument;
 import org.essencemc.essencecore.commands.arguments.internal.ArgumentParseResults;
 import org.essencemc.essencecore.commands.arguments.internal.ArgumentRequirement;
@@ -55,7 +54,7 @@ public class InvseeCmd extends EssenceCommand {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage(Message.CMD_PLAYER_ONLY.msg().getMsg(true));
+            Message.CMD_PLAYER_ONLY.msg(true, true, castPlayer(sender)).send(sender);
             return true;
         }
 
@@ -67,17 +66,15 @@ public class InvseeCmd extends EssenceCommand {
         Player player = (Player)sender;
         Player invOwner = (Player)result.getArg("player");
 
-        // TODO: Find a way to call InventoryOpenEvent.
-
         if (hasPermission(invOwner, "exempt")) {
-            sender.sendMessage(EssMessage.CMD_INVSEE_EXEMPT.msg().getMsg(true, invOwner.getName()));
+            EssMessage.CMD_INVSEE_EXEMPT.msg(true, true, castPlayer(sender)).parseArgs(invOwner.getDisplayName()).send(sender);
             return true;
         }
 
         player.openInventory(invOwner.getInventory());
 
         if (!result.hasModifier("-s")) {
-            player.sendMessage(EssMessage.CMD_INVSEE.msg().getMsg(true, invOwner.getName()));
+            EssMessage.CMD_FEED_OTHER.msg(true, true, castPlayer(sender)).parseArgs(invOwner.getDisplayName()).send(sender);
         }
 
         return true;

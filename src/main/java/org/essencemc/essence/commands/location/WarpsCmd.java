@@ -33,12 +33,10 @@ import org.bukkit.plugin.Plugin;
 import org.essencemc.essence.EssMessage;
 import org.essencemc.essence.Essence;
 import org.essencemc.essencecore.commands.EssenceCommand;
-import org.essencemc.essencecore.EssenceCore;
 import org.essencemc.essencecore.commands.arguments.WorldArgument;
 import org.essencemc.essencecore.commands.arguments.internal.ArgumentParseResults;
 import org.essencemc.essencecore.commands.arguments.internal.ArgumentRequirement;
 import org.essencemc.essencecore.commands.arguments.internal.CmdArgument;
-import org.essencemc.essencecore.message.Message;
 import org.essencemc.essencecore.util.Util;
 
 import java.util.List;
@@ -77,7 +75,12 @@ public class WarpsCmd extends EssenceCommand {
             }
         }
 
-        sender.sendMessage(EssMessage.CMD_WARPS.msg().getMsg(true, warps.size() <= 0 ? EssMessage.CMD_WARPS_NONE.msg().getMsg(false) : Util.implode(warps, ", ")));
+        if (warps.size() <= 0) {
+            EssMessage.CMD_WARPS_NONE.msg(true, true, castPlayer(sender)).send(sender);
+        } else {
+
+        }
+        EssMessage.CMD_WARPS.msg(true, true, castPlayer(sender)).parseArgs(warps.size() <= 0 ? EssMessage.CMD_WARPS_NONE.msg().color().getText() : Util.implode(warps, ", ")).send(sender);
         return true;
     }
 

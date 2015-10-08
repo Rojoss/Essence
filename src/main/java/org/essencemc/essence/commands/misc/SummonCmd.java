@@ -31,12 +31,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.essencemc.essence.EssMessage;
 import org.essencemc.essencecore.commands.EssenceCommand;
-import org.essencemc.essencecore.EssenceCore;
 import org.essencemc.essencecore.commands.arguments.StringArgument;
 import org.essencemc.essencecore.commands.arguments.internal.ArgumentParseResults;
 import org.essencemc.essencecore.commands.arguments.internal.ArgumentRequirement;
 import org.essencemc.essencecore.commands.arguments.internal.CmdArgument;
-import org.essencemc.essencecore.message.Message;
 import org.essencemc.essencecore.parsers.EntityParser;
 import org.essencemc.essencecore.util.Util;
 
@@ -66,7 +64,7 @@ public class SummonCmd extends EssenceCommand {
 
         EntityParser entityParser = new EntityParser(Util.implode(args, " "), sender instanceof Player ? ((Player)sender).getLocation() : null, false);
         if (!entityParser.isValid()) {
-            sender.sendMessage(entityParser.getError());
+            entityParser.getError().addPrefix().parsePlaceholders(castPlayer(sender)).toJSON().send(sender);
             return true;
         }
 
@@ -75,7 +73,7 @@ public class SummonCmd extends EssenceCommand {
         }
 
         if (!result.hasModifier("-s")) {
-            sender.sendMessage(EssMessage.CMD_SUMMON.msg().getMsg(true));
+            EssMessage.CMD_SUMMON.msg(true, true, castPlayer(sender)).send(sender);
         }
         return true;
     }

@@ -31,11 +31,11 @@ import org.bukkit.plugin.Plugin;
 import org.essencemc.essence.Essence;
 import org.essencemc.essence.EssMessage;
 import org.essencemc.essencecore.commands.EssenceCommand;
-import org.essencemc.essencecore.EssenceCore;
 import org.essencemc.essencecore.commands.arguments.StringArgument;
 import org.essencemc.essencecore.commands.arguments.internal.ArgumentParseResults;
 import org.essencemc.essencecore.commands.arguments.internal.ArgumentRequirement;
 import org.essencemc.essencecore.commands.arguments.internal.CmdArgument;
+import org.essencemc.essencecore.commands.links.RemoveLink;
 
 import java.util.List;
 
@@ -50,6 +50,8 @@ public class DelWarpCmd extends EssenceCommand {
 
         addModifier("-a", EssMessage.MOD_DELWARP_ALL.msg());
 
+        addLink(new RemoveLink("-a", "name"));
+
         register();
     }
 
@@ -57,25 +59,26 @@ public class DelWarpCmd extends EssenceCommand {
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         ArgumentParseResults result = parseArgs(this, sender, args);
         if (!result.success) {
-            //TODO: Some way to not parse the argument if -a is specified.
-            if (result.hasModifier("-a")) {
-                Essence.inst().getWarps().clear();
-                if (!result.hasModifier("-s")) {
-                    sender.sendMessage(EssMessage.CMD_WARP_DELETED_AlL.msg().getMsg(true));
-                }
-            }
             return true;
         }
         args = result.getArgs();
 
+        if (result.hasModifier("-a")) {
+            Essence.inst().getWarps().clear();
+            if (!result.hasModifier("-s")) {
+                EssMessage.CMD_WARP_DELETED_AlL.msg(true, true, castPlayer(sender)).send(sender);
+            }
+            return true;
+        }
+
         String name = (String)result.getArg("name");
         if (!Essence.inst().getWarps().delWarp(name)) {
-            sender.sendMessage(EssMessage.CMD_WARP_INVALID.msg().getMsg(true, name));
+            EssMessage.CMD_WARP_INVALID.msg(true, true, castPlayer(sender)).parseArgs(name).send(sender);
             return true;
         }
 
         if (!result.hasModifier("-s")) {
-            sender.sendMessage(EssMessage.CMD_WARP_DELETED.msg().getMsg(true, name));
+            EssMessage.CMD_WARP_DELETED.msg(true, true, castPlayer(sender)).parseArgs(name).send(sender);
         }
         return true;
     }

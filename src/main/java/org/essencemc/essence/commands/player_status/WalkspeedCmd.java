@@ -31,13 +31,11 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.essencemc.essence.EssMessage;
 import org.essencemc.essencecore.commands.EssenceCommand;
-import org.essencemc.essencecore.EssenceCore;
 import org.essencemc.essencecore.commands.arguments.IntArgument;
 import org.essencemc.essencecore.commands.arguments.PlayerArgument;
 import org.essencemc.essencecore.commands.arguments.internal.ArgumentParseResults;
 import org.essencemc.essencecore.commands.arguments.internal.ArgumentRequirement;
 import org.essencemc.essencecore.commands.arguments.internal.CmdArgument;
-import org.essencemc.essencecore.message.Message;
 
 import java.util.List;
 
@@ -69,9 +67,9 @@ public class WalkspeedCmd extends EssenceCommand {
         speed *= 100;
 
         if (!result.hasModifier("-s")) {
-            player.sendMessage(EssMessage.CMD_WALKSPEED.msg().getMsg(true, speed.toString()));
+            EssMessage.CMD_WALKSPEED.msg(true, true, player).parseArgs(speed.toString()).send(player);
             if (!sender.equals(player)) {
-                sender.sendMessage(EssMessage.CMD_WALKSPEED_OTHER.msg().getMsg(true, player.getDisplayName(), speed.toString()));
+                EssMessage.CMD_WALKSPEED_OTHER.msg(true, true, castPlayer(sender)).parseArgs(player.getDisplayName(), speed.toString()).send(sender);
             }
         }
 

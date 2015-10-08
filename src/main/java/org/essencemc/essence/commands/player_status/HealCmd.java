@@ -33,7 +33,6 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.potion.PotionEffect;
 import org.essencemc.essence.EssMessage;
 import org.essencemc.essencecore.commands.EssenceCommand;
-import org.essencemc.essencecore.EssenceCore;
 import org.essencemc.essencecore.arguments.BoolArg;
 import org.essencemc.essencecore.commands.arguments.DoubleArgument;
 import org.essencemc.essencecore.commands.arguments.PlayerArgument;
@@ -89,7 +88,7 @@ public class HealCmd extends EssenceCommand {
 
             if (player.isDead() || player.getHealth() == 0) {
                 if (!result.hasModifier("-a")) {
-                    sender.sendMessage(Message.DEAD_PLAYER.msg().getMsg(true, args[0]));
+                    Message.DEAD_PLAYER.msg(true, true, castPlayer(sender)).parseArgs(args[0]).send(sender);
                 }
                 return true;
             }
@@ -122,14 +121,14 @@ public class HealCmd extends EssenceCommand {
             }
 
             if (!result.hasModifier("-s")) {
-                player.sendMessage(EssMessage.CMD_HEAL_HEALED.msg().getMsg(true));
+                EssMessage.CMD_HEAL_HEALED.msg(true, true, castPlayer(sender)).send(player);
             }
         }
         if (result.hasModifier("-a")) {
-            sender.sendMessage(EssMessage.CMD_HEAL_ALL.msg().getMsg(true));
+            EssMessage.CMD_HEAL_ALL.msg(true, true, castPlayer(sender)).send(sender);
         } else {
             if (!sender.equals(players.get(0))) {
-                sender.sendMessage(EssMessage.CMD_HEAL_OTHER.msg().getMsg(true, players.get(0).getDisplayName()));
+                EssMessage.CMD_HEAL_OTHER.msg(true, true, castPlayer(sender)).parseArgs(players.get(0).getDisplayName()).send(sender);
             }
         }
         return true;

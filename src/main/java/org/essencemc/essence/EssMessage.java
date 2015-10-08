@@ -25,13 +25,15 @@
 
 package org.essencemc.essence;
 
+import org.bukkit.entity.Player;
 import org.essencemc.essencecore.EssenceCore;
 import org.essencemc.essencecore.message.EMessage;
+import org.essencemc.essencecore.message.EText;
 import org.essencemc.essencecore.message.MsgCat;
 
 public enum EssMessage {
     //Command messages
-    CMD_ESSENCE_INFO(MsgCat.COMMAND, "&8===== &4&lEssence plugin &8=====\n&8&o{0}\n&6Version&8: &7{1}\n&6Website&8: &9{2}\n&6Authors&8: &7{3}"),
+    CMD_ESSENCE_INFO(MsgCat.COMMAND, "&8===== &4&lEssence plugin &8=====|&8&o{0}|&6Version&8: &7{1}|&6Website&8: &9{2}|&6Authors&8: &7{3}"),
     CMD_ESSENCE_RELOAD(MsgCat.COMMAND, "Configs and commands reloaded."),
     CMD_HEAL_HEALED(MsgCat.COMMAND, "You have been healed!"),
     CMD_HEAL_OTHER(MsgCat.COMMAND, "You have healed &a{0}&6."),
@@ -66,7 +68,8 @@ public enum EssMessage {
     CMD_FLYSPEED(MsgCat.COMMAND, "&6Your flying speed is now &a{0}&6."),
     CMD_FLYSPEED_OTHER(MsgCat.COMMAND, "&a{0}&6's flying speed is now &a{1}&6."),
     CMD_SUICIDE(MsgCat.COMMAND, "&a{0} &6has decided to take his own life."),
-    CMD_KILL(MsgCat.COMMAND, "&6You killed &a{0}&6."),
+    CMD_KILL(MsgCat.COMMAND, "&6You have been killed by &a{0}&6."),
+    CMD_KILL_OTHER(MsgCat.COMMAND, "&6You killed &a{0}&6."),
     CMD_KILL_EXEMPT(MsgCat.COMMAND, "&cYou cannot kill &a{0}&c."),
     CMD_TREE(MsgCat.COMMAND, "&6A tree has been generated."),
     CMD_TREE_FAILURE(MsgCat.COMMAND, "&cA tree cannot be generated there."),
@@ -114,8 +117,28 @@ public enum EssMessage {
         message = new EMessage(category, this.toString(), defaultMsg, EssenceCore.inst().getMessages());
     }
 
-    public EMessage msg() {
+    public EText msg() {
+        return message.getText();
+    }
+
+    public EMessage emsg() {
         return message;
+    }
+
+    public EText msg(boolean format, boolean json) {
+        if (json) {
+            return message.getText().addPrefix().parsePlaceholders(null).toJSON();
+        } else {
+            return message.getText().addPrefix().parsePlaceholders(null).color();
+        }
+    }
+
+    public EText msg(boolean format, boolean json, Player player) {
+        if (json) {
+            return message.getText().addPrefix().parsePlaceholders(player).toJSON();
+        } else {
+            return message.getText().addPrefix().parsePlaceholders(player).color();
+        }
     }
 
     public static EMessage fromString(String name) {
@@ -123,7 +146,7 @@ public enum EssMessage {
         name = name.toLowerCase().replace("-", "");
         for (EssMessage msg : values()) {
             if (msg.toString().toLowerCase().replace("_", "").equals(name)) {
-                return msg.msg();
+                return msg.emsg();
             }
         }
         return null;

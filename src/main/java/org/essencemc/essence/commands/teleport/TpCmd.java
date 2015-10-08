@@ -31,12 +31,10 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.essencemc.essence.EssMessage;
 import org.essencemc.essencecore.commands.EssenceCommand;
-import org.essencemc.essencecore.EssenceCore;
 import org.essencemc.essencecore.commands.arguments.PlayerArgument;
 import org.essencemc.essencecore.commands.arguments.internal.ArgumentParseResults;
 import org.essencemc.essencecore.commands.arguments.internal.ArgumentRequirement;
 import org.essencemc.essencecore.commands.arguments.internal.CmdArgument;
-import org.essencemc.essencecore.message.Message;
 
 import java.util.List;
 
@@ -66,9 +64,9 @@ public class TpCmd extends EssenceCommand {
 
         player.teleport(target);
         if (!result.hasModifier("-s")) {
-            player.sendMessage(EssMessage.CMD_TP.msg().getMsg(true, target.getDisplayName()));
+            EssMessage.CMD_TP.msg(true, true, player).parseArgs(target.getDisplayName()).send(player);
             if (!sender.equals(player)) {
-                sender.sendMessage(EssMessage.CMD_TP_OTHER.msg().getMsg(true, player.getDisplayName(), target.getDisplayName()));
+                EssMessage.CMD_TP_OTHER.msg(true, true, castPlayer(sender)).parseArgs(player.getDisplayName(), target.getDisplayName()).send(sender);
             }
         }
         return true;

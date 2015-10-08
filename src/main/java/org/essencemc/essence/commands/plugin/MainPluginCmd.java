@@ -37,7 +37,6 @@ import org.essencemc.essencecore.commands.arguments.StringArgument;
 import org.essencemc.essencecore.commands.arguments.internal.ArgumentParseResults;
 import org.essencemc.essencecore.commands.arguments.internal.ArgumentRequirement;
 import org.essencemc.essencecore.commands.arguments.internal.CmdArgument;
-import org.essencemc.essencecore.message.Message;
 import org.essencemc.essencecore.util.Util;
 
 import java.util.List;
@@ -73,14 +72,14 @@ public class MainPluginCmd extends EssenceCommand {
             Essence.inst().registerModules();
 
             if (!result.hasModifier("-s")) {
-                sender.sendMessage(EssMessage.CMD_ESSENCE_RELOAD.msg().getMsg(true));
+                EssMessage.CMD_ESSENCE_RELOAD.msg(true, true, castPlayer(sender)).send(sender);
             }
             return true;
         }
 
         PluginDescriptionFile pdf = plugin.getDescription();
-        sender.sendMessage(Util.color(EssMessage.CMD_ESSENCE_INFO.msg().getMsg(false, pdf.getDescription(), pdf.getVersion(), pdf.getWebsite(),
-                "&7" + Util.implode(pdf.getAuthors(), "&8, &7", " &8& &7"))));
+        //sender.sendMessage(Util.color(EssMessage.CMD_ESSENCE_INFO.msg().getText(false, pdf.getDescription(), pdf.getVersion(), pdf.getWebsite(), "&7" + Util.implode(pdf.getAuthors(), "&8, &7", " &8& &7"))));
+        //TODO: Don't allow editing these values.
         return true;
     }
 

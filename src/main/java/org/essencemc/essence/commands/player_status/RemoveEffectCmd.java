@@ -34,7 +34,6 @@ import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.essencemc.essence.EssMessage;
 import org.essencemc.essencecore.commands.EssenceCommand;
-import org.essencemc.essencecore.EssenceCore;
 import org.essencemc.essencecore.aliases.AliasType;
 import org.essencemc.essencecore.aliases.Aliases;
 import org.essencemc.essencecore.commands.arguments.MappedListArgument;
@@ -42,7 +41,6 @@ import org.essencemc.essencecore.commands.arguments.PlayerArgument;
 import org.essencemc.essencecore.commands.arguments.internal.ArgumentParseResults;
 import org.essencemc.essencecore.commands.arguments.internal.ArgumentRequirement;
 import org.essencemc.essencecore.commands.arguments.internal.CmdArgument;
-import org.essencemc.essencecore.message.Message;
 import org.essencemc.essencecore.util.Util;
 
 import java.util.Arrays;
@@ -95,15 +93,15 @@ public class RemoveEffectCmd extends EssenceCommand {
         if (!result.hasModifier("-s")) {
             if (sender.equals(player)) {
                 if (single == true) {
-                    player.sendMessage(EssMessage.CMD_REMOVEEFFECT.msg().getMsg(true, effectType.toLowerCase()));
+                    EssMessage.CMD_REMOVEEFFECT.msg(true, true, player).parseArgs(Aliases.getName(AliasType.POTION_EFFECT, effectType)).send(player);
                 } else {
-                    player.sendMessage(EssMessage.CMD_REMOVEEFFECT_ALL.msg().getMsg(true));
+                    EssMessage.CMD_REMOVEEFFECT_ALL.msg(true, true, player).send(player);
                 }
             } else {
                 if (single == true) {
-                    player.sendMessage(EssMessage.CMD_REMOVEEFFECT_OTHER.msg().getMsg(true, player.getName(), effectType.toLowerCase()));
+                    EssMessage.CMD_REMOVEEFFECT_OTHER.msg(true, true, player).parseArgs(player.getDisplayName(), Aliases.getName(AliasType.POTION_EFFECT, effectType)).send(player);
                 } else {
-                    player.sendMessage(EssMessage.CMD_REMOVEEFFECT_OTHER_ALL.msg().getMsg(true));
+                    EssMessage.CMD_REMOVEEFFECT_OTHER_ALL.msg(true, true, player).send(player);
                 }
             }
         }

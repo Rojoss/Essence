@@ -31,7 +31,6 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.essencemc.essence.EssMessage;
 import org.essencemc.essencecore.commands.EssenceCommand;
-import org.essencemc.essencecore.EssenceCore;
 import org.essencemc.essencecore.commands.arguments.PlayerArgument;
 import org.essencemc.essencecore.commands.arguments.internal.ArgumentParseResults;
 import org.essencemc.essencecore.commands.arguments.internal.ArgumentRequirement;
@@ -55,7 +54,7 @@ public class TpHereCmd extends EssenceCommand {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (!(sender instanceof Player)) {
-            sender.sendMessage(Message.CMD_PLAYER_ONLY.msg().getMsg(true));
+            Message.CMD_PLAYER_ONLY.msg(true, true, castPlayer(sender)).send(sender);
             return true;
         }
 
@@ -71,7 +70,7 @@ public class TpHereCmd extends EssenceCommand {
         target.teleport(player);
 
         if (!result.hasModifier("-s")) {
-            player.sendMessage(EssMessage.CMD_TPHERE.msg().getMsg(true, target.getDisplayName()));
+            EssMessage.CMD_TPHERE.msg(true, true, player).parseArgs(target.getDisplayName()).send(player);
         }
         return true;
     }

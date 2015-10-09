@@ -81,7 +81,8 @@ public enum EssMessage {
     CMD_SUDO(MsgCat.COMMAND, "&6You made &a{0} &6run &a{1}&6."),
     CMD_SUMMON(MsgCat.COMMAND, "&6Entities summoned!"),
     CMD_MESSAGE(MsgCat.COMMAND, "&6To&c: &a{0}&c &6From&c: &a{1}&c &e{2}"),
-
+    CMD_ITEM_INFO(MsgCat.COMMAND, "&8===== &4&l{amount} {name} &8=====|&6Type&8: &7{type}&8:&7{data}|&6Aliases&8: &7{aliases}|&6String&8: &7{string}"),
+    CMD_ITEM_INFO_META(MsgCat.COMMAND, "&6{0}&8: &7{1}"),
 
     //Command modifiers
     MOD_HEAL_ONLY(MsgCat.COMMAND_MODIFIERS, "Only modify the health limited by the maximum health."),
@@ -125,20 +126,29 @@ public enum EssMessage {
         return message;
     }
 
-    public EText msg(boolean format, boolean json) {
-        if (json) {
-            return message.getText().addPrefix().parsePlaceholders(null).toJSON();
-        } else {
-            return message.getText().addPrefix().parsePlaceholders(null).color();
+    public EText msg(boolean prefix, boolean json) {
+        EText text = message.getText();
+        if (prefix) {
+            text = text.addPrefix();
         }
+        if (json) {
+            text = text.toJSON();
+        }
+        return text;
     }
 
-    public EText msg(boolean format, boolean json, Player player) {
-        if (json) {
-            return message.getText().addPrefix().parsePlaceholders(player).toJSON();
-        } else {
-            return message.getText().addPrefix().parsePlaceholders(player).color();
+    public EText msg(boolean prefix, boolean json, Player player) {
+        EText text = message.getText();
+        if (prefix) {
+            text = text.addPrefix();
         }
+        if (player != null) {
+            text = text.parsePlaceholders(player);
+        }
+        if (json) {
+            text = text.toJSON();
+        }
+        return text;
     }
 
     public static EMessage fromString(String name) {

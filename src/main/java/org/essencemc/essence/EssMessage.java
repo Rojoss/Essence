@@ -33,7 +33,7 @@ import org.essencemc.essencecore.message.MsgCat;
 
 public enum EssMessage {
     //Command messages
-    CMD_ESSENCE_INFO(MsgCat.COMMAND, "&8===== &4&lEssence plugin &8=====|&8&o{0}|&6Version&8: &7{1}|&6Website&8: &9{2}|&6Authors&8: &7{3}"),
+    CMD_ESSENCE_INFO(MsgCat.COMMAND, "&8===== &4&lEssence plugin &8=====\n&8&o{0}\n&6Version&8: &7{1}\n&6Website&8: &9{2}\n&6Authors&8: &7{3}"),
     CMD_ESSENCE_RELOAD(MsgCat.COMMAND, "Configs and commands reloaded."),
     CMD_HEAL_HEALED(MsgCat.COMMAND, "You have been healed!"),
     CMD_HEAL_OTHER(MsgCat.COMMAND, "You have healed &a{0}&6."),
@@ -81,7 +81,7 @@ public enum EssMessage {
     CMD_SUDO(MsgCat.COMMAND, "&6You made &a{0} &6run &a{1}&6."),
     CMD_SUMMON(MsgCat.COMMAND, "&6Entities summoned!"),
     CMD_MESSAGE(MsgCat.COMMAND, "&6To&c: &a{0}&c &6From&c: &a{1}&c &e{2}"),
-    CMD_ITEM_INFO(MsgCat.COMMAND, "&8===== &4&l{amount} {name} &8=====|&6Type&8: &7{type}&8:&7{data}|&6Aliases&8: &7{aliases}|&6String&8: &7{string}"),
+    CMD_ITEM_INFO(MsgCat.COMMAND, "&8===== &4&l{amount} {name} &8=====\n&6Type&8: &7{type}&8:&7{data}\n&6Aliases&8: &7{aliases}\n&6String&8: &7{string}"),
     CMD_ITEM_INFO_META(MsgCat.COMMAND, "&6{0}&8: &7{1}"),
 
     //Command modifiers

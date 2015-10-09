@@ -30,11 +30,11 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.essencemc.essence.EssMessage;
+import org.essencemc.essencecore.arguments.PlayerArg;
 import org.essencemc.essencecore.commands.EssenceCommand;
-import org.essencemc.essencecore.commands.arguments.PlayerArgument;
-import org.essencemc.essencecore.commands.arguments.internal.ArgumentParseResults;
-import org.essencemc.essencecore.commands.arguments.internal.ArgumentRequirement;
-import org.essencemc.essencecore.commands.arguments.internal.CmdArgument;
+import org.essencemc.essencecore.commands.arguments.ArgumentParseResults;
+import org.essencemc.essencecore.commands.arguments.ArgumentRequirement;
+import org.essencemc.essencecore.commands.arguments.CmdArgument;
 import org.essencemc.essencecore.message.Message;
 
 import java.util.List;
@@ -45,7 +45,7 @@ public class EnderchestCmd extends EssenceCommand {
         super(plugin, command, description, permission, aliases);
 
         cmdArgs = new CmdArgument[] {
-                new PlayerArgument("player", ArgumentRequirement.OPTIONAL, "others")
+                new CmdArgument("player", new PlayerArg(), ArgumentRequirement.OPTIONAL, "others")
         };
 
         register();

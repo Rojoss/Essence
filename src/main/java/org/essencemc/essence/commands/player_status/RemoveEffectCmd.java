@@ -33,14 +33,14 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
 import org.essencemc.essence.EssMessage;
+import org.essencemc.essencecore.arguments.MappedListArg;
+import org.essencemc.essencecore.arguments.PlayerArg;
 import org.essencemc.essencecore.commands.EssenceCommand;
 import org.essencemc.essencecore.aliases.AliasType;
 import org.essencemc.essencecore.aliases.Aliases;
-import org.essencemc.essencecore.commands.arguments.MappedListArgument;
-import org.essencemc.essencecore.commands.arguments.PlayerArgument;
-import org.essencemc.essencecore.commands.arguments.internal.ArgumentParseResults;
-import org.essencemc.essencecore.commands.arguments.internal.ArgumentRequirement;
-import org.essencemc.essencecore.commands.arguments.internal.CmdArgument;
+import org.essencemc.essencecore.commands.arguments.ArgumentParseResults;
+import org.essencemc.essencecore.commands.arguments.ArgumentRequirement;
+import org.essencemc.essencecore.commands.arguments.CmdArgument;
 import org.essencemc.essencecore.util.Util;
 
 import java.util.Arrays;
@@ -56,8 +56,8 @@ public class RemoveEffectCmd extends EssenceCommand {
         effects.put("ALL", Arrays.asList("all", "*"));
 
         cmdArgs = new CmdArgument[] {
-                new MappedListArgument("effect", ArgumentRequirement.REQUIRED, "", effects),
-                new PlayerArgument("player", ArgumentRequirement.OPTIONAL, "others")
+                new CmdArgument("effect", new MappedListArg(effects), ArgumentRequirement.REQUIRED, ""),
+                new CmdArgument("player", new PlayerArg(), ArgumentRequirement.OPTIONAL, "others")
         };
 
         addModifier("-n", EssMessage.MOD_REMOVEEFFECT_NEGATIVE.msg());

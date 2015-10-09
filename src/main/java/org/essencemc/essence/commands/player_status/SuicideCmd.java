@@ -31,8 +31,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.plugin.Plugin;
 import org.essencemc.essencecore.commands.EssenceCommand;
-import org.essencemc.essencecore.commands.arguments.internal.ArgumentParseResults;
-import org.essencemc.essencecore.commands.arguments.internal.CmdArgument;
+import org.essencemc.essencecore.commands.arguments.ArgumentParseResults;
+import org.essencemc.essencecore.commands.arguments.CmdArgument;
 import org.essencemc.essencecore.message.Message;
 
 import java.util.List;

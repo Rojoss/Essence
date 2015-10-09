@@ -31,13 +31,13 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.plugin.PluginDescriptionFile;
 import org.essencemc.essence.EssMessage;
 import org.essencemc.essence.Essence;
+import org.essencemc.essencecore.arguments.StringArg;
+import org.essencemc.essencecore.arguments.internal.MatchString;
 import org.essencemc.essencecore.commands.EssenceCommand;
 import org.essencemc.essencecore.EssenceCore;
-import org.essencemc.essencecore.commands.arguments.StringArgument;
-import org.essencemc.essencecore.commands.arguments.internal.ArgumentParseResults;
-import org.essencemc.essencecore.commands.arguments.internal.ArgumentRequirement;
-import org.essencemc.essencecore.commands.arguments.internal.CmdArgument;
-import org.essencemc.essencecore.util.Util;
+import org.essencemc.essencecore.commands.arguments.ArgumentParseResults;
+import org.essencemc.essencecore.commands.arguments.ArgumentRequirement;
+import org.essencemc.essencecore.commands.arguments.CmdArgument;
 
 import java.util.List;
 
@@ -47,7 +47,7 @@ public class MainPluginCmd extends EssenceCommand {
         super(plugin, command, description, permission, aliases);
 
         cmdArgs = new CmdArgument[] {
-                new StringArgument("reload", ArgumentRequirement.OPTIONAL, "reload", "reload")
+                new CmdArgument("reload", new StringArg(new MatchString("reload")), ArgumentRequirement.OPTIONAL, "reload")
         };
 
         register();

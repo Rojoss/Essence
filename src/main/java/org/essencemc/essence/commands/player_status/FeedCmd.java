@@ -33,12 +33,11 @@ import org.bukkit.plugin.Plugin;
 import org.essencemc.essence.EssMessage;
 import org.essencemc.essencecore.arguments.BoolArg;
 import org.essencemc.essencecore.arguments.IntArg;
+import org.essencemc.essencecore.arguments.PlayerArg;
 import org.essencemc.essencecore.commands.EssenceCommand;
-import org.essencemc.essencecore.commands.arguments.IntArgument;
-import org.essencemc.essencecore.commands.arguments.PlayerArgument;
-import org.essencemc.essencecore.commands.arguments.internal.ArgumentParseResults;
-import org.essencemc.essencecore.commands.arguments.internal.ArgumentRequirement;
-import org.essencemc.essencecore.commands.arguments.internal.CmdArgument;
+import org.essencemc.essencecore.commands.arguments.ArgumentParseResults;
+import org.essencemc.essencecore.commands.arguments.ArgumentRequirement;
+import org.essencemc.essencecore.commands.arguments.CmdArgument;
 
 import java.util.List;
 
@@ -48,8 +47,8 @@ public class FeedCmd extends EssenceCommand {
         super(plugin, command, description, permission, aliases);
 
         cmdArgs = new CmdArgument[] {
-                new PlayerArgument("player", ArgumentRequirement.REQUIRED_CONSOLE, "others"),
-                new IntArgument("amount", ArgumentRequirement.OPTIONAL, "", 0, 20, false)
+                new CmdArgument("player", new PlayerArg(), ArgumentRequirement.REQUIRED_CONSOLE, "others"),
+                new CmdArgument("amount", new IntArg(0, 20), ArgumentRequirement.OPTIONAL, "")
         };
 
         addCommandOption("saturation", EssMessage.OPT_FEED_SATURATION.msg(), new IntArg(5));

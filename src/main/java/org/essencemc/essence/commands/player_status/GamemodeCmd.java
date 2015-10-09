@@ -34,12 +34,12 @@ import org.bukkit.plugin.Plugin;
 import org.essencemc.essence.EssMessage;
 import org.essencemc.essencecore.aliases.AliasType;
 import org.essencemc.essencecore.aliases.Aliases;
+import org.essencemc.essencecore.arguments.MappedListArg;
+import org.essencemc.essencecore.arguments.PlayerArg;
 import org.essencemc.essencecore.commands.EssenceCommand;
-import org.essencemc.essencecore.commands.arguments.MappedListArgument;
-import org.essencemc.essencecore.commands.arguments.PlayerArgument;
-import org.essencemc.essencecore.commands.arguments.internal.ArgumentParseResults;
-import org.essencemc.essencecore.commands.arguments.internal.ArgumentRequirement;
-import org.essencemc.essencecore.commands.arguments.internal.CmdArgument;
+import org.essencemc.essencecore.commands.arguments.ArgumentParseResults;
+import org.essencemc.essencecore.commands.arguments.ArgumentRequirement;
+import org.essencemc.essencecore.commands.arguments.CmdArgument;
 
 import java.util.List;
 
@@ -49,8 +49,8 @@ public class GamemodeCmd extends EssenceCommand {
         super(plugin, command, description, permission, aliases);
 
         cmdArgs = new CmdArgument[] {
-                new MappedListArgument("mode", ArgumentRequirement.REQUIRED, "", Aliases.getAliasesMap(AliasType.GAME_MODE)),
-                new PlayerArgument("player", ArgumentRequirement.OPTIONAL, "others")
+                new CmdArgument("mode", new MappedListArg(Aliases.getAliasesMap(AliasType.GAME_MODE)), ArgumentRequirement.REQUIRED, ""),
+                new CmdArgument("player", new PlayerArg(), ArgumentRequirement.OPTIONAL, "others")
         };
 
         register();

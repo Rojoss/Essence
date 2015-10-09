@@ -34,12 +34,11 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
+import org.essencemc.essencecore.arguments.ListArg;
 import org.essencemc.essencecore.commands.EssenceCommand;
-import org.essencemc.essencecore.EssenceCore;
-import org.essencemc.essencecore.commands.arguments.ListArgument;
-import org.essencemc.essencecore.commands.arguments.internal.ArgumentParseResults;
-import org.essencemc.essencecore.commands.arguments.internal.ArgumentRequirement;
-import org.essencemc.essencecore.commands.arguments.internal.CmdArgument;
+import org.essencemc.essencecore.commands.arguments.ArgumentParseResults;
+import org.essencemc.essencecore.commands.arguments.ArgumentRequirement;
+import org.essencemc.essencecore.commands.arguments.CmdArgument;
 import org.essencemc.essencecore.entity.EItem;
 import org.essencemc.essencecore.entity.EntityTag;
 import org.essencemc.essencecore.parsers.EntityParser;
@@ -59,7 +58,7 @@ public class TestCmd extends EssenceCommand {
         List<String> testArgs = Arrays.asList("items", "itemstring", "entity");
 
         cmdArgs = new CmdArgument[] {
-                new ListArgument("type", ArgumentRequirement.REQUIRED, "", testArgs)
+                new CmdArgument("type", new ListArg(testArgs), ArgumentRequirement.REQUIRED, "")
         };
 
         register();

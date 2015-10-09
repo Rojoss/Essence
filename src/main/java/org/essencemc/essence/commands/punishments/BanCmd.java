@@ -32,13 +32,13 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.essencemc.essence.modules.ban.BanModule;
 import org.essencemc.essencecore.EssenceCore;
+import org.essencemc.essencecore.arguments.IntArg;
+import org.essencemc.essencecore.arguments.OfflinePlayerArg;
+import org.essencemc.essencecore.arguments.StringArg;
 import org.essencemc.essencecore.commands.EssenceCommand;
-import org.essencemc.essencecore.commands.arguments.IntArgument;
-import org.essencemc.essencecore.commands.arguments.OfflinePlayerArgument;
-import org.essencemc.essencecore.commands.arguments.StringArgument;
-import org.essencemc.essencecore.commands.arguments.internal.ArgumentParseResults;
-import org.essencemc.essencecore.commands.arguments.internal.ArgumentRequirement;
-import org.essencemc.essencecore.commands.arguments.internal.CmdArgument;
+import org.essencemc.essencecore.commands.arguments.ArgumentParseResults;
+import org.essencemc.essencecore.commands.arguments.ArgumentRequirement;
+import org.essencemc.essencecore.commands.arguments.CmdArgument;
 import org.essencemc.essencecore.modules.Module;
 
 import java.util.List;
@@ -51,10 +51,10 @@ public class BanCmd extends EssenceCommand {
         super(plugin, command, description, permission, aliases);
 
         cmdArgs = new CmdArgument[] {
-                new OfflinePlayerArgument("player", ArgumentRequirement.REQUIRED, ""),
+                new CmdArgument("player", new OfflinePlayerArg(), ArgumentRequirement.REQUIRED, ""),
                 //TODO: Change to DurationArgument like 1h30m10s
-                new IntArgument("duration", ArgumentRequirement.OPTIONAL, ""),
-                new StringArgument("reason", ArgumentRequirement.OPTIONAL, "")
+                new CmdArgument("duration", new IntArg(), ArgumentRequirement.OPTIONAL, ""),
+                new CmdArgument("reason", new StringArg(), ArgumentRequirement.OPTIONAL, "")
         };
 
         register();

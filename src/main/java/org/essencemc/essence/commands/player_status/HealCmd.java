@@ -32,13 +32,13 @@ import org.bukkit.event.entity.EntityRegainHealthEvent;
 import org.bukkit.plugin.Plugin;
 import org.bukkit.potion.PotionEffect;
 import org.essencemc.essence.EssMessage;
+import org.essencemc.essencecore.arguments.DoubleArg;
+import org.essencemc.essencecore.arguments.PlayerArg;
 import org.essencemc.essencecore.commands.EssenceCommand;
 import org.essencemc.essencecore.arguments.BoolArg;
-import org.essencemc.essencecore.commands.arguments.DoubleArgument;
-import org.essencemc.essencecore.commands.arguments.PlayerArgument;
-import org.essencemc.essencecore.commands.arguments.internal.ArgumentParseResults;
-import org.essencemc.essencecore.commands.arguments.internal.ArgumentRequirement;
-import org.essencemc.essencecore.commands.arguments.internal.CmdArgument;
+import org.essencemc.essencecore.commands.arguments.ArgumentParseResults;
+import org.essencemc.essencecore.commands.arguments.ArgumentRequirement;
+import org.essencemc.essencecore.commands.arguments.CmdArgument;
 import org.essencemc.essencecore.commands.links.RemoveLink;
 import org.essencemc.essencecore.message.Message;
 
@@ -51,8 +51,8 @@ public class HealCmd extends EssenceCommand {
         super(plugin, command, description, permission, aliases);
 
         cmdArgs = new CmdArgument[] {
-                new PlayerArgument("player", ArgumentRequirement.REQUIRED_CONSOLE, "others"),
-                new DoubleArgument("max", ArgumentRequirement.OPTIONAL, "max", 1, 2048, false)
+                new CmdArgument("player", new PlayerArg(), ArgumentRequirement.REQUIRED_CONSOLE, "others"),
+                new CmdArgument("max", new DoubleArg(1d, 2048d), ArgumentRequirement.OPTIONAL, "max")
         };
 
         addCommandOption("feed", EssMessage.OPT_HEAL_FEED.msg(), new BoolArg(true));

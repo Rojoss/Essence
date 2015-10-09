@@ -32,11 +32,11 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.Plugin;
 import org.essencemc.essence.EssMessage;
 import org.essencemc.essence.Essence;
+import org.essencemc.essencecore.arguments.WorldArg;
 import org.essencemc.essencecore.commands.EssenceCommand;
-import org.essencemc.essencecore.commands.arguments.WorldArgument;
-import org.essencemc.essencecore.commands.arguments.internal.ArgumentParseResults;
-import org.essencemc.essencecore.commands.arguments.internal.ArgumentRequirement;
-import org.essencemc.essencecore.commands.arguments.internal.CmdArgument;
+import org.essencemc.essencecore.commands.arguments.ArgumentParseResults;
+import org.essencemc.essencecore.commands.arguments.ArgumentRequirement;
+import org.essencemc.essencecore.commands.arguments.CmdArgument;
 import org.essencemc.essencecore.util.Util;
 
 import java.util.List;
@@ -48,7 +48,7 @@ public class WarpsCmd extends EssenceCommand {
         super(plugin, command, description, permission, aliases);
 
         cmdArgs = new CmdArgument[] {
-                new WorldArgument("world", ArgumentRequirement.OPTIONAL, ""),
+                new CmdArgument("world", new WorldArg(), ArgumentRequirement.OPTIONAL, ""),
         };
 
         register();

@@ -31,13 +31,12 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.essencemc.essence.EssMessage;
 import org.essencemc.essencecore.arguments.IntArg;
+import org.essencemc.essencecore.arguments.PlayerArg;
 import org.essencemc.essencecore.arguments.StringArg;
 import org.essencemc.essencecore.commands.EssenceCommand;
-import org.essencemc.essencecore.commands.arguments.PlayerArgument;
-import org.essencemc.essencecore.commands.arguments.StringArgument;
-import org.essencemc.essencecore.commands.arguments.internal.ArgumentParseResults;
-import org.essencemc.essencecore.commands.arguments.internal.ArgumentRequirement;
-import org.essencemc.essencecore.commands.arguments.internal.CmdArgument;
+import org.essencemc.essencecore.commands.arguments.ArgumentParseResults;
+import org.essencemc.essencecore.commands.arguments.ArgumentRequirement;
+import org.essencemc.essencecore.commands.arguments.CmdArgument;
 import org.essencemc.essencecore.util.Util;
 
 import java.util.List;
@@ -52,8 +51,8 @@ public class NicknameCmd extends EssenceCommand {
         addCommandOption("max-characters", EssMessage.OPT_NICK_MAX_CHARS.msg(), new IntArg(16), false);
 
         cmdArgs = new CmdArgument[] {
-                new StringArgument("nickname", ArgumentRequirement.REQUIRED, "", (Integer)cmdOptions.get("min-characters").getArg().getValue(), (Integer)cmdOptions.get("max-characters").getArg().getValue()),
-                new PlayerArgument("player", ArgumentRequirement.REQUIRED_CONSOLE, "others")
+                new CmdArgument("nickname", new StringArg((Integer)cmdOptions.get("min-characters").getArg().getValue(), (Integer)cmdOptions.get("max-characters").getArg().getValue()), ArgumentRequirement.REQUIRED, ""),
+                new CmdArgument("player", new PlayerArg(), ArgumentRequirement.REQUIRED_CONSOLE, "others")
         };
 
         addModifier("-r", EssMessage.MOD_NICK_REMOVE.msg());

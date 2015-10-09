@@ -30,12 +30,12 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.essencemc.essence.EssMessage;
+import org.essencemc.essencecore.arguments.PlayerArg;
+import org.essencemc.essencecore.arguments.StringArg;
 import org.essencemc.essencecore.commands.EssenceCommand;
-import org.essencemc.essencecore.commands.arguments.PlayerArgument;
-import org.essencemc.essencecore.commands.arguments.StringArgument;
-import org.essencemc.essencecore.commands.arguments.internal.ArgumentParseResults;
-import org.essencemc.essencecore.commands.arguments.internal.ArgumentRequirement;
-import org.essencemc.essencecore.commands.arguments.internal.CmdArgument;
+import org.essencemc.essencecore.commands.arguments.ArgumentParseResults;
+import org.essencemc.essencecore.commands.arguments.ArgumentRequirement;
+import org.essencemc.essencecore.commands.arguments.CmdArgument;
 import org.essencemc.essencecore.util.Util;
 
 import java.util.List;
@@ -46,8 +46,8 @@ public class SudoCmd extends EssenceCommand {
         super(plugin, command, description, permission, aliases);
 
         cmdArgs = new CmdArgument[] {
-                new PlayerArgument("player", ArgumentRequirement.REQUIRED, ""),
-                new StringArgument("command", ArgumentRequirement.REQUIRED, ""),
+                new CmdArgument("player", new PlayerArg(), ArgumentRequirement.REQUIRED, ""),
+                new CmdArgument("command", new StringArg(), ArgumentRequirement.REQUIRED, ""),
         };
 
         register();

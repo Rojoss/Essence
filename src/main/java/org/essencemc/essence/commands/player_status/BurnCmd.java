@@ -30,13 +30,13 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.essencemc.essence.EssMessage;
+import org.essencemc.essencecore.arguments.IntArg;
+import org.essencemc.essencecore.arguments.PlayerArg;
 import org.essencemc.essencecore.commands.EssenceCommand;
 import org.essencemc.essencecore.arguments.BoolArg;
-import org.essencemc.essencecore.commands.arguments.IntArgument;
-import org.essencemc.essencecore.commands.arguments.PlayerArgument;
-import org.essencemc.essencecore.commands.arguments.internal.ArgumentParseResults;
-import org.essencemc.essencecore.commands.arguments.internal.ArgumentRequirement;
-import org.essencemc.essencecore.commands.arguments.internal.CmdArgument;
+import org.essencemc.essencecore.commands.arguments.ArgumentParseResults;
+import org.essencemc.essencecore.commands.arguments.ArgumentRequirement;
+import org.essencemc.essencecore.commands.arguments.CmdArgument;
 
 import java.util.List;
 
@@ -46,8 +46,8 @@ public class BurnCmd extends EssenceCommand {
         super(plugin, command, description, permission, aliases);
 
         cmdArgs = new CmdArgument[] {
-                new IntArgument("duration", ArgumentRequirement.REQUIRED, ""),
-                new PlayerArgument("player", ArgumentRequirement.REQUIRED_CONSOLE, "others")
+                new CmdArgument("duration", new IntArg(), ArgumentRequirement.REQUIRED, ""),
+                new CmdArgument("player", new PlayerArg(), ArgumentRequirement.REQUIRED_CONSOLE, "others")
         };
 
         addModifier("-i", EssMessage.MOD_BURN_INCREMENT.msg());

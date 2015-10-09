@@ -32,14 +32,12 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.plugin.Plugin;
 import org.essencemc.essence.EssMessage;
-import org.essencemc.essencecore.EssenceCore;
 import org.essencemc.essencecore.arguments.BoolArg;
+import org.essencemc.essencecore.arguments.PlayerArg;
 import org.essencemc.essencecore.commands.EssenceCommand;
-import org.essencemc.essencecore.commands.arguments.BoolArgument;
-import org.essencemc.essencecore.commands.arguments.PlayerArgument;
-import org.essencemc.essencecore.commands.arguments.internal.ArgumentParseResults;
-import org.essencemc.essencecore.commands.arguments.internal.ArgumentRequirement;
-import org.essencemc.essencecore.commands.arguments.internal.CmdArgument;
+import org.essencemc.essencecore.commands.arguments.ArgumentParseResults;
+import org.essencemc.essencecore.commands.arguments.ArgumentRequirement;
+import org.essencemc.essencecore.commands.arguments.CmdArgument;
 
 import java.util.List;
 
@@ -49,8 +47,8 @@ public class GodCmd extends EssenceCommand {
         super(plugin, command, description, permission, aliases);
 
         cmdArgs = new CmdArgument[] {
-                new PlayerArgument("player", ArgumentRequirement.REQUIRED_CONSOLE, "others"),
-                new BoolArgument("state", ArgumentRequirement.OPTIONAL, "")
+                new CmdArgument("player", new PlayerArg(), ArgumentRequirement.REQUIRED_CONSOLE, "others"),
+                new CmdArgument("state", new BoolArg(), ArgumentRequirement.OPTIONAL, "")
         };
 
         addModifier("-r", EssMessage.MOD_GOD_RESET.msg());

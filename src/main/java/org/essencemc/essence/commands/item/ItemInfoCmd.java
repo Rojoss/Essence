@@ -28,14 +28,13 @@ package org.essencemc.essence.commands.item;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.Plugin;
+import org.essencemc.essencecore.arguments.StringArg;
 import org.essencemc.essencecore.commands.EssenceCommand;
-import org.essencemc.essencecore.EssenceCore;
 import org.essencemc.essencecore.aliases.ItemAlias;
 import org.essencemc.essencecore.aliases.Items;
-import org.essencemc.essencecore.commands.arguments.StringArgument;
-import org.essencemc.essencecore.commands.arguments.internal.ArgumentParseResults;
-import org.essencemc.essencecore.commands.arguments.internal.ArgumentRequirement;
-import org.essencemc.essencecore.commands.arguments.internal.CmdArgument;
+import org.essencemc.essencecore.commands.arguments.ArgumentParseResults;
+import org.essencemc.essencecore.commands.arguments.ArgumentRequirement;
+import org.essencemc.essencecore.commands.arguments.CmdArgument;
 
 import java.util.List;
 
@@ -45,7 +44,7 @@ public class ItemInfoCmd extends EssenceCommand {
         super(plugin, command, description, permission, aliases);
 
         cmdArgs = new CmdArgument[] {
-                new StringArgument("[item[:data]]", ArgumentRequirement.REQUIRED_CONSOLE, "others", 1, 100)
+                new CmdArgument("[item[:data]]", new StringArg(), ArgumentRequirement.REQUIRED_CONSOLE, "others")
         };
 
         register();

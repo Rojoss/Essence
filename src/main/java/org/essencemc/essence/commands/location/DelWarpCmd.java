@@ -28,15 +28,20 @@ package org.essencemc.essence.commands.location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.Plugin;
+import org.bukkit.util.StringUtil;
 import org.essencemc.essence.Essence;
 import org.essencemc.essence.EssMessage;
+import org.essencemc.essencecore.arguments.ListArg;
 import org.essencemc.essencecore.arguments.StringArg;
 import org.essencemc.essencecore.commands.EssenceCommand;
 import org.essencemc.essencecore.commands.arguments.ArgumentParseResults;
 import org.essencemc.essencecore.commands.arguments.ArgumentRequirement;
 import org.essencemc.essencecore.commands.arguments.CmdArgument;
 import org.essencemc.essencecore.commands.links.RemoveLink;
+import org.essencemc.essencecore.util.Debug;
 
+import java.util.ArrayList;
+import java.util.Arrays;
 import java.util.List;
 
 public class DelWarpCmd extends EssenceCommand {
@@ -44,7 +49,7 @@ public class DelWarpCmd extends EssenceCommand {
     public DelWarpCmd(Plugin plugin, String command, String description, String permission, List<String> aliases) {
         super(plugin, command, description, permission, aliases);
 
-        addArgument("name", new StringArg(2, 32), ArgumentRequirement.REQUIRED);
+        addArgument("name", new StringArg(), ArgumentRequirement.REQUIRED);
 
         addModifier("-a", EssMessage.MOD_DELWARP_ALL.msg());
 
@@ -79,6 +84,20 @@ public class DelWarpCmd extends EssenceCommand {
             EssMessage.CMD_WARP_DELETED.msg(true, true, castPlayer(sender)).parseArgs(name).send(sender);
         }
         return true;
+    }
+
+    @Override
+    public List<String> onTabComplete(CommandSender sender, Command cmd, String message, String[] args) {
+        if (!hasPermission(sender)) {
+            return null;
+        }
+        List<String> warps = new ArrayList<String>();
+        for (String warp : Essence.inst().getWarps().getWarpNames()) {
+            if (StringUtil.startsWithIgnoreCase(warp, args[0])) {
+                warps.add(warp);
+            }
+        }
+        return warps;
     }
 
 }

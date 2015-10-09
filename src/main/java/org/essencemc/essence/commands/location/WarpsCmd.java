@@ -32,6 +32,8 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.Plugin;
 import org.essencemc.essence.EssMessage;
 import org.essencemc.essence.Essence;
+import org.essencemc.essence.config.Warps;
+import org.essencemc.essencecore.EssenceCore;
 import org.essencemc.essencecore.arguments.WorldArg;
 import org.essencemc.essencecore.commands.EssenceCommand;
 import org.essencemc.essencecore.commands.arguments.ArgumentParseResults;
@@ -39,6 +41,7 @@ import org.essencemc.essencecore.commands.arguments.ArgumentRequirement;
 import org.essencemc.essencecore.commands.arguments.CmdArgument;
 import org.essencemc.essencecore.util.Util;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -69,6 +72,16 @@ public class WarpsCmd extends EssenceCommand {
             for (Map.Entry<String, Location> warp : warpsMap.entrySet()) {
                 if (warp.getValue().getWorld().equals(world)) {
                     warps.add(warp.getKey());
+                }
+            }
+        }
+
+        EssenceCommand warpCmd = EssenceCore.inst().getCommands().getCommand(WarpCmd.class);
+        if (warpCmd != null && (Boolean)((WarpCmd)warpCmd).cmdOptions.get("permission-based-warps").getArg().getValue()) {
+            List<String> warpsClone = new ArrayList<String>(warps);
+            for (String warp : warpsClone) {
+                if (!sender.hasPermission("essence.*") && !sender.hasPermission("essence.warps.*") && !sender.hasPermission("essence.warps." + warp.toLowerCase())) {
+                    warps.remove(warp);
                 }
             }
         }

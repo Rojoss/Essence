@@ -73,11 +73,6 @@ public class WarpsCmd extends EssenceCommand {
             }
         }
 
-        if (warps.size() <= 0) {
-            EssMessage.CMD_WARPS_NONE.msg(true, true, castPlayer(sender)).send(sender);
-        } else {
-
-        }
         EssMessage.CMD_WARPS.msg(true, true, castPlayer(sender)).parseArgs(warps.size() <= 0 ? EssMessage.CMD_WARPS_NONE.msg().color().getText() : Util.implode(warps, ", ")).send(sender);
         return true;
     }

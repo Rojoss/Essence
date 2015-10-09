@@ -28,14 +28,18 @@ package org.essencemc.essence.commands.item;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.plugin.Plugin;
+import org.essencemc.essence.EssMessage;
 import org.essencemc.essencecore.arguments.StringArg;
 import org.essencemc.essencecore.commands.EssenceCommand;
 import org.essencemc.essencecore.aliases.ItemAlias;
 import org.essencemc.essencecore.aliases.Items;
 import org.essencemc.essencecore.commands.arguments.ArgumentParseResults;
 import org.essencemc.essencecore.commands.arguments.ArgumentRequirement;
-import org.essencemc.essencecore.commands.arguments.CmdArgument;
+import org.essencemc.essencecore.entity.EItem;
+import org.essencemc.essencecore.parsers.ItemParser;
+import org.essencemc.essencecore.util.Util;
 
+import java.util.HashMap;
 import java.util.List;
 
 public class ItemInfoCmd extends EssenceCommand {
@@ -43,7 +47,7 @@ public class ItemInfoCmd extends EssenceCommand {
     public ItemInfoCmd(Plugin plugin, String command, String description, String permission, List<String> aliases) {
         super(plugin, command, description, permission, aliases);
 
-        addArgument("[item[:data]]", new StringArg(), ArgumentRequirement.REQUIRED_CONSOLE);
+        addArgument("[item[:data]] [meta]", new StringArg(), ArgumentRequirement.REQUIRED_CONSOLE);
 
         register();
     }
@@ -56,18 +60,31 @@ public class ItemInfoCmd extends EssenceCommand {
         }
         args = result.getArgs();
 
-        String itemString = (String)result.getArg("[item[:data]]");
-
-        ItemAlias item = Items.getItem(itemString);
-        if (item == null) {
-            sender.sendMessage("Invalid item...");
-            return true;
+        EItem item = null;
+        if (args.length > 0) {
+            ItemParser parser = new ItemParser(Util.implode(args, " "), false);
+            if (!parser.isValid()) {
+                parser.getError().addPrefix().parsePlaceholders(castPlayer(sender)).toJSON().send(sender);
+                return true;
+            }
+            item = parser.getItem();
+        } else {
+            item = new EItem(castPlayer(sender).getItemInHand());
         }
+        if (item == null) {
+            item = EItem.AIR;
+        }
+        ItemAlias itemAlias = Items.getItem(item.getType(), item.getDurability());
 
-        sender.sendMessage(item.getName());
-        sender.sendMessage(item.getType().toString() + "(" + item.getId() + ")");
-        sender.sendMessage("" + item.getData());
-        sender.sendMessage(item.getAliasesStr());
+        HashMap<String, String> dataMap = new HashMap<String, String>();
+        dataMap.put("name", itemAlias.getName());
+        dataMap.put("amount", Integer.toString(item.getAmount()));
+        dataMap.put("aliases", itemAlias.getAliasesStr());
+        dataMap.put("type", item.getType().toString());
+        dataMap.put("data", Short.toString(item.getDurability()));
+        dataMap.put("string", new ItemParser(item).getString());
+
+        EssMessage.CMD_ITEM_INFO.msg(false, true, castPlayer(sender)).parseArgs(dataMap).send(sender);
         return true;
     }
 }

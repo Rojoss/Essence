@@ -46,10 +46,8 @@ public class FeedCmd extends EssenceCommand {
     public FeedCmd(Plugin plugin, String command, String description, String permission, List<String> aliases) {
         super(plugin, command, description, permission, aliases);
 
-        cmdArgs = new CmdArgument[] {
-                new CmdArgument("player", new PlayerArg(), ArgumentRequirement.REQUIRED_CONSOLE, "others"),
-                new CmdArgument("amount", new IntArg(0, 20), ArgumentRequirement.OPTIONAL, "")
-        };
+        addArgument("player", new PlayerArg(), ArgumentRequirement.REQUIRED_CONSOLE, "others");
+        addArgument("amount", new IntArg(0, 20), ArgumentRequirement.OPTIONAL);
 
         addCommandOption("saturation", EssMessage.OPT_FEED_SATURATION.msg(), new IntArg(5));
         addCommandOption("exhaustion", EssMessage.OPT_FEED_EXHAUSTION.msg(), new BoolArg(true));

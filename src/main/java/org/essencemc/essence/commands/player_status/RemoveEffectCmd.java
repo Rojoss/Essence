@@ -55,10 +55,8 @@ public class RemoveEffectCmd extends EssenceCommand {
         Map<String, List<String>> effects = Aliases.getAliasesMap(AliasType.POTION_EFFECT);
         effects.put("ALL", Arrays.asList("all", "*"));
 
-        cmdArgs = new CmdArgument[] {
-                new CmdArgument("effect", new MappedListArg(effects), ArgumentRequirement.REQUIRED, ""),
-                new CmdArgument("player", new PlayerArg(), ArgumentRequirement.OPTIONAL, "others")
-        };
+        addArgument("effect", new MappedListArg(effects), ArgumentRequirement.REQUIRED);
+        addArgument("player", new PlayerArg(), ArgumentRequirement.OPTIONAL, "others");
 
         addModifier("-n", EssMessage.MOD_REMOVEEFFECT_NEGATIVE.msg());
         addModifier("-p", EssMessage.MOD_REMOVEEFFECT_POSITIVE.msg());

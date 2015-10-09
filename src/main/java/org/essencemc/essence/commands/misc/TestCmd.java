@@ -57,9 +57,7 @@ public class TestCmd extends EssenceCommand {
 
         List<String> testArgs = Arrays.asList("items", "itemstring", "entity");
 
-        cmdArgs = new CmdArgument[] {
-                new CmdArgument("type", new ListArg(testArgs), ArgumentRequirement.REQUIRED, "")
-        };
+        addArgument("type", new ListArg(testArgs), ArgumentRequirement.REQUIRED);
 
         register();
     }

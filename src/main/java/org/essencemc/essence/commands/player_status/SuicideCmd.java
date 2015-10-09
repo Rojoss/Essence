@@ -42,8 +42,6 @@ public class SuicideCmd extends EssenceCommand {
     public SuicideCmd(Plugin plugin, String command, String description, String permission, List<String> aliases) {
         super(plugin, command, description, permission, aliases);
 
-        cmdArgs = new CmdArgument[] {};
-
         register();
     }
 

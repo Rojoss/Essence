@@ -48,10 +48,8 @@ public class GamemodeCmd extends EssenceCommand {
     public GamemodeCmd(Plugin plugin, String command, String description, String permission, List<String> aliases) {
         super(plugin, command, description, permission, aliases);
 
-        cmdArgs = new CmdArgument[] {
-                new CmdArgument("mode", new MappedListArg(Aliases.getAliasesMap(AliasType.GAME_MODE)), ArgumentRequirement.REQUIRED, ""),
-                new CmdArgument("player", new PlayerArg(), ArgumentRequirement.OPTIONAL, "others")
-        };
+        addArgument("mode", new MappedListArg(Aliases.getAliasesMap(AliasType.GAME_MODE)), ArgumentRequirement.REQUIRED);
+        addArgument("player", new PlayerArg(), ArgumentRequirement.OPTIONAL, "others");
 
         register();
     }

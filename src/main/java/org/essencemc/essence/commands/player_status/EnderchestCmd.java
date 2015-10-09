@@ -44,9 +44,7 @@ public class EnderchestCmd extends EssenceCommand {
     public EnderchestCmd(Plugin plugin, String command, String description, String permission, List<String> aliases) {
         super(plugin, command, description, permission, aliases);
 
-        cmdArgs = new CmdArgument[] {
-                new CmdArgument("player", new PlayerArg(), ArgumentRequirement.OPTIONAL, "others")
-        };
+        addArgument("player", new PlayerArg(), ArgumentRequirement.OPTIONAL, "others");
 
         register();
     }

@@ -50,12 +50,10 @@ public class BanCmd extends EssenceCommand {
     public BanCmd(Plugin plugin, String command, String description, String permission, List<String> aliases) {
         super(plugin, command, description, permission, aliases);
 
-        cmdArgs = new CmdArgument[] {
-                new CmdArgument("player", new OfflinePlayerArg(), ArgumentRequirement.REQUIRED, ""),
-                //TODO: Change to DurationArgument like 1h30m10s
-                new CmdArgument("duration", new IntArg(), ArgumentRequirement.OPTIONAL, ""),
-                new CmdArgument("reason", new StringArg(), ArgumentRequirement.OPTIONAL, "")
-        };
+        addArgument("player", new OfflinePlayerArg(), ArgumentRequirement.REQUIRED);
+        //TODO: Change to DurationArgument like 1h30m10s
+        addArgument("duration", new IntArg(), ArgumentRequirement.OPTIONAL);
+        addArgument("reason", new StringArg(), ArgumentRequirement.OPTIONAL);
 
         register();
     }

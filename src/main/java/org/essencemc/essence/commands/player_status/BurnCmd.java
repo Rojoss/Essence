@@ -45,10 +45,8 @@ public class BurnCmd extends EssenceCommand {
     public BurnCmd(Plugin plugin, String command, String description, String permission, List<String> aliases) {
         super(plugin, command, description, permission, aliases);
 
-        cmdArgs = new CmdArgument[] {
-                new CmdArgument("duration", new IntArg(), ArgumentRequirement.REQUIRED, ""),
-                new CmdArgument("player", new PlayerArg(), ArgumentRequirement.REQUIRED_CONSOLE, "others")
-        };
+        addArgument("duration", new IntArg(), ArgumentRequirement.REQUIRED);
+        addArgument("player", new PlayerArg(), ArgumentRequirement.REQUIRED_CONSOLE, "others");
 
         addModifier("-i", EssMessage.MOD_BURN_INCREMENT.msg());
 

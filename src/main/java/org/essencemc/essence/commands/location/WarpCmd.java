@@ -47,10 +47,8 @@ public class WarpCmd extends EssenceCommand {
     public WarpCmd(Plugin plugin, String command, String description, String permission, List<String> aliases) {
         super(plugin, command, description, permission, aliases);
 
-        cmdArgs = new CmdArgument[] {
-                new CmdArgument("name", new StringArg(2, 32), ArgumentRequirement.REQUIRED, ""),
-                new CmdArgument("player", new PlayerArg(), ArgumentRequirement.REQUIRED_CONSOLE, "others")
-        };
+        addArgument("name", new StringArg(2, 32), ArgumentRequirement.REQUIRED);
+        addArgument("player", new PlayerArg(), ArgumentRequirement.REQUIRED_CONSOLE, "others");
 
         addCommandOption("permission-based-warps", EssMessage.OPT_WARP_PERM_BASED.msg(), new BoolArg(true), false);
 

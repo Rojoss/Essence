@@ -45,10 +45,8 @@ public class FlyCmd extends EssenceCommand {
     public FlyCmd(Plugin plugin, String command, String description, String permission, List<String> aliases) {
         super(plugin, command, description, permission, aliases);
 
-        cmdArgs = new CmdArgument[] {
-                new CmdArgument("player", new PlayerArg(), ArgumentRequirement.REQUIRED_CONSOLE, "others"),
-                new CmdArgument("state", new BoolArg(), ArgumentRequirement.OPTIONAL, "")
-        };
+        addArgument("player", new PlayerArg(), ArgumentRequirement.REQUIRED_CONSOLE, "others");
+        addArgument("state", new BoolArg(), ArgumentRequirement.OPTIONAL);
 
         addCommandOption("allow-fly", EssMessage.OPT_BURN_TICKS.msg(), new BoolArg(true));
         //addCommandOption("flying", new BoolArg(true, Message.OPT_BURN_TICKS.msg()));

@@ -46,9 +46,7 @@ public class MainPluginCmd extends EssenceCommand {
     public MainPluginCmd(Plugin plugin, String command, String description, String permission, List<String> aliases) {
         super(plugin, command, description, permission, aliases);
 
-        cmdArgs = new CmdArgument[] {
-                new CmdArgument("reload", new StringArg(new MatchString("reload")), ArgumentRequirement.OPTIONAL, "reload")
-        };
+        addArgument("reload", new StringArg(new MatchString("reload")), ArgumentRequirement.OPTIONAL, "reload");
 
         register();
     }

@@ -50,10 +50,8 @@ public class HealCmd extends EssenceCommand {
     public HealCmd(Plugin plugin, String command, String description, String permission, List<String> aliases) {
         super(plugin, command, description, permission, aliases);
 
-        cmdArgs = new CmdArgument[] {
-                new CmdArgument("player", new PlayerArg(), ArgumentRequirement.REQUIRED_CONSOLE, "others"),
-                new CmdArgument("max", new DoubleArg(1d, 2048d), ArgumentRequirement.OPTIONAL, "max")
-        };
+        addArgument("player", new PlayerArg(), ArgumentRequirement.REQUIRED_CONSOLE, "others");
+        addArgument("max", new DoubleArg(1d, 2048d), ArgumentRequirement.OPTIONAL, "max");
 
         addCommandOption("feed", EssMessage.OPT_HEAL_FEED.msg(), new BoolArg(true));
         addCommandOption("clear-effects", EssMessage.OPT_HEAL_CLEAR_EFFECTS.msg(), new BoolArg(true));

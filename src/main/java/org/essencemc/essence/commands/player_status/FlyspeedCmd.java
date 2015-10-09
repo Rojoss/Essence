@@ -45,10 +45,8 @@ public class FlyspeedCmd extends EssenceCommand {
     public FlyspeedCmd(Plugin plugin, String command, String description, String permission, List<String> aliases) {
         super(plugin, command, description, permission, aliases);
 
-        cmdArgs = new CmdArgument[] {
-                new CmdArgument("speed", new IntArg(0, 100), ArgumentRequirement.REQUIRED_CONSOLE, ""),
-                new CmdArgument("player", new PlayerArg(), ArgumentRequirement.REQUIRED_CONSOLE, "others")
-        };
+        addArgument("speed", new IntArg(0, 100), ArgumentRequirement.REQUIRED_CONSOLE);
+        addArgument("player", new PlayerArg(), ArgumentRequirement.REQUIRED_CONSOLE, "others");
 
         register();
     }

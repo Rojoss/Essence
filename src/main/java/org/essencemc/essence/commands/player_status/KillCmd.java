@@ -43,9 +43,7 @@ public class KillCmd extends EssenceCommand {
     public KillCmd(Plugin plugin, String command, String description, String permission, List<String> aliases) {
         super(plugin, command, description, permission, aliases);
 
-        cmdArgs = new CmdArgument[] {
-                new CmdArgument("player", new PlayerArg(), ArgumentRequirement.REQUIRED, "")
-        };
+        addArgument("player", new PlayerArg(), ArgumentRequirement.REQUIRED);
 
         register();
     }

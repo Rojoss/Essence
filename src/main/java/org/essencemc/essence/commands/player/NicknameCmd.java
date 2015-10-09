@@ -50,10 +50,8 @@ public class NicknameCmd extends EssenceCommand {
         addCommandOption("min-characters", EssMessage.OPT_NICK_MIN_CHARS.msg(), new IntArg(3), false);
         addCommandOption("max-characters", EssMessage.OPT_NICK_MAX_CHARS.msg(), new IntArg(16), false);
 
-        cmdArgs = new CmdArgument[] {
-                new CmdArgument("nickname", new StringArg((Integer)cmdOptions.get("min-characters").getArg().getValue(), (Integer)cmdOptions.get("max-characters").getArg().getValue()), ArgumentRequirement.REQUIRED, ""),
-                new CmdArgument("player", new PlayerArg(), ArgumentRequirement.REQUIRED_CONSOLE, "others")
-        };
+        addArgument("nickname", new StringArg((Integer)cmdOptions.get("min-characters").getArg().getValue(), (Integer)cmdOptions.get("max-characters").getArg().getValue()), ArgumentRequirement.REQUIRED);
+        addArgument("player", new PlayerArg(), ArgumentRequirement.REQUIRED_CONSOLE, "others");
 
         addModifier("-r", EssMessage.MOD_NICK_REMOVE.msg());
 

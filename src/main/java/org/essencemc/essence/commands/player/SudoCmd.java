@@ -45,10 +45,8 @@ public class SudoCmd extends EssenceCommand {
     public SudoCmd(Plugin plugin, String command, String description, String permission, List<String> aliases) {
         super(plugin, command, description, permission, aliases);
 
-        cmdArgs = new CmdArgument[] {
-                new CmdArgument("player", new PlayerArg(), ArgumentRequirement.REQUIRED, ""),
-                new CmdArgument("command", new StringArg(), ArgumentRequirement.REQUIRED, ""),
-        };
+        addArgument("player", new PlayerArg(), ArgumentRequirement.REQUIRED);
+        addArgument("command", new StringArg(), ArgumentRequirement.REQUIRED);
 
         register();
     }

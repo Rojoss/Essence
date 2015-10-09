@@ -43,9 +43,7 @@ public class ItemInfoCmd extends EssenceCommand {
     public ItemInfoCmd(Plugin plugin, String command, String description, String permission, List<String> aliases) {
         super(plugin, command, description, permission, aliases);
 
-        cmdArgs = new CmdArgument[] {
-                new CmdArgument("[item[:data]]", new StringArg(), ArgumentRequirement.REQUIRED_CONSOLE, "others")
-        };
+        addArgument("[item[:data]]", new StringArg(), ArgumentRequirement.REQUIRED_CONSOLE);
 
         register();
     }

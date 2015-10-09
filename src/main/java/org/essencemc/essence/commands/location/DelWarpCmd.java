@@ -44,9 +44,7 @@ public class DelWarpCmd extends EssenceCommand {
     public DelWarpCmd(Plugin plugin, String command, String description, String permission, List<String> aliases) {
         super(plugin, command, description, permission, aliases);
 
-        cmdArgs = new CmdArgument[] {
-                new CmdArgument("name", new StringArg(2, 32), ArgumentRequirement.REQUIRED, "")
-        };
+        addArgument("name", new StringArg(2, 32), ArgumentRequirement.REQUIRED);
 
         addModifier("-a", EssMessage.MOD_DELWARP_ALL.msg());
 

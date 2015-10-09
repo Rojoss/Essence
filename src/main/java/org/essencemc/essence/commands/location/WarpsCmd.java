@@ -47,9 +47,7 @@ public class WarpsCmd extends EssenceCommand {
     public WarpsCmd(Plugin plugin, String command, String description, String permission, List<String> aliases) {
         super(plugin, command, description, permission, aliases);
 
-        cmdArgs = new CmdArgument[] {
-                new CmdArgument("world", new WorldArg(), ArgumentRequirement.OPTIONAL, ""),
-        };
+        addArgument("world", new WorldArg(), ArgumentRequirement.OPTIONAL);
 
         register();
     }

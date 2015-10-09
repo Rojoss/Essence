@@ -45,10 +45,8 @@ public class MessageCmd extends EssenceCommand {
     public MessageCmd(Plugin plugin, String command, String description, String permission, List<String> aliases) {
         super(plugin, command, description, permission, aliases);
 
-        cmdArgs = new CmdArgument[] {
-                new CmdArgument("player", new PlayerArg(), ArgumentRequirement.REQUIRED, ""),
-                new CmdArgument("message", new StringArg(), ArgumentRequirement.REQUIRED, "")
-        };
+        addArgument("player", new PlayerArg(), ArgumentRequirement.REQUIRED);
+        addArgument("message", new StringArg(), ArgumentRequirement.REQUIRED);
 
         register();
     }

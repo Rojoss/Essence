@@ -43,10 +43,8 @@ public class TpCmd extends EssenceCommand {
     public TpCmd(Plugin plugin, String command, String description, String permission, List<String> aliases) {
         super(plugin, command, description, permission, aliases);
 
-        cmdArgs = new CmdArgument[] {
-                new CmdArgument("player", new PlayerArg(), ArgumentRequirement.REQUIRED, ""),
-                new CmdArgument("playerToTp", new PlayerArg(), ArgumentRequirement.REQUIRED_CONSOLE, "others")
-        };
+        addArgument("player", new PlayerArg(), ArgumentRequirement.REQUIRED);
+        addArgument("playerToTp", new PlayerArg(), ArgumentRequirement.REQUIRED_CONSOLE, "others");
 
         register();
     }

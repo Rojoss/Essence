@@ -50,10 +50,8 @@ public class TreeCmd extends EssenceCommand {
     public TreeCmd(Plugin plugin, String command, String description, String permission, List<String> aliases) {
         super(plugin, command, description, permission, aliases);
 
-        cmdArgs = new CmdArgument[] {
-                new CmdArgument("type", new MappedListArg(Aliases.getAliasesMap(AliasType.TREES)), ArgumentRequirement.REQUIRED, ""),
-                new CmdArgument("location", new LocationArg(), ArgumentRequirement.REQUIRED_CONSOLE, "")
-        };
+        addArgument("type", new MappedListArg(Aliases.getAliasesMap(AliasType.TREES)), ArgumentRequirement.REQUIRED);
+        addArgument("location", new LocationArg(), ArgumentRequirement.REQUIRED_CONSOLE);
 
         register();
     }

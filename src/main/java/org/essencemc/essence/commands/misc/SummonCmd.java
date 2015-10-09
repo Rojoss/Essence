@@ -45,9 +45,7 @@ public class SummonCmd extends EssenceCommand {
     public SummonCmd(Plugin plugin, String command, String description, String permission, List<String> aliases) {
         super(plugin, command, description, permission, aliases);
 
-        cmdArgs = new CmdArgument[] {
-                new CmdArgument("entity[(data)][(>|-)entity(>|-)...] [amount] [location]", new StringArg(), ArgumentRequirement.REQUIRED, ""),
-        };
+        addArgument("entity[(data)][(>|-)entity(>|-)...] [amount] [location]", new StringArg(), ArgumentRequirement.REQUIRED);
 
         addModifier("-r", EssMessage.MOD_RIDE_ENTITY.msg());
 

@@ -46,10 +46,8 @@ public class GodCmd extends EssenceCommand {
     public GodCmd(Plugin plugin, String command, String description, String permission, List<String> aliases) {
         super(plugin, command, description, permission, aliases);
 
-        cmdArgs = new CmdArgument[] {
-                new CmdArgument("player", new PlayerArg(), ArgumentRequirement.REQUIRED_CONSOLE, "others"),
-                new CmdArgument("state", new BoolArg(), ArgumentRequirement.OPTIONAL, "")
-        };
+        addArgument("player", new PlayerArg(), ArgumentRequirement.REQUIRED_CONSOLE, "others");
+        addArgument("state", new BoolArg(), ArgumentRequirement.OPTIONAL);
 
         addModifier("-r", EssMessage.MOD_GOD_RESET.msg());
         addCommandOption("no-hunger-loss", EssMessage.OPT_NO_HUNGER_LOSS.msg(), new BoolArg(true));

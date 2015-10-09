@@ -43,9 +43,7 @@ public class LightningCmd extends EssenceCommand {
     public LightningCmd(Plugin plugin, String command, String description, String permission, List<String> aliases) {
         super(plugin, command, description, permission, aliases);
 
-        cmdArgs = new CmdArgument[] {
-                new CmdArgument("location", new LocationArg(), ArgumentRequirement.REQUIRED, "")
-        };
+        addArgument("location", new LocationArg(), ArgumentRequirement.REQUIRED);
 
         register();
     }

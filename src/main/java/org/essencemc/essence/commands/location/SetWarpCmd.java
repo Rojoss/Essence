@@ -46,10 +46,8 @@ public class SetWarpCmd extends EssenceCommand {
     public SetWarpCmd(Plugin plugin, String command, String description, String permission, List<String> aliases) {
         super(plugin, command, description, permission, aliases);
 
-        cmdArgs = new CmdArgument[] {
-                new CmdArgument("name", new StringArg(2, 32), ArgumentRequirement.REQUIRED, ""),
-                new CmdArgument("location", new LocationArg(), ArgumentRequirement.REQUIRED_CONSOLE, "location")
-        };
+        addArgument("name", new StringArg(2, 32), ArgumentRequirement.REQUIRED);
+        addArgument("location", new LocationArg(), ArgumentRequirement.REQUIRED_CONSOLE, "location");
 
         register();
     }

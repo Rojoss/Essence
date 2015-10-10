@@ -55,7 +55,7 @@ public class WorldCmd extends EssenceCommand {
         super(plugin, command, description, permission, aliases);
 
         addArgument("world", new WorldArg(), ArgumentRequirement.OPTIONAL);
-        addArgument("player", new WorldArg(), ArgumentRequirement.REQUIRED_CONSOLE, "others");
+        addArgument("player", new PlayerArg(), ArgumentRequirement.REQUIRED_CONSOLE, "others");
 
         addModifier("-i", EssMessage.MOD_WORLD_INFO.msg(), "info");
 
@@ -102,7 +102,7 @@ public class WorldCmd extends EssenceCommand {
         if (args.length < 1) {
             List<String> worlds = new ArrayList<String>();
             for (World w : Bukkit.getWorlds()) {
-                worlds.add(world.getName());
+                worlds.add(w.getName());
             }
             EssMessage.CMD_WORLD_LIST.msg(true, true, castPlayer(sender)).parseArgs(player.getWorld().getName(), Util.implode(worlds, ", ")).send(sender);
             return true;

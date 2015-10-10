@@ -55,7 +55,7 @@ public class WorldCmd extends EssenceCommand {
         super(plugin, command, description, permission, aliases);
 
         addArgument("world", new WorldArg(), ArgumentRequirement.OPTIONAL);
-        addArgument("player", new WorldArg(), ArgumentRequirement.REQUIRED_CONSOLE);
+        addArgument("player", new WorldArg(), ArgumentRequirement.REQUIRED_CONSOLE, "others");
 
         addModifier("-i", EssMessage.MOD_WORLD_INFO.msg(), "info");
 

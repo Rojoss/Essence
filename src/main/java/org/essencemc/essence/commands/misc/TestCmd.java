@@ -43,9 +43,7 @@ import org.essencemc.essencecore.entity.EItem;
 import org.essencemc.essencecore.entity.EntityTag;
 import org.essencemc.essencecore.parsers.EntityParser;
 import org.essencemc.essencecore.parsers.ItemParser;
-import org.essencemc.essencecore.util.Debug;
-import org.essencemc.essencecore.util.InvUtil;
-import org.essencemc.essencecore.util.Util;
+import org.essencemc.essencecore.util.*;
 
 import java.util.Arrays;
 import java.util.List;
@@ -55,7 +53,7 @@ public class TestCmd extends EssenceCommand {
     public TestCmd(Plugin plugin, String command, String description, String permission, List<String> aliases) {
         super(plugin, command, description, permission, aliases);
 
-        List<String> testArgs = Arrays.asList("items", "itemstring", "entity");
+        List<String> testArgs = Arrays.asList("items", "itemstring", "entity", "duration");
 
         addArgument("type", new ListArg(testArgs), ArgumentRequirement.REQUIRED);
 
@@ -87,6 +85,20 @@ public class TestCmd extends EssenceCommand {
         }
         if (args[0].equalsIgnoreCase("entity")) {
             entityParseTest(player);
+            return true;
+        }
+        if (args[0].equalsIgnoreCase("duration")) {
+            Long ms = NumberUtil.getLong(args[1]);
+            Duration duration = null;
+            if (ms != null) {
+                duration = new Duration(ms);
+            } else {
+                duration = new Duration(args[1]);
+            }
+            Debug.bc(duration.isValid());
+            Debug.bc(duration.getError() == null ? null : duration.getError().getText());
+            Debug.bc(duration.getString());
+            Debug.bc(duration.getMS());
             return true;
         }
 

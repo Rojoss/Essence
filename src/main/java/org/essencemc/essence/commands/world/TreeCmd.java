@@ -41,6 +41,7 @@ import org.essencemc.essencecore.aliases.Aliases;
 import org.essencemc.essencecore.commands.arguments.ArgumentParseResults;
 import org.essencemc.essencecore.commands.arguments.ArgumentRequirement;
 import org.essencemc.essencecore.commands.arguments.CmdArgument;
+import org.essencemc.essencecore.message.Param;
 
 import java.util.HashSet;
 import java.util.List;
@@ -73,9 +74,9 @@ public class TreeCmd extends EssenceCommand {
         boolean success = location.getWorld().generateTree(location, type);
 
         if (success) {
-            EssMessage.CMD_TREE.msg(true, true, castPlayer(sender)).send(sender);
+            EssMessage.CMD_TREE.msg().send(sender, Param.P("type", Aliases.getName(AliasType.TREES, type.toString())));
         } else {
-            EssMessage.CMD_TREE_FAILURE.msg(true, true, castPlayer(sender)).send(sender);
+            EssMessage.CMD_TREE_FAILURE.msg().send(sender, Param.P("type", Aliases.getName(AliasType.TREES, type.toString())));
         }
 
         return true;

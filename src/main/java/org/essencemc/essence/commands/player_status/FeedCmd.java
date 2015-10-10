@@ -37,7 +37,7 @@ import org.essencemc.essencecore.arguments.PlayerArg;
 import org.essencemc.essencecore.commands.EssenceCommand;
 import org.essencemc.essencecore.commands.arguments.ArgumentParseResults;
 import org.essencemc.essencecore.commands.arguments.ArgumentRequirement;
-import org.essencemc.essencecore.commands.arguments.CmdArgument;
+import org.essencemc.essencecore.message.Param;
 
 import java.util.List;
 
@@ -79,9 +79,9 @@ public class FeedCmd extends EssenceCommand {
         }
 
         if (!result.hasModifier("-s")) {
-            EssMessage.CMD_FEED_FEEDED.msg(true, true, castPlayer(sender)).send(player);
+            EssMessage.CMD_FEED_FEEDED.msg().send(player, Param.P("amt", Integer.toString(amount)));
             if (!sender.equals(player)) {
-                EssMessage.CMD_FEED_OTHER.msg(true, true, castPlayer(sender)).parseArgs(player.getDisplayName()).send(sender);
+                EssMessage.CMD_FEED_OTHER.msg().send(sender, Param.P("player", player.getDisplayName()), Param.P("amt", Integer.toString(amount)));
             }
         }
         return true;

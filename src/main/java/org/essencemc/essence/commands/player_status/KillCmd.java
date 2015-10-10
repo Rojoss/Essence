@@ -34,7 +34,7 @@ import org.essencemc.essencecore.arguments.PlayerArg;
 import org.essencemc.essencecore.commands.EssenceCommand;
 import org.essencemc.essencecore.commands.arguments.ArgumentParseResults;
 import org.essencemc.essencecore.commands.arguments.ArgumentRequirement;
-import org.essencemc.essencecore.commands.arguments.CmdArgument;
+import org.essencemc.essencecore.message.Param;
 
 import java.util.List;
 
@@ -58,16 +58,16 @@ public class KillCmd extends EssenceCommand {
         Player player = (Player)result.getArg("player");
 
         if (hasPermission(player, "exempt")) {
-            EssMessage.CMD_KILL_EXEMPT.msg(true, true, castPlayer(sender)).parseArgs(player.getName()).send(sender);
+            EssMessage.CMD_KILL_EXEMPT.msg().send(sender, Param.P("player", player.getDisplayName()));
             return true;
         }
 
         player.setHealth(0);
 
         if (!result.hasModifier("-s")) {
-            EssMessage.CMD_KILL.msg(true, true, player).parseArgs(sender.getName()).send(player);
+            EssMessage.CMD_KILL.msg().send(player, Param.P("player", sender.getName()));
             if (!sender.equals(player)) {
-                EssMessage.CMD_KILL_OTHER.msg(true, true, castPlayer(sender)).parseArgs(player.getDisplayName()).send(sender);
+                EssMessage.CMD_KILL_OTHER.msg().send(sender, Param.P("player", player.getDisplayName()));
             }
         }
         return true;

@@ -39,7 +39,7 @@ import org.essencemc.essencecore.arguments.PlayerArg;
 import org.essencemc.essencecore.commands.EssenceCommand;
 import org.essencemc.essencecore.commands.arguments.ArgumentParseResults;
 import org.essencemc.essencecore.commands.arguments.ArgumentRequirement;
-import org.essencemc.essencecore.commands.arguments.CmdArgument;
+import org.essencemc.essencecore.message.Param;
 
 import java.util.List;
 
@@ -81,9 +81,9 @@ public class GamemodeCmd extends EssenceCommand {
         player.setGameMode(gm);
 
         if (!result.hasModifier("-s")) {
-            EssMessage.CMD_GAMEMODE_CHANGED.msg(true, true, castPlayer(sender)).parseArgs(mode).send(player);
+            EssMessage.CMD_GAMEMODE_CHANGED.msg().send(player, Param.P("mode", mode));
             if (!sender.equals(player)) {
-                EssMessage.CMD_GAMEMODE_OTHER.msg(true, true, castPlayer(sender)).parseArgs(mode, player.getDisplayName()).send(sender);
+                EssMessage.CMD_GAMEMODE_OTHER.msg().send(sender, Param.P("mode", mode), Param.P("player", player.getDisplayName()));
             }
         }
         return true;

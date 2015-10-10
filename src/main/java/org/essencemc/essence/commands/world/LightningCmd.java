@@ -62,7 +62,7 @@ public class LightningCmd extends EssenceCommand {
         location.getWorld().strikeLightning(location);
 
         if (!result.hasModifier("-s")) {
-            EssMessage.CMD_LIGHTNING.msg(true, true, castPlayer(sender)).send(sender);
+            EssMessage.CMD_LIGHTNING.msg().send(sender);
         }
 
         return true;

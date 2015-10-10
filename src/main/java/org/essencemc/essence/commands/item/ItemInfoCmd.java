@@ -36,6 +36,7 @@ import org.essencemc.essencecore.aliases.Items;
 import org.essencemc.essencecore.commands.arguments.ArgumentParseResults;
 import org.essencemc.essencecore.commands.arguments.ArgumentRequirement;
 import org.essencemc.essencecore.entity.EItem;
+import org.essencemc.essencecore.message.Param;
 import org.essencemc.essencecore.parsers.ItemParser;
 import org.essencemc.essencecore.util.Util;
 
@@ -64,7 +65,7 @@ public class ItemInfoCmd extends EssenceCommand {
         if (args.length > 0) {
             ItemParser parser = new ItemParser(Util.implode(args, " "), false);
             if (!parser.isValid()) {
-                parser.getError().addPrefix().parsePlaceholders(castPlayer(sender)).toJSON().send(sender);
+                parser.getError().send(sender);
                 return true;
             }
             item = parser.getItem();
@@ -76,15 +77,9 @@ public class ItemInfoCmd extends EssenceCommand {
         }
         ItemAlias itemAlias = Items.getItem(item.getType(), item.getDurability());
 
-        HashMap<String, String> dataMap = new HashMap<String, String>();
-        dataMap.put("name", itemAlias.getName());
-        dataMap.put("amount", Integer.toString(item.getAmount()));
-        dataMap.put("aliases", itemAlias.getAliasesStr());
-        dataMap.put("type", item.getType().toString());
-        dataMap.put("data", Short.toString(item.getDurability()));
-        dataMap.put("string", new ItemParser(item).getString());
-
-        EssMessage.CMD_ITEM_INFO.msg(false, true, castPlayer(sender)).parseArgs(dataMap).send(sender);
+        EssMessage.CMD_ITEM_INFO.msg().send(sender, Param.P("name", itemAlias.getName()), Param.P("amount", Integer.toString(item.getAmount())),
+                Param.P("aliases", itemAlias.getAliasesStr()), Param.P("type", item.getType().toString()), Param.P("data", Short.toString(item.getDurability())),
+                Param.P("string", new ItemParser(item).getString()));
         return true;
     }
 }

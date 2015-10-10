@@ -36,7 +36,7 @@ import org.essencemc.essencecore.commands.EssenceCommand;
 import org.essencemc.essencecore.arguments.BoolArg;
 import org.essencemc.essencecore.commands.arguments.ArgumentParseResults;
 import org.essencemc.essencecore.commands.arguments.ArgumentRequirement;
-import org.essencemc.essencecore.commands.arguments.CmdArgument;
+import org.essencemc.essencecore.message.Param;
 
 import java.util.List;
 
@@ -84,9 +84,9 @@ public class BurnCmd extends EssenceCommand {
         }
 
         if (!result.hasModifier("-s")) {
-            EssMessage.CMD_BURN.msg(true, true, castPlayer(sender)).parseArgs(Integer.toString(ticks)).send(sender);
+            EssMessage.CMD_BURN.msg().send(player, Param.P("ticks", Integer.toString(ticks)));
             if (!sender.equals(player)) {
-                EssMessage.CMD_BURN_OTHER.msg(true, true, castPlayer(sender)).parseArgs(player.getDisplayName(), Integer.toString(ticks)).send(sender);
+                EssMessage.CMD_BURN_OTHER.msg().send(sender, Param.P("player", player.getDisplayName()), Param.P("ticks", Integer.toString(ticks)));
             }
         }
 

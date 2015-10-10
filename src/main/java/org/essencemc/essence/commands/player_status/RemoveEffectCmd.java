@@ -40,7 +40,7 @@ import org.essencemc.essencecore.aliases.AliasType;
 import org.essencemc.essencecore.aliases.Aliases;
 import org.essencemc.essencecore.commands.arguments.ArgumentParseResults;
 import org.essencemc.essencecore.commands.arguments.ArgumentRequirement;
-import org.essencemc.essencecore.commands.arguments.CmdArgument;
+import org.essencemc.essencecore.message.Param;
 import org.essencemc.essencecore.util.Util;
 
 import java.util.Arrays;
@@ -91,15 +91,15 @@ public class RemoveEffectCmd extends EssenceCommand {
         if (!result.hasModifier("-s")) {
             if (sender.equals(player)) {
                 if (single == true) {
-                    EssMessage.CMD_REMOVEEFFECT.msg(true, true, player).parseArgs(Aliases.getName(AliasType.POTION_EFFECT, effectType)).send(player);
+                    EssMessage.CMD_REMOVEEFFECT.msg().send(player, Param.P("effect", Aliases.getName(AliasType.POTION_EFFECT, effectType)));
                 } else {
-                    EssMessage.CMD_REMOVEEFFECT_ALL.msg(true, true, player).send(player);
+                    EssMessage.CMD_REMOVEEFFECT_ALL.msg().send(player);
                 }
             } else {
                 if (single == true) {
-                    EssMessage.CMD_REMOVEEFFECT_OTHER.msg(true, true, player).parseArgs(player.getDisplayName(), Aliases.getName(AliasType.POTION_EFFECT, effectType)).send(player);
+                    EssMessage.CMD_REMOVEEFFECT_OTHER.msg().send(sender, Param.P("player", player.getDisplayName()), Param.P("effect", Aliases.getName(AliasType.POTION_EFFECT, effectType)));
                 } else {
-                    EssMessage.CMD_REMOVEEFFECT_OTHER_ALL.msg(true, true, player).send(player);
+                    EssMessage.CMD_REMOVEEFFECT_OTHER_ALL.msg().send(sender);
                 }
             }
         }

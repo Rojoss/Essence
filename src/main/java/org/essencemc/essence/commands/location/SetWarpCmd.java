@@ -37,7 +37,7 @@ import org.essencemc.essencecore.arguments.StringArg;
 import org.essencemc.essencecore.commands.EssenceCommand;
 import org.essencemc.essencecore.commands.arguments.ArgumentParseResults;
 import org.essencemc.essencecore.commands.arguments.ArgumentRequirement;
-import org.essencemc.essencecore.commands.arguments.CmdArgument;
+import org.essencemc.essencecore.message.Param;
 
 import java.util.List;
 
@@ -65,7 +65,7 @@ public class SetWarpCmd extends EssenceCommand {
 
         Essence.inst().getWarps().setWarp(name, location);
         if (!result.hasModifier("-s")) {
-            EssMessage.CMD_WARP_SET.msg(true, true, castPlayer(sender)).parseArgs(name).send(sender);
+            EssMessage.CMD_WARP_SET.msg().send(sender, Param.P("warp", name));
         }
         return true;
     }

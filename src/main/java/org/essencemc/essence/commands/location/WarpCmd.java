@@ -37,8 +37,8 @@ import org.essencemc.essencecore.commands.EssenceCommand;
 import org.essencemc.essencecore.arguments.BoolArg;
 import org.essencemc.essencecore.commands.arguments.ArgumentParseResults;
 import org.essencemc.essencecore.commands.arguments.ArgumentRequirement;
-import org.essencemc.essencecore.commands.arguments.CmdArgument;
 import org.essencemc.essencecore.message.Message;
+import org.essencemc.essencecore.message.Param;
 
 import java.util.List;
 
@@ -67,22 +67,22 @@ public class WarpCmd extends EssenceCommand {
         Player player = (Player)result.getArg("player", castPlayer(sender));
 
         if (Essence.inst().getWarps().getWarp(name) == null) {
-            EssMessage.CMD_WARP_INVALID.msg(true, true, castPlayer(sender)).parseArgs(name).send(sender);
+            EssMessage.CMD_WARP_INVALID.msg().send(sender, Param.P("warp", name));
             return true;
         }
 
         if ((Boolean)cmdOptions.get("permission-based-warps").getArg().getValue()) {
             if (!sender.hasPermission("essence.*") && !sender.hasPermission("essence.warps.*") && !sender.hasPermission("essence.warps." + name)) {
-                Message.NO_PERM.msg(true, true, castPlayer(sender)).parseArgs("essence.warps." + name).send(sender);
+                Message.NO_PERM.msg().send(sender, Param.P("perm", "essence.warps." + name));
                 return true;
             }
         }
 
         player.teleport(Essence.inst().getWarps().getWarp(name));
         if (!result.hasModifier("-s")) {
-            EssMessage.CMD_WARP_USE.msg(true, true, castPlayer(sender)).parseArgs(name).send(sender);
+            EssMessage.CMD_WARP_USE.msg().send(player, Param.P("warp", name));
             if (!sender.equals(player)) {
-                EssMessage.CMD_WARP_OTHER.msg(true, true, castPlayer(sender)).parseArgs(player.getDisplayName(), name).send(sender);
+                EssMessage.CMD_WARP_USE.msg().send(sender, Param.P("player", player.getDisplayName()), Param.P("warp", name));
             }
         }
         return true;

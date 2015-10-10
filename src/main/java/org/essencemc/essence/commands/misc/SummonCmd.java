@@ -62,7 +62,7 @@ public class SummonCmd extends EssenceCommand {
 
         EntityParser entityParser = new EntityParser(Util.implode(args, " "), sender instanceof Player ? ((Player)sender).getLocation() : null, false);
         if (!entityParser.isValid()) {
-            entityParser.getError().addPrefix().parsePlaceholders(castPlayer(sender)).toJSON().send(sender);
+            entityParser.getError().send(sender);
             return true;
         }
 
@@ -71,7 +71,7 @@ public class SummonCmd extends EssenceCommand {
         }
 
         if (!result.hasModifier("-s")) {
-            EssMessage.CMD_SUMMON.msg(true, true, castPlayer(sender)).send(sender);
+            EssMessage.CMD_SUMMON.msg().send(sender);
         }
         return true;
     }

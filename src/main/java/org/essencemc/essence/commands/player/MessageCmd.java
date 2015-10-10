@@ -35,7 +35,7 @@ import org.essencemc.essencecore.arguments.StringArg;
 import org.essencemc.essencecore.commands.EssenceCommand;
 import org.essencemc.essencecore.commands.arguments.ArgumentParseResults;
 import org.essencemc.essencecore.commands.arguments.ArgumentRequirement;
-import org.essencemc.essencecore.commands.arguments.CmdArgument;
+import org.essencemc.essencecore.message.Param;
 import org.essencemc.essencecore.util.Util;
 
 import java.util.List;
@@ -61,11 +61,10 @@ public class MessageCmd extends EssenceCommand {
         Player target = (Player)result.getArg("player");
         String message = Util.implode(args, " ", 1);
 
-        EssMessage.CMD_MESSAGE.msg(true, true, castPlayer(target)).parseArgs(target.getDisplayName(), sender.getName(), message).send(target);
+        EssMessage.CMD_MESSAGE_RECEIVE.msg().send(target, Param.P("receiver", target.getDisplayName()), Param.P("sender", sender.getName()), Param.P("msg", message));
         if (!result.hasModifier("-s")) {
-            EssMessage.CMD_MESSAGE.msg(true, true, castPlayer(target)).parseArgs(target.getDisplayName(), sender.getName(), message).send(target);
+            EssMessage.CMD_MESSAGE_SENT.msg().send(target, Param.P("receiver", target.getDisplayName()), Param.P("sender", sender.getName()), Param.P("msg", message));
         }
-
         return true;
     }
 }

@@ -35,7 +35,7 @@ import org.essencemc.essencecore.arguments.PlayerArg;
 import org.essencemc.essencecore.commands.EssenceCommand;
 import org.essencemc.essencecore.commands.arguments.ArgumentParseResults;
 import org.essencemc.essencecore.commands.arguments.ArgumentRequirement;
-import org.essencemc.essencecore.commands.arguments.CmdArgument;
+import org.essencemc.essencecore.message.Param;
 
 import java.util.List;
 
@@ -65,9 +65,9 @@ public class WalkspeedCmd extends EssenceCommand {
         speed *= 100;
 
         if (!result.hasModifier("-s")) {
-            EssMessage.CMD_WALKSPEED.msg(true, true, player).parseArgs(speed.toString()).send(player);
+            EssMessage.CMD_WALKSPEED.msg().send(player, Param.P("speed", speed.toString()));
             if (!sender.equals(player)) {
-                EssMessage.CMD_WALKSPEED_OTHER.msg(true, true, castPlayer(sender)).parseArgs(player.getDisplayName(), speed.toString()).send(sender);
+                EssMessage.CMD_WALKSPEED_OTHER.msg().send(sender, Param.P("player", player.getDisplayName()), Param.P("speed",speed.toString()));
             }
         }
 

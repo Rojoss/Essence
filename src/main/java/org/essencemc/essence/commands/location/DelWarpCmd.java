@@ -31,17 +31,14 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.util.StringUtil;
 import org.essencemc.essence.Essence;
 import org.essencemc.essence.EssMessage;
-import org.essencemc.essencecore.arguments.ListArg;
 import org.essencemc.essencecore.arguments.StringArg;
 import org.essencemc.essencecore.commands.EssenceCommand;
 import org.essencemc.essencecore.commands.arguments.ArgumentParseResults;
 import org.essencemc.essencecore.commands.arguments.ArgumentRequirement;
-import org.essencemc.essencecore.commands.arguments.CmdArgument;
 import org.essencemc.essencecore.commands.links.RemoveLink;
-import org.essencemc.essencecore.util.Debug;
+import org.essencemc.essencecore.message.Param;
 
 import java.util.ArrayList;
-import java.util.Arrays;
 import java.util.List;
 
 public class DelWarpCmd extends EssenceCommand {
@@ -69,19 +66,19 @@ public class DelWarpCmd extends EssenceCommand {
         if (result.hasModifier("-a")) {
             Essence.inst().getWarps().clear();
             if (!result.hasModifier("-s")) {
-                EssMessage.CMD_WARP_DELETED_AlL.msg(true, true, castPlayer(sender)).send(sender);
+                EssMessage.CMD_WARP_DELETED_AlL.msg().send(sender);
             }
             return true;
         }
 
         String name = (String)result.getArg("name");
         if (!Essence.inst().getWarps().delWarp(name)) {
-            EssMessage.CMD_WARP_INVALID.msg(true, true, castPlayer(sender)).parseArgs(name).send(sender);
+            EssMessage.CMD_WARP_INVALID.msg().send(sender, Param.P("warp", name));
             return true;
         }
 
         if (!result.hasModifier("-s")) {
-            EssMessage.CMD_WARP_DELETED.msg(true, true, castPlayer(sender)).parseArgs(name).send(sender);
+            EssMessage.CMD_WARP_DELETED.msg().send(sender, Param.P("warp", name));
         }
         return true;
     }

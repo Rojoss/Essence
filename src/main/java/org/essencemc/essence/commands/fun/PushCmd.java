@@ -36,6 +36,7 @@ import org.essencemc.essencecore.arguments.VectorArg;
 import org.essencemc.essencecore.commands.EssenceCommand;
 import org.essencemc.essencecore.commands.arguments.ArgumentParseResults;
 import org.essencemc.essencecore.commands.arguments.ArgumentRequirement;
+import org.essencemc.essencecore.message.Param;
 
 import java.util.List;
 
@@ -70,9 +71,9 @@ public class PushCmd extends EssenceCommand {
 
         player.setVelocity(velocity);
         if (!result.hasModifier("-s")) {
-            EssMessage.CMD_PUSH.msg().addPrefix().parseArgs(VectorArg.Parse(velocity)).parsePlaceholders(player).toJSON().send(player);
+            EssMessage.CMD_PUSH.msg().send(player, Param.P("velocity", VectorArg.Parse(velocity)));
             if (!sender.equals(player)) {
-                EssMessage.CMD_PUSH_OTHER.msg().addPrefix().parseArgs(player.getDisplayName(), VectorArg.Parse(velocity)).parsePlaceholders(castPlayer(sender)).toJSON().send(sender);
+                EssMessage.CMD_PUSH_OTHER.msg().send(sender, Param.P("player", player.getDisplayName()), Param.P("velocity", VectorArg.Parse(velocity)));
             }
         }
         return true;

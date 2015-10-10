@@ -35,7 +35,7 @@ import org.essencemc.essencecore.arguments.StringArg;
 import org.essencemc.essencecore.commands.EssenceCommand;
 import org.essencemc.essencecore.commands.arguments.ArgumentParseResults;
 import org.essencemc.essencecore.commands.arguments.ArgumentRequirement;
-import org.essencemc.essencecore.commands.arguments.CmdArgument;
+import org.essencemc.essencecore.message.Param;
 import org.essencemc.essencecore.util.Util;
 
 import java.util.List;
@@ -64,7 +64,7 @@ public class SudoCmd extends EssenceCommand {
         plugin.getServer().dispatchCommand(target, command);
 
         if (!result.hasModifier("-s")) {
-            EssMessage.CMD_SUDO.msg(true, true, castPlayer(sender)).parseArgs(target.getName(), command).send(sender);
+            EssMessage.CMD_SUDO.msg().params(Param.P("player", target.getName()), Param.P("cmd", command)).send(sender);
         }
 
         return true;

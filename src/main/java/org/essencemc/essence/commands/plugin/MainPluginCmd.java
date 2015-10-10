@@ -70,7 +70,7 @@ public class MainPluginCmd extends EssenceCommand {
             Essence.inst().registerModules();
 
             if (!result.hasModifier("-s")) {
-                EssMessage.CMD_ESSENCE_RELOAD.msg(true, true, castPlayer(sender)).send(sender);
+                EssMessage.CMD_ESSENCE_RELOAD.msg().send(sender);
             }
             return true;
         }

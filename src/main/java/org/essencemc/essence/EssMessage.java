@@ -25,7 +25,6 @@
 
 package org.essencemc.essence;
 
-import org.bukkit.entity.Player;
 import org.essencemc.essencecore.EssenceCore;
 import org.essencemc.essencecore.message.EMessage;
 import org.essencemc.essencecore.message.EText;
@@ -34,61 +33,62 @@ import org.essencemc.essencecore.message.MsgCat;
 public enum EssMessage {
     //Command messages
     CMD_ESSENCE_INFO(MsgCat.COMMAND, "&8===== &4&lEssence plugin &8=====\n&8&o{0}\n&6Version&8: &7{1}\n&6Website&8: &9{2}\n&6Authors&8: &7{3}"),
-    CMD_ESSENCE_RELOAD(MsgCat.COMMAND, "Configs and commands reloaded."),
-    CMD_HEAL_HEALED(MsgCat.COMMAND, "You have been healed!"),
-    CMD_HEAL_OTHER(MsgCat.COMMAND, "You have healed &a{0}&6."),
-    CMD_HEAL_ALL(MsgCat.COMMAND, "You have healed all players!"),
-    CMD_FEED_FEEDED(MsgCat.COMMAND, "You have been fed!"),
-    CMD_FEED_OTHER(MsgCat.COMMAND, "You have fed &a{0}&6."),
-    CMD_GAMEMODE_CHANGED(MsgCat.COMMAND, "Gamemode changed to &a{0}&6."),
-    CMD_GAMEMODE_OTHER(MsgCat.COMMAND, "You have changed &a{0}'s &6gamemode to &a{1}&6."),
-    CMD_LIGHTNING(MsgCat.COMMAND, "Lightning has struck!"),
-    CMD_WARP_SET(MsgCat.COMMAND, "Warp &a{0} &6set!"),
-    CMD_WARP_DELETED(MsgCat.COMMAND, "Warp &a{0} &6deleted!"),
-    CMD_WARP_DELETED_AlL(MsgCat.COMMAND, "All warps have been deleted!"),
-    CMD_WARP_INVALID(MsgCat.COMMAND, "&cNo warp found with the name &4{0}&c!"),
-    CMD_WARPS(MsgCat.COMMAND, "&6&lWarps&8&l: &7{0}&6."),
-    CMD_WARPS_NONE(MsgCat.COMMAND, "No warps set yet!"),
-    CMD_WARP_USE(MsgCat.COMMAND, "Warping to &a{0}&6..."),
-    CMD_WARP_OTHER(MsgCat.COMMAND, "You have sent &a{0} &6to the warp &a{1}&6."),
-    CMD_TP(MsgCat.COMMAND, "&6Teleported to &a{0}&6."),
-    CMD_TP_OTHER(MsgCat.COMMAND, "&6You have teleported &a{1} &6to &a{0}&6."),
-    CMD_NICK_CHANGED(MsgCat.COMMAND, "&6Nickname changed to &r{0}&6."),
-    CMD_NICK_OTHER(MsgCat.COMMAND, "&6You have changed &a{1}'s &6nickname to &r{0}&6."),
-    CMD_REMOVEEFFECT(MsgCat.COMMAND, "&6Removed &a{0} &6potion effect."),
-    CMD_REMOVEEFFECT_ALL(MsgCat.COMMAND, "&6All potion effects removed."),
-    CMD_REMOVEEFFECT_OTHER(MsgCat.COMMAND, "&6Removed &a{0}&6's &a{1} &6potion effect."),
-    CMD_REMOVEEFFECT_OTHER_ALL(MsgCat.COMMAND, "&6All of &a{0}'s potion effects have been removed."),
-    CMD_BURN(MsgCat.COMMAND, "&6You will burn for &a{0} &6seconds."),
-    CMD_BURN_OTHER(MsgCat.COMMAND, "&a{0} &6will burn for &a{1} &6seconds."),
-    CMD_FLY(MsgCat.COMMAND, "&6Flight state: &a{0}&6."),
-    CMD_FLY_OTHER(MsgCat.COMMAND, "&a{0}&6's flight state: &a{1}&6."),
-    CMD_WALKSPEED(MsgCat.COMMAND, "&6Your walking speed is now &a{0}&6."),
-    CMD_WALKSPEED_OTHER(MsgCat.COMMAND, "&a{0}&6's walking speed is now &a{1}&6."),
-    CMD_FLYSPEED(MsgCat.COMMAND, "&6Your flying speed is now &a{0}&6."),
-    CMD_FLYSPEED_OTHER(MsgCat.COMMAND, "&a{0}&6's flying speed is now &a{1}&6."),
-    CMD_SUICIDE(MsgCat.COMMAND, "&a{0} &6has decided to take his own life."),
-    CMD_KILL(MsgCat.COMMAND, "&6You have been killed by &a{0}&6."),
-    CMD_KILL_OTHER(MsgCat.COMMAND, "&6You killed &a{0}&6."),
-    CMD_KILL_EXEMPT(MsgCat.COMMAND, "&cYou cannot kill &a{0}&c."),
-    CMD_TREE(MsgCat.COMMAND, "&6A tree has been generated."),
-    CMD_TREE_FAILURE(MsgCat.COMMAND, "&cA tree cannot be generated there."),
-    CMD_INVSEE(MsgCat.COMMAND, "&6You're now viewing &a{0}&6's inventory."),
-    CMD_INVSEE_EXEMPT(MsgCat.COMMAND, "&cYou cannot view &a{0}&c's inventory."),
-    CMD_ENDERCHEST(MsgCat.COMMAND, "&6You are viewing your enderchest."),
-    CMD_ENDERCHEST_OTHER(MsgCat.COMMAND, "&cYou cannot view &a{0}&c's enderchest."),
-    CMD_TPHERE(MsgCat.COMMAND, "&6You have teleported &a{0} &6here."),
-    CMD_SUDO(MsgCat.COMMAND, "&6You made &a{0} &6run &a{1}&6."),
-    CMD_SUMMON(MsgCat.COMMAND, "&6Entities summoned!"),
-    CMD_MESSAGE(MsgCat.COMMAND, "&6To&c: &a{0}&c &6From&c: &a{1}&c &e{2}"),
+    CMD_ESSENCE_RELOAD(MsgCat.COMMAND, "{p} &6Configs and commands reloaded."),
+    CMD_HEAL_HEALED(MsgCat.COMMAND, "{p} &6You have been healed!"),
+    CMD_HEAL_OTHER(MsgCat.COMMAND, "{p} &6You have healed &a{player}&6."),
+    CMD_HEAL_ALL(MsgCat.COMMAND, "{p} &6You have healed all players!"),
+    CMD_FEED_FEEDED(MsgCat.COMMAND, "{p} &6You have been fed!"),
+    CMD_FEED_OTHER(MsgCat.COMMAND, "{p} &6You have fed &a{player}&6."),
+    CMD_GAMEMODE_CHANGED(MsgCat.COMMAND, "{p} &6Gamemode changed to &a{mode}&6."),
+    CMD_GAMEMODE_OTHER(MsgCat.COMMAND, "{p} &6You have changed &a{player}'s &6gamemode to &a{mode}&6."),
+    CMD_LIGHTNING(MsgCat.COMMAND, "{p} &6Lightning has struck!"),
+    CMD_WARP_SET(MsgCat.COMMAND, "{p} &6Warp &a{warp} &6set!"),
+    CMD_WARP_DELETED(MsgCat.COMMAND, "{p} &6Warp &a{warp} &6deleted!"),
+    CMD_WARP_DELETED_AlL(MsgCat.COMMAND, "{p} &6All warps have been deleted!"),
+    CMD_WARP_INVALID(MsgCat.COMMAND, "{p} &cNo warp found with the name &4{warp}&c!"),
+    CMD_WARPS(MsgCat.COMMAND, "{p} &6&lWarps&8&l: &7{warps}&6."),
+    CMD_WARPS_NONE(MsgCat.COMMAND, "&cNo warps set yet!"),
+    CMD_WARP_USE(MsgCat.COMMAND, "{p} &6Warping to &a{warp}&6..."),
+    CMD_WARP_OTHER(MsgCat.COMMAND, "{p} &6You have sent &a{player} &6to the warp &a{warp}&6."),
+    CMD_TP(MsgCat.COMMAND, "{p} &6Teleported to &a{player}&6."),
+    CMD_TP_OTHER(MsgCat.COMMAND, "{p} &6You have teleported &a{player1} &6to &a{player2}&6."),
+    CMD_NICK_CHANGED(MsgCat.COMMAND, "{p} &6Nickname changed to &r{nick}&6."),
+    CMD_NICK_OTHER(MsgCat.COMMAND, "{p} &6You have changed &a{player}'s &6nickname to &r{nick}&6."),
+    CMD_REMOVEEFFECT(MsgCat.COMMAND, "{p} &6Removed &a{effect} &6potion effect."),
+    CMD_REMOVEEFFECT_ALL(MsgCat.COMMAND, "{p} &6All potion effects removed."),
+    CMD_REMOVEEFFECT_OTHER(MsgCat.COMMAND, "{p} &6Removed &a{player}&6's &a{effect} &6potion effect."),
+    CMD_REMOVEEFFECT_OTHER_ALL(MsgCat.COMMAND, "{p} &6All of &a{player}'s potion effects have been removed."),
+    CMD_BURN(MsgCat.COMMAND, "{p} &6You will burn for &a{ticks} &6ticks."),
+    CMD_BURN_OTHER(MsgCat.COMMAND, "{p} &a{player} &6will burn for &a{ticks} &6ticks."),
+    CMD_FLY(MsgCat.COMMAND, "{p} &6Flight state: &a{state}&6."),
+    CMD_FLY_OTHER(MsgCat.COMMAND, "{p} &a{player}&6's flight state: &a{state}&6."),
+    CMD_WALKSPEED(MsgCat.COMMAND, "{p} &6Your walking speed is now &a{speed}&6."),
+    CMD_WALKSPEED_OTHER(MsgCat.COMMAND, "{p} &a{player}&6's walking speed is now &a{speed}&6."),
+    CMD_FLYSPEED(MsgCat.COMMAND, "{p} &6Your flying speed is now &a{speed}&6."),
+    CMD_FLYSPEED_OTHER(MsgCat.COMMAND, "{p} &a{player}&6's flying speed is now &a{speed}&6."),
+    CMD_SUICIDE(MsgCat.COMMAND, "{p} &a{player} &6has decided to take his own life."),
+    CMD_KILL(MsgCat.COMMAND, "{p} &6You have been killed by &a{player}&6."),
+    CMD_KILL_OTHER(MsgCat.COMMAND, "{p} &6You killed &a{player}&6."),
+    CMD_KILL_EXEMPT(MsgCat.COMMAND, "{p} &cYou cannot kill &a{player}&c."),
+    CMD_TREE(MsgCat.COMMAND, "{p} &a{type} &6tree has been generated."),
+    CMD_TREE_FAILURE(MsgCat.COMMAND, "{p} &A tree cannot be generated there."),
+    CMD_INVSEE(MsgCat.COMMAND, "{p} &6You're now viewing &a{player}&6's inventory."),
+    CMD_INVSEE_EXEMPT(MsgCat.COMMAND, "{p} &cYou cannot view &a{player}&c's inventory."),
+    CMD_ENDERCHEST(MsgCat.COMMAND, "{p} &6You are viewing your enderchest."),
+    CMD_ENDERCHEST_OTHER(MsgCat.COMMAND, "{p} &cYou cannot view &a{player}&c's enderchest."),
+    CMD_TPHERE(MsgCat.COMMAND, "{p} &6You have teleported &a{player} &6here."),
+    CMD_SUDO(MsgCat.COMMAND, "{p} &6You made &a{player} &6run &a{cmd}&6."),
+    CMD_SUMMON(MsgCat.COMMAND, "{p} &6Entities summoned!"),
+    CMD_MESSAGE_SENT(MsgCat.COMMAND, "&a&l@&a{receiver}&8>> &7&o{msg}"),
+    CMD_MESSAGE_RECEIVE(MsgCat.COMMAND, "&a&l{sender}&8&l: &7&l&o{msg}"),
     CMD_ITEM_INFO(MsgCat.COMMAND, "&8===== &4&l{amount} {name} &8=====\n&6Type&8: &7{type}&8:&7{data}\n&6Aliases&8: &7{aliases}\n&6String&8: &7<<<{string}>>&7{string}>"),
-    CMD_ITEM_INFO_META(MsgCat.COMMAND, "&6{0}&8: &7{1}"),
+    CMD_ITEM_INFO_META(MsgCat.COMMAND, "&6{key}&8: &7{value}"),
     CMD_WORLD_INFO(MsgCat.COMMAND, "&8===== &4&l{name} &8=====\n&6UUID&8: &7{uuid}\n&6Seed&8: &7{seed}\n&6Type&8: &7{type}\n&6Environment&8: &7{environment}\n&6Difficulty&8: &7{difficulty}\n&6Loaded chunks&8: &7{chunks}\n&6Spawn&8: &7{spawn}"),
-    CMD_WORLD_TELEPORTED(MsgCat.COMMAND, "&6Teleported to &a{0}&6."),
-    CMD_WORLD_TELEPORTED_OTHER(MsgCat.COMMAND, "&6Teleported &a{0} &6to &a{1}&6."),
-    CMD_WORLD_LIST(MsgCat.COMMAND, "&6You're currently in the world&8: &a{0}\n&6&lWorlds&8: &7{1}"),
-    CMD_PUSH(MsgCat.COMMAND, "&6Pushed with &c$vec.bx({0}) &a$vec.by({0}) &9$vec.by({0}) &6velocity."),
-    CMD_PUSH_OTHER(MsgCat.COMMAND, "&6Pushed &a{0} &6with &c$vel.bx({1}) &a$vel.by({1}) &9$vel.by({1}) &6velocity."),
+    CMD_WORLD_TELEPORTED(MsgCat.COMMAND, "{p} &6Teleported to &a{world}&6."),
+    CMD_WORLD_TELEPORTED_OTHER(MsgCat.COMMAND, "{p} &6Teleported &a{player} &6to &a{world}&6."),
+    CMD_WORLD_LIST(MsgCat.COMMAND, "{p} &6You're currently in the world&8: &a{world}\n&6&lWorlds&8: &7{worlds}"),
+    CMD_PUSH(MsgCat.COMMAND, "{p} &6Pushed with &c$vec.bx({velocity}) &a$vec.by({velocity}) &9$vec.by({velocity}) &6velocity."),
+    CMD_PUSH_OTHER(MsgCat.COMMAND, "{p} &6Pushed &a{player} &6with &c$vel.bx({velocity}) &a$vel.by({velocity}) &9$vel.by({velocity}) &6velocity."),
 
     //Command modifiers
     MOD_HEAL_ONLY(MsgCat.COMMAND_MODIFIERS, "Only modify the health limited by the maximum health."),
@@ -110,12 +110,12 @@ public enum EssMessage {
     OPT_HEAL_EXTINGUISH(MsgCat.COMMAND_OPTIONS, "Remove remaining fire ticks?"),
     OPT_FEED_SATURATION(MsgCat.COMMAND_OPTIONS, "The amount of saturation given."),
     OPT_FEED_EXHAUSTION(MsgCat.COMMAND_OPTIONS, "Reset exhaustion?"),
-    OPT_WARP_PERM_BASED(MsgCat.COMMAND_OPTIONS, "Should warps be permissions based? Like essence.warp.spawn to use /warp spawn"),
+    OPT_WARP_PERM_BASED(MsgCat.COMMAND_OPTIONS, "Should warps be permissions based?\nLike essence.warps.spawn to use /warp spawn"),
     OPT_NICK_PREFIX(MsgCat.COMMAND_OPTIONS, "Prefix added in front of every nickname."),
     OPT_NICK_MIN_CHARS(MsgCat.COMMAND_OPTIONS, "Minimum amount of characters required. (exclusive prefix)"),
     OPT_NICK_MAX_CHARS(MsgCat.COMMAND_OPTIONS, "Maximum amount of characters allowed. (exclusive prefix)"),
-    OPT_BURN_TICKS(MsgCat.COMMAND_OPTIONS, "Change the time from seconds to ticks for more precision. There are 20 ticks in 1 second."),
-    OPT_ALLOW_FLY(MsgCat.COMMAND_OPTIONS, "If true, it will allow the player to keep toggling flying by double tapping space. If false the player can't start flying when double tapping space."),
+    OPT_BURN_TICKS(MsgCat.COMMAND_OPTIONS, "Change the time from seconds to ticks for more precision.\nThere are 20 ticks in 1 second."),
+    OPT_ALLOW_FLY(MsgCat.COMMAND_OPTIONS, "If true, it will allow the player to keep toggling\nflying by double tapping space.\nIf false the player can't start flying when double tapping space."),
     OPT_NO_HUNGER_LOSS(MsgCat.COMMAND_OPTIONS, "Don't lose hunger while in god mode?"),
     OPT_NO_DAMAGE(MsgCat.COMMAND_OPTIONS, "Don't damage other entities while in god mode?"),
     ;
@@ -132,31 +132,6 @@ public enum EssMessage {
 
     public EMessage emsg() {
         return message;
-    }
-
-    public EText msg(boolean prefix, boolean json) {
-        EText text = message.getText();
-        if (prefix) {
-            text = text.addPrefix();
-        }
-        if (json) {
-            text = text.toJSON();
-        }
-        return text;
-    }
-
-    public EText msg(boolean prefix, boolean json, Player player) {
-        EText text = message.getText();
-        if (prefix) {
-            text = text.addPrefix();
-        }
-        if (player != null) {
-            text = text.parsePlaceholders(player);
-        }
-        if (json) {
-            text = text.toJSON();
-        }
-        return text;
     }
 
     public static EMessage fromString(String name) {

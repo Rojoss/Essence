@@ -39,10 +39,9 @@ import org.essencemc.essencecore.arguments.WorldArg;
 import org.essencemc.essencecore.commands.EssenceCommand;
 import org.essencemc.essencecore.commands.arguments.ArgumentParseResults;
 import org.essencemc.essencecore.commands.arguments.ArgumentRequirement;
-import org.essencemc.essencecore.commands.links.MakeOptionalLink;
 import org.essencemc.essencecore.commands.links.MakeRequiredConsoleLink;
 import org.essencemc.essencecore.commands.links.RemoveLink;
-import org.essencemc.essencecore.message.Message;
+import org.essencemc.essencecore.message.Param;
 import org.essencemc.essencecore.util.Util;
 
 import java.util.ArrayList;
@@ -83,17 +82,9 @@ public class WorldCmd extends EssenceCommand {
         }
 
         if (result.hasModifier("-i")) {
-            HashMap<String, String> dataMap = new HashMap<String, String>();
-            dataMap.put("name", world.getName());
-            dataMap.put("uuid", world.getUID().toString());
-            dataMap.put("type", world.getWorldType().getName());
-            dataMap.put("environment", world.getEnvironment().toString());
-            dataMap.put("difficulty", world.getDifficulty().name());
-            dataMap.put("chunks", Integer.toString(world.getLoadedChunks().length));
-            dataMap.put("seed", Long.toString(world.getSeed()));
-            dataMap.put("spawn", LocationArg.Parse(world.getSpawnLocation()));
-
-            EssMessage.CMD_WORLD_INFO.msg(false, true, castPlayer(sender)).parseArgs(dataMap).send(sender);
+            EssMessage.CMD_WORLD_INFO.msg().send(sender, Param.P("name", world.getName()), Param.P("uuid", world.getUID().toString()), Param.P("type", world.getWorldType().getName()),
+                    Param.P("environment", world.getEnvironment().toString()), Param.P("difficulty", world.getDifficulty().name()), Param.P("chunks", Integer.toString(world.getLoadedChunks().length)),
+                    Param.P("seed", Long.toString(world.getSeed())), Param.P("spawn", LocationArg.Parse(world.getSpawnLocation())));
             return true;
         }
 
@@ -104,15 +95,15 @@ public class WorldCmd extends EssenceCommand {
             for (World w : Bukkit.getWorlds()) {
                 worlds.add(w.getName());
             }
-            EssMessage.CMD_WORLD_LIST.msg(true, true, castPlayer(sender)).parseArgs(player.getWorld().getName(), Util.implode(worlds, ", ")).send(sender);
+            EssMessage.CMD_WORLD_LIST.msg().send(sender, Param.P("world", player.getWorld().getName()), Param.P("worlds", Util.implode(worlds, ", ")));
             return true;
         }
 
         player.teleport(world.getSpawnLocation());
         if (!result.hasModifier("-s")) {
-            EssMessage.CMD_WORLD_TELEPORTED.msg(true, true, player).parseArgs(world.getName()).send(player);
+            EssMessage.CMD_WORLD_TELEPORTED.msg().send(player, Param.P("world", world.getName()));
             if (!sender.equals(player)) {
-                EssMessage.CMD_WORLD_TELEPORTED_OTHER.msg(true, true, castPlayer(sender)).parseArgs(player.getDisplayName(), world.getName()).send(sender);
+                EssMessage.CMD_WORLD_TELEPORTED_OTHER.msg().send(sender, Param.P("player", player.getDisplayName()), Param.P("world", world.getName()));
             }
         }
         return true;

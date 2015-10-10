@@ -34,8 +34,8 @@ import org.essencemc.essencecore.arguments.PlayerArg;
 import org.essencemc.essencecore.commands.EssenceCommand;
 import org.essencemc.essencecore.commands.arguments.ArgumentParseResults;
 import org.essencemc.essencecore.commands.arguments.ArgumentRequirement;
-import org.essencemc.essencecore.commands.arguments.CmdArgument;
 import org.essencemc.essencecore.message.Message;
+import org.essencemc.essencecore.message.Param;
 
 import java.util.List;
 
@@ -52,7 +52,7 @@ public class TpHereCmd extends EssenceCommand {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (!(sender instanceof Player)) {
-            Message.CMD_PLAYER_ONLY.msg(true, true, castPlayer(sender)).send(sender);
+            Message.CMD_PLAYER_ONLY.msg().send(sender);
             return true;
         }
 
@@ -68,7 +68,7 @@ public class TpHereCmd extends EssenceCommand {
         target.teleport(player);
 
         if (!result.hasModifier("-s")) {
-            EssMessage.CMD_TPHERE.msg(true, true, player).parseArgs(target.getDisplayName()).send(player);
+            EssMessage.CMD_TPHERE.msg().send(player, Param.P("player", target.getDisplayName()));
         }
         return true;
     }

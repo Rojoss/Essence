@@ -36,7 +36,7 @@ import org.essencemc.essencecore.arguments.StringArg;
 import org.essencemc.essencecore.commands.EssenceCommand;
 import org.essencemc.essencecore.commands.arguments.ArgumentParseResults;
 import org.essencemc.essencecore.commands.arguments.ArgumentRequirement;
-import org.essencemc.essencecore.commands.arguments.CmdArgument;
+import org.essencemc.essencecore.message.Param;
 import org.essencemc.essencecore.util.Util;
 
 import java.util.List;
@@ -76,9 +76,9 @@ public class NicknameCmd extends EssenceCommand {
         }
 
         if (!result.hasModifier("-s")) {
-            EssMessage.CMD_NICK_CHANGED.msg(true, true, player).parseArgs(hasPermission(sender, "color") ? player.getDisplayName() : Util.removeColor(player.getDisplayName())).send(player);
+            EssMessage.CMD_NICK_CHANGED.msg().send(player, Param.P("nick", hasPermission(sender, "color") ? player.getDisplayName() : Util.removeColor(player.getDisplayName())));
             if (!sender.equals(player)) {
-                EssMessage.CMD_NICK_OTHER.msg(true, true, player).parseArgs(hasPermission(sender, "color") ? player.getDisplayName() : Util.removeColor(player.getDisplayName()), player.getName()).send(sender);
+                EssMessage.CMD_NICK_OTHER.msg().send(sender, Param.P("nick", hasPermission(sender, "color") ? player.getDisplayName() : Util.removeColor(player.getDisplayName())), Param.P("player", player.getName()));
             }
         }
         return true;

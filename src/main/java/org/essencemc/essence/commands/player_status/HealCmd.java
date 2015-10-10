@@ -38,9 +38,9 @@ import org.essencemc.essencecore.commands.EssenceCommand;
 import org.essencemc.essencecore.arguments.BoolArg;
 import org.essencemc.essencecore.commands.arguments.ArgumentParseResults;
 import org.essencemc.essencecore.commands.arguments.ArgumentRequirement;
-import org.essencemc.essencecore.commands.arguments.CmdArgument;
 import org.essencemc.essencecore.commands.links.RemoveLink;
 import org.essencemc.essencecore.message.Message;
+import org.essencemc.essencecore.message.Param;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -86,7 +86,7 @@ public class HealCmd extends EssenceCommand {
 
             if (player.isDead() || player.getHealth() == 0) {
                 if (!result.hasModifier("-a")) {
-                    Message.DEAD_PLAYER.msg(true, true, castPlayer(sender)).parseArgs(args[0]).send(sender);
+                    Message.DEAD_PLAYER.msg().send(sender, Param.P("player", player.getDisplayName()));
                 }
                 return true;
             }
@@ -119,14 +119,14 @@ public class HealCmd extends EssenceCommand {
             }
 
             if (!result.hasModifier("-s")) {
-                EssMessage.CMD_HEAL_HEALED.msg(true, true, castPlayer(sender)).send(player);
+                EssMessage.CMD_HEAL_HEALED.msg().send(player);
             }
         }
         if (result.hasModifier("-a")) {
-            EssMessage.CMD_HEAL_ALL.msg(true, true, castPlayer(sender)).send(sender);
+            EssMessage.CMD_HEAL_ALL.msg().send(sender);
         } else {
             if (!sender.equals(players.get(0))) {
-                EssMessage.CMD_HEAL_OTHER.msg(true, true, castPlayer(sender)).parseArgs(players.get(0).getDisplayName()).send(sender);
+                EssMessage.CMD_HEAL_OTHER.msg().send(sender, Param.P("player", players.get(0).getDisplayName()));
             }
         }
         return true;

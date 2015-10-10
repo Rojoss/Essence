@@ -34,7 +34,7 @@ import org.essencemc.essencecore.arguments.PlayerArg;
 import org.essencemc.essencecore.commands.EssenceCommand;
 import org.essencemc.essencecore.commands.arguments.ArgumentParseResults;
 import org.essencemc.essencecore.commands.arguments.ArgumentRequirement;
-import org.essencemc.essencecore.commands.arguments.CmdArgument;
+import org.essencemc.essencecore.message.Param;
 
 import java.util.List;
 
@@ -62,9 +62,9 @@ public class TpCmd extends EssenceCommand {
 
         player.teleport(target);
         if (!result.hasModifier("-s")) {
-            EssMessage.CMD_TP.msg(true, true, player).parseArgs(target.getDisplayName()).send(player);
+            EssMessage.CMD_TP.msg().send(player, Param.P("player", target.getDisplayName()));
             if (!sender.equals(player)) {
-                EssMessage.CMD_TP_OTHER.msg(true, true, castPlayer(sender)).parseArgs(player.getDisplayName(), target.getDisplayName()).send(sender);
+                EssMessage.CMD_TP_OTHER.msg().send(sender, Param.P("player1", player.getDisplayName()), Param.P("player2", target.getDisplayName()));
             }
         }
         return true;

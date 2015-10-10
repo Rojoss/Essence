@@ -32,7 +32,6 @@ import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.plugin.Plugin;
 import org.essencemc.essencecore.commands.EssenceCommand;
 import org.essencemc.essencecore.commands.arguments.ArgumentParseResults;
-import org.essencemc.essencecore.commands.arguments.CmdArgument;
 import org.essencemc.essencecore.message.Message;
 
 import java.util.List;
@@ -48,7 +47,7 @@ public class SuicideCmd extends EssenceCommand {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         if (!(sender instanceof Player)) {
-            Message.CMD_PLAYER_ONLY.msg(true, true, castPlayer(sender)).parseArgs().send(sender);
+            Message.CMD_PLAYER_ONLY.msg().params().send(sender);
             return true;
         }
 

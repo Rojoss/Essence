@@ -36,7 +36,7 @@ import org.essencemc.essencecore.commands.EssenceCommand;
 import org.essencemc.essencecore.arguments.BoolArg;
 import org.essencemc.essencecore.commands.arguments.ArgumentParseResults;
 import org.essencemc.essencecore.commands.arguments.ArgumentRequirement;
-import org.essencemc.essencecore.commands.arguments.CmdArgument;
+import org.essencemc.essencecore.message.Param;
 
 import java.util.List;
 
@@ -74,9 +74,9 @@ public class FlyCmd extends EssenceCommand {
         player.setAllowFlight((Boolean)result.getOptionalArg("allow-fly"));
 
         if (!result.hasModifier("-s")) {
-            EssMessage.CMD_FEED_OTHER.msg(true, true, castPlayer(sender)).parseArgs(state.toString()).send(player);
+            EssMessage.CMD_FLY.msg().send(player, Param.P("state", state.toString()));
             if (!sender.equals(player)) {
-                EssMessage.CMD_FEED_OTHER.msg(true, true, castPlayer(sender)).parseArgs(player.getDisplayName(), state.toString()).send(sender);
+                EssMessage.CMD_FEED_OTHER.msg().send(sender, Param.P("player", player.getDisplayName()), Param.P("state", state.toString()));
             }
         }
 

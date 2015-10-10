@@ -1,6 +1,7 @@
 package org.essencemc.essence;
 
 import org.bukkit.plugin.java.JavaPlugin;
+import org.essencemc.essence.commands.fun.PushCmd;
 import org.essencemc.essence.commands.item.ItemInfoCmd;
 import org.essencemc.essence.commands.location.DelWarpCmd;
 import org.essencemc.essence.commands.location.SetWarpCmd;
@@ -104,6 +105,7 @@ public class Essence extends JavaPlugin {
         cmds.registerCommand(this, SummonCmd.class, "summon", "", "summon", "Summons any entity with any specified data.", new String[]{"spawnmob", "sm", "spawnentity", "se"});
         cmds.registerCommand(this, MessageCmd.class, "message", "", "message", "Sends a private message to another online player.", new String[]{"msg", "tell"});
         cmds.registerCommand(this, WorldCmd.class, "world", "", "world", "Teleport to a specific world or show detailed world information.", new String[]{"worldinfo"});
+        cmds.registerCommand(this, PushCmd.class, "push", "", "push", "Push yourself with a specific velocity.", new String[]{"velocity", "motion", "vel", "force"});
     }
 
     public void registerModules() {

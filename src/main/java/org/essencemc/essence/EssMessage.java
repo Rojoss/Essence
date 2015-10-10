@@ -87,6 +87,8 @@ public enum EssMessage {
     CMD_WORLD_TELEPORTED(MsgCat.COMMAND, "&6Teleported to &a{0}&6."),
     CMD_WORLD_TELEPORTED_OTHER(MsgCat.COMMAND, "&6Teleported &a{0} &6to &a{1}&6."),
     CMD_WORLD_LIST(MsgCat.COMMAND, "&6You're currently in the world&8: &a{0}\n&6&lWorlds&8: &7{1}"),
+    CMD_PUSH(MsgCat.COMMAND, "&6Pushed with &c$vec.bx({0}) &a$vec.by({0}) &9$vec.by({0}) &6velocity."),
+    CMD_PUSH_OTHER(MsgCat.COMMAND, "&6Pushed &a{0} &6with &c$vel.bx({1}) &a$vel.by({1}) &9$vel.by({1}) &6velocity."),
 
     //Command modifiers
     MOD_HEAL_ONLY(MsgCat.COMMAND_MODIFIERS, "Only modify the health limited by the maximum health."),
@@ -100,6 +102,7 @@ public enum EssMessage {
     MOD_GOD_RESET(MsgCat.COMMAND_MODIFIERS, "Reset any remaining effects like fire ticks, negative potion effects and so on."),
     MOD_RIDE_ENTITY(MsgCat.COMMAND_MODIFIERS, "Ride on top of the summoned entity."),
     MOD_WORLD_INFO(MsgCat.COMMAND_MODIFIERS, "Show detailed information about the world."),
+    MOD_PUSH_RELATIVE(MsgCat.COMMAND_MODIFIERS, "Makes the velocity relative to the player. (x,z are multipliers and y is raw value)"),
 
     //Command options/optional arguments
     OPT_HEAL_FEED(MsgCat.COMMAND_OPTIONS, "Restore hunger?"),

@@ -83,6 +83,10 @@ public enum EssMessage {
     CMD_MESSAGE(MsgCat.COMMAND, "&6To&c: &a{0}&c &6From&c: &a{1}&c &e{2}"),
     CMD_ITEM_INFO(MsgCat.COMMAND, "&8===== &4&l{amount} {name} &8=====\n&6Type&8: &7{type}&8:&7{data}\n&6Aliases&8: &7{aliases}\n&6String&8: &7<<<{string}>>&7{string}>"),
     CMD_ITEM_INFO_META(MsgCat.COMMAND, "&6{0}&8: &7{1}"),
+    CMD_WORLD_INFO(MsgCat.COMMAND, "&8===== &4&l{name} &8=====\n&6UUID&8: &7{uuid}\n&6Seed&8: &7{seed}\n&6Type&8: &7{type}\n&6Environment&8: &7{environment}\n&6Difficulty&8: &7{difficulty}\n&6Loaded chunks&8: &7{chunks}\n&6Spawn&8: &7{spawn}"),
+    CMD_WORLD_TELEPORTED(MsgCat.COMMAND, "&6Teleported to &a{0}&6."),
+    CMD_WORLD_TELEPORTED_OTHER(MsgCat.COMMAND, "&6Teleported &a{0} &6to &a{1}&6."),
+    CMD_WORLD_LIST(MsgCat.COMMAND, "&6You're currently in the world&8: &a{0}\n&6&lWorlds&8: &7{1}"),
 
     //Command modifiers
     MOD_HEAL_ONLY(MsgCat.COMMAND_MODIFIERS, "Only modify the health limited by the maximum health."),
@@ -95,6 +99,7 @@ public enum EssMessage {
     MOD_BURN_INCREMENT(MsgCat.COMMAND_MODIFIERS, "Increment the duration if the player is already burning."),
     MOD_GOD_RESET(MsgCat.COMMAND_MODIFIERS, "Reset any remaining effects like fire ticks, negative potion effects and so on."),
     MOD_RIDE_ENTITY(MsgCat.COMMAND_MODIFIERS, "Ride on top of the summoned entity."),
+    MOD_WORLD_INFO(MsgCat.COMMAND_MODIFIERS, "Show detailed information about the world."),
 
     //Command options/optional arguments
     OPT_HEAL_FEED(MsgCat.COMMAND_OPTIONS, "Restore hunger?"),

@@ -107,25 +107,25 @@ public class TestCmd extends EssenceCommand {
 
 
     public void itemTest(Player player) {
-        ItemParser parser = new ItemParser("playerskull 1 texture:cbb311f3ba1c07c3d1147cd210d81fe11fd8ae9e3db212a0fa748946c3633", false);
+        ItemParser parser = new ItemParser("playerskull 1 texture:cbb311f3ba1c07c3d1147cd210d81fe11fd8ae9e3db212a0fa748946c3633", 1, false);
         if (!parser.isValid()) {
             parser.getError().send(player);
         } else {
             InvUtil.addItems(player.getInventory(), parser.getItem());
         }
-        parser = new ItemParser("leatherhelmet:10 1 name:&6Golden_helmet protection:1 protection:2 color:#CC9900", false);
+        parser = new ItemParser("leatherhelmet:10 1 name:&6Golden_helmet protection:1 protection:2 color:#CC9900", 1, false);
         if (!parser.isValid()) {
             parser.getError().send(player);
         } else {
             InvUtil.addItems(player.getInventory(), parser.getItem());
         }
-        parser = new ItemParser("diamond 1 name:&bDiamond sharpness:1 lore:&3Shiny_diamond!|&7With_lore!", false);
+        parser = new ItemParser("diamond 1 name:&bDiamond sharpness:1 lore:&3Shiny_diamond!|&7With_lore!", 1, false);
         if (!parser.isValid()) {
             parser.getError().send(player);
         } else {
             InvUtil.addItems(player.getInventory(), parser.getItem());
         }
-        parser = new ItemParser("whitebanner 1 basecolor:lime stripes:black bricks:black", false);
+        parser = new ItemParser("whitebanner 1 basecolor:lime stripes:black bricks:black", 1, false);
         if (!parser.isValid()) {
             parser.getError().send(player);
         } else {

@@ -47,26 +47,31 @@ public class JumpCmd extends EssenceCommand {
     public JumpCmd(Plugin plugin, String command, String description, String permission, List<String> aliases) {
         super(plugin, command, description, permission, aliases);
 
-        addArgument("player", new PlayerArg(), ArgumentRequirement.REQUIRED);
+        addArgument("player", new PlayerArg(), ArgumentRequirement.REQUIRED_CONSOLE, "others");
 
         register();
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        if (!(sender instanceof Player)) {
-            Message.CMD_PLAYER_ONLY.msg().send(sender);
-            return true;
-        }
-
         ArgumentParseResults result = parseArgs(this, sender, args);
         if (!result.success) {
             return true;
         }
         args = result.getArgs();
 
-        Player player = (Player)sender;
-        Location location = player.getTargetBlock(Util.TRANSPARENT_MATERIALS, Bukkit.getViewDistance() * 16).getLocation();
+        Player player = (Player)result.getArg("player");
+
+        if (player == null) {
+            if (!(sender instanceof Player)) {
+                Message.CMD_PLAYER_ONLY.msg().send(sender);
+                return true;
+            } else {
+                player = (Player)sender;
+            }
+        }
+
+        Location location = player.getTargetBlock(Util.TRANSPARENT_MATERIALS, Bukkit.getViewDistance() * 16).getLocation().add(0, 1, 0);
         location.setPitch(player.getLocation().getPitch());
         location.setYaw(player.getLocation().getYaw());
 

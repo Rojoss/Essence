@@ -89,6 +89,7 @@ public enum EssMessage {
     CMD_WORLD_LIST(MsgCat.COMMAND, "{p} &6You're currently in the world&8: &a{world}\n&6&lWorlds&8: &7{worlds}"),
     CMD_PUSH(MsgCat.COMMAND, "{p} &6Pushed with &c$vec.bx({velocity}) &a$vec.by({velocity}) &9$vec.by({velocity}) &6velocity."),
     CMD_PUSH_OTHER(MsgCat.COMMAND, "{p} &6Pushed &a{player} &6with &c$vel.bx({velocity}) &a$vel.by({velocity}) &9$vel.by({velocity}) &6velocity."),
+    CMD_JUMP(MsgCat.COMMAND, "&6You've jumped somewhere."),
 
     //Command modifiers
     MOD_HEAL_ONLY(MsgCat.COMMAND_MODIFIERS, "Only modify the health limited by the maximum health."),

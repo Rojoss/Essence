@@ -110,6 +110,8 @@ public enum EssMessage {
     MOD_RIDE_ENTITY(MsgCat.COMMAND_MODIFIERS, "Ride on top of the summoned entity."),
     MOD_WORLD_INFO(MsgCat.COMMAND_MODIFIERS, "Show detailed information about the world."),
     MOD_PUSH_RELATIVE(MsgCat.COMMAND_MODIFIERS, "Makes the velocity relative to the player. (x,z are multipliers and y is raw value)"),
+    MOD_BROACAST_NO_PREFIX(MsgCat.COMMAND_MODIFIERS, "Remove the prefix from the broadcasted message."),
+    MOD_BROACAST_BAR(MsgCat.COMMAND_MODIFIERS, "Broadcast the message to people their action bar instead."),
 
     //Command options/optional arguments
     OPT_HEAL_FEED(MsgCat.COMMAND_OPTIONS, "Restore hunger?"),
@@ -128,6 +130,8 @@ public enum EssMessage {
     OPT_ITEM_STACK(MsgCat.COMMAND_OPTIONS, "Ignore item stack sizes and stack all items?"),
     OPT_ITEM_AMOUNT(MsgCat.COMMAND_OPTIONS, "The default amount of items when no amount is specified."),
     OPT_ITEM_DROP(MsgCat.COMMAND_OPTIONS, "Drop items on the ground when the inventory is full?"),
+    OPT_BROADCAST_WORLD(MsgCat.COMMAND_OPTIONS, "Only broadcast the message to this world."),
+    OPT_BROADCAST_PREFIX(MsgCat.COMMAND_OPTIONS, "The prefix that will be added in front of the message."),
     ;
 
     private EMessage message;

@@ -9,6 +9,7 @@ import org.essencemc.essence.commands.location.DelWarpCmd;
 import org.essencemc.essence.commands.location.SetWarpCmd;
 import org.essencemc.essence.commands.location.WarpCmd;
 import org.essencemc.essence.commands.location.WarpsCmd;
+import org.essencemc.essence.commands.misc.BroadcastCmd;
 import org.essencemc.essence.commands.misc.SummonCmd;
 import org.essencemc.essence.commands.misc.TestCmd;
 import org.essencemc.essence.commands.player.MessageCmd;
@@ -109,6 +110,7 @@ public class Essence extends JavaPlugin {
         cmds.registerCommand(this, ItemCmd.class, "item", "", "item", "Give yourself items. [[http://www.wiki.essencemc.org/meta]{{&7Go to the wiki!}&9&nmeta info}]", new String[]{"i"});
         cmds.registerCommand(this, GiveCmd.class, "give", "", "give", "Give an item to someone. [[http://www.wiki.essencemc.org/meta]{{&7Go to the wiki!}&9&nmeta info}]", new String[]{});
         cmds.registerCommand(this, JumpCmd.class, "jump", "", "jump", "Jump to where you're looking.", new String[]{"jumpto"});
+        cmds.registerCommand(this, BroadcastCmd.class, "broadcast", "", "broadcast", "Broadcast a message to all players.", new String[]{"bc","say","announce"});
     }
 
     public void registerModules() {

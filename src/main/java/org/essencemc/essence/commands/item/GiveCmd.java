@@ -31,9 +31,13 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.essencemc.essence.EssMessage;
-import org.essencemc.essencecore.aliases.*;
+import org.essencemc.essencecore.aliases.AliasType;
+import org.essencemc.essencecore.aliases.Aliases;
+import org.essencemc.essencecore.aliases.ItemAlias;
+import org.essencemc.essencecore.aliases.Items;
 import org.essencemc.essencecore.arguments.BoolArg;
 import org.essencemc.essencecore.arguments.IntArg;
+import org.essencemc.essencecore.arguments.PlayerArg;
 import org.essencemc.essencecore.arguments.StringArg;
 import org.essencemc.essencecore.commands.EssenceCommand;
 import org.essencemc.essencecore.commands.arguments.ArgumentParseResults;
@@ -49,11 +53,12 @@ import org.essencemc.essencecore.util.Util;
 import java.util.ArrayList;
 import java.util.List;
 
-public class ItemCmd extends EssenceCommand {
+public class GiveCmd extends EssenceCommand {
 
-    public ItemCmd(Plugin plugin, String command, String description, String permission, List<String> aliases) {
+    public GiveCmd(Plugin plugin, String command, String description, String permission, List<String> aliases) {
         super(plugin, command, description, permission, aliases);
 
+        addArgument("player", new PlayerArg(), ArgumentRequirement.REQUIRED);
         addArgument("item[:data]] [amount] [meta...", new StringArg(), ArgumentRequirement.OPTIONAL);
 
         addCommandOption("default-amount", EssMessage.OPT_ITEM_AMOUNT.msg(), new IntArg(1, 1, 64), false);
@@ -65,19 +70,16 @@ public class ItemCmd extends EssenceCommand {
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        if (!(sender instanceof Player)) {
-            Message.CMD_PLAYER_ONLY.msg().send(sender);
-            return true;
-        }
-        Player player = (Player)sender;
-
         ArgumentParseResults result = parseArgs(this, sender, args);
         if (!result.success) {
             return true;
         }
         args = result.getArgs();
 
-        ItemParser parser = new ItemParser(Util.implode(args, " "), (Integer)cmdOptions.get("default-amount").getArg().getValue(), false);
+        Player player = (Player)result.getArg("player");
+
+        args[0] = "";
+        ItemParser parser = new ItemParser(Util.implode(args, " ").trim(), (Integer)cmdOptions.get("default-amount").getArg().getValue(), false);
         if (!parser.isValid()) {
             parser.getError().send(sender);
             return true;
@@ -85,14 +87,17 @@ public class ItemCmd extends EssenceCommand {
         EItem item = parser.getItem();
 
         if (item == null || item.getType() == Material.AIR) {
-            EssMessage.CANT_SPAWN_AIR.msg().send(player);
+            EssMessage.CANT_SPAWN_AIR.msg().send(sender);
             return true;
         }
         InvUtil.addItems(player.getInventory(), item, (Boolean)result.getOptionalArg("drop"), !(Boolean)result.getOptionalArg("stack"));
 
         ItemAlias itemAlias = Items.getItem(item.getType(), item.getDurability());
         if (!result.hasModifier("-s")) {
-            EssMessage.CMD_ITEM_GIVE.msg().send(sender, Param.P("item", itemAlias.getName()), Param.P("amount", Integer.toString(item.getAmount())));
+            EssMessage.CMD_ITEM_GIVE.msg().send(player, Param.P("item", itemAlias.getName()), Param.P("amount", Integer.toString(item.getAmount())));
+            if (!sender.equals(player)) {
+                EssMessage.CMD_ITEM_GIVE_OTHER.msg().send(sender, Param.P("player", player.getDisplayName()), Param.P("item", itemAlias.getName()), Param.P("amount", Integer.toString(item.getAmount())));
+            }
         }
         return true;
     }
@@ -100,25 +105,6 @@ public class ItemCmd extends EssenceCommand {
     @Override
     public void showHelp(CommandSender sender) {
         super.showHelp(sender);
-        sendMetaHelp(sender);
+        ItemCmd.sendMetaHelp(sender);
     }
-
-    public static void sendMetaHelp(CommandSender sender) {
-        List<String> tags = new ArrayList<String>();
-        tags.add(EssMessage.CMD_META_HELP_ENTRY_EXTRA.msg().params(Param.P("tag", "{enchantment}"), Param.P("desc", Message.META_ENCHANT.msg().getText()),
-                Param.P("values", Util.wrapString(Util.implode(Aliases.getNames(AliasType.ENCHANTMENT, true), "&8, &b"), 75))).getText());
-        tags.add(EssMessage.CMD_META_HELP_ENTRY_EXTRA.msg().params(Param.P("tag", "{potion-effect}"), Param.P("desc", Message.META_POTION.msg().getText()),
-                Param.P("values", Util.wrapString(Util.implode(Aliases.getNames(AliasType.POTION_EFFECT, true), "&8, &b"), 75))).getText());
-        tags.add(EssMessage.CMD_META_HELP_ENTRY_EXTRA.msg().params(Param.P("tag", "{pattern}"), Param.P("desc", Message.META_PATTERN.msg().getText()),
-                Param.P("values", Util.wrapString(Util.implode(Aliases.getNames(AliasType.BANNER_PATTERNS, true), "&8, &b"), 75))).getText());
-
-        for (ItemTag tag : ItemTag.getTagList()) {
-            if (tag.isVisible()) {
-                tags.add(EssMessage.CMD_META_HELP_ENTRY.msg().params(Param.P("tag", tag.getName()), Param.P("desc", tag.getDescription().getText())).getText());
-            }
-        }
-
-        EssMessage.CMD_ITEM_META_HELP.msg().send(sender, Param.P("tags", Util.implode(tags, "&8, &7")));
-    }
-
 }

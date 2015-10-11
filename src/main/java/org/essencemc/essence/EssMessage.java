@@ -92,6 +92,7 @@ public enum EssMessage {
     CMD_JUMP(MsgCat.COMMAND, "{p} &6You've jumped somewhere."),
     CANT_SPAWN_AIR(MsgCat.COMMAND, "{p} &cYou can't spawn items that are air!"),
     CMD_ITEM_GIVE(MsgCat.COMMAND, "{p} &6You have been given &a&l{amount} &a{item}&6."),
+    CMD_ITEM_GIVE_OTHER(MsgCat.COMMAND, "{p} &6You have given {player} &a&l{amount} &a{item}&6."),
     CMD_ITEM_META_HELP(MsgCat.COMMAND, "&6Meta tags&8: {tags}"),
     CMD_META_HELP_ENTRY(MsgCat.COMMAND, "{{&7{desc}}&7{tag}}"),
     CMD_META_HELP_ENTRY_EXTRA(MsgCat.COMMAND, "{{&7{desc}\n&b{values}}&7{tag}}"),

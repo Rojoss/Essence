@@ -25,14 +25,12 @@
 
 package org.essencemc.essence.commands.teleport;
 
-import org.bukkit.Bukkit;
 import org.bukkit.Location;
 import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.event.player.PlayerTeleportEvent;
 import org.bukkit.plugin.Plugin;
 import org.essencemc.essence.EssMessage;
 import org.essencemc.essencecore.arguments.PlayerArg;
@@ -42,14 +40,12 @@ import org.essencemc.essencecore.commands.arguments.ArgumentRequirement;
 import org.essencemc.essencecore.message.Message;
 import org.essencemc.essencecore.message.Param;
 import org.essencemc.essencecore.util.Debug;
-import org.essencemc.essencecore.util.Util;
 
 import java.util.List;
-import java.util.Set;
 
-public class JumpCmd extends EssenceCommand {
+public class TopCmd extends EssenceCommand {
 
-    public JumpCmd(Plugin plugin, String command, String description, String permission, List<String> aliases) {
+    public TopCmd(Plugin plugin, String command, String description, String permission, List<String> aliases) {
         super(plugin, command, description, permission, aliases);
 
         addArgument("player", new PlayerArg(), ArgumentRequirement.REQUIRED_CONSOLE, "others");
@@ -57,7 +53,6 @@ public class JumpCmd extends EssenceCommand {
         register();
     }
 
-    @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         ArgumentParseResults result = parseArgs(this, sender, args);
         if (!result.success) {
@@ -66,22 +61,24 @@ public class JumpCmd extends EssenceCommand {
         args = result.getArgs();
 
         Player player = result.getArg("player") == null ? (Player)sender : (Player)result.getArg("player");
+        Location playerLoc = player.getLocation();
 
-        Block block = null;
-        block = player.getTargetBlock(Util.TRANSPARENT_MATERIALS, Bukkit.getViewDistance() * 16);
+        Block block = playerLoc.getWorld().getHighestBlockAt(playerLoc);
 
-        if (block.getType() == Material.AIR) {
-            EssMessage.CMD_JUMP_ERROR.msg().send(player, Param.P("player", player.getDisplayName()));
+        if (block.getRelative(0, -1, 0).getType() == Material.AIR) {
+            EssMessage.CMD_TOP_NONE.msg().send(player, Param.P("player", player.getDisplayName()));
             return true;
         }
 
-        Location location = block.getLocation().add(0, 1, 0);
-        location.setPitch(player.getLocation().getPitch());
-        location.setYaw(player.getLocation().getYaw());
+        if (playerLoc.getBlock().getLocation().equals(block.getLocation())) {
+            EssMessage.CMD_TOP_SAME.msg().send(player, Param.P("player", player.getDisplayName()));
+            return true;
+        }
 
-        player.teleport(location, PlayerTeleportEvent.TeleportCause.COMMAND);
+        player.teleport(block.getLocation());
+
         if (!result.hasModifier("-s")) {
-            EssMessage.CMD_JUMP.msg().send(player, Param.P("player", player.getDisplayName()));
+            EssMessage.CMD_TOP.msg().send(player, Param.P("player", player.getDisplayName()));
         }
         return true;
     }

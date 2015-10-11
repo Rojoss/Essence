@@ -105,6 +105,7 @@ public class Essence extends JavaPlugin {
         cmds.registerCommand(this, WorldCmd.class, "world", "", "world", "Teleport to a specific world or show detailed world information.", new String[]{"worldinfo"});
         cmds.registerCommand(this, PushCmd.class, "push", "", "push", "Push yourself with a specific velocity.", new String[]{"velocity", "motion", "vel", "force"});
         cmds.registerCommand(this, JumpCmd.class, "jump", "", "jump", "Jump to where you're looking.", new String[]{"jumpto"});
+        cmds.registerCommand(this, TopCmd.class, "top", "", "top", "Teleport to the highest block at your location.", new String[]{});
     }
 
     public void registerModules() {

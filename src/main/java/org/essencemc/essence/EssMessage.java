@@ -90,6 +90,10 @@ public enum EssMessage {
     CMD_PUSH(MsgCat.COMMAND, "{p} &6Pushed with &c$vec.bx({velocity}) &a$vec.by({velocity}) &9$vec.by({velocity}) &6velocity."),
     CMD_PUSH_OTHER(MsgCat.COMMAND, "{p} &6Pushed &a{player} &6with &c$vel.bx({velocity}) &a$vel.by({velocity}) &9$vel.by({velocity}) &6velocity."),
     CMD_JUMP(MsgCat.COMMAND, "&6You've jumped somewhere."),
+    CMD_JUMP_ERROR(MsgCat.COMMAND, "&cThere's nothing there, or it's too far away!"),
+    CMD_TOP(MsgCat.COMMAND, "&6You're now on the highest block."),
+    CMD_TOP_NONE(MsgCat.COMMAND, "&cEvery block at your location is empty."),
+    CMD_TOP_SAME(MsgCat.COMMAND, "&cYou're already standing on the highest block."),
 
     //Command modifiers
     MOD_HEAL_ONLY(MsgCat.COMMAND_MODIFIERS, "Only modify the health limited by the maximum health."),

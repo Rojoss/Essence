@@ -15,9 +15,7 @@ import org.essencemc.essence.commands.player.SudoCmd;
 import org.essencemc.essence.commands.player_status.*;
 import org.essencemc.essence.commands.plugin.MainPluginCmd;
 import org.essencemc.essence.commands.punishments.BanCmd;
-import org.essencemc.essence.commands.teleport.TpCmd;
-import org.essencemc.essence.commands.teleport.TpHereCmd;
-import org.essencemc.essence.commands.teleport.WorldCmd;
+import org.essencemc.essence.commands.teleport.*;
 import org.essencemc.essence.commands.world.LightningCmd;
 import org.essencemc.essence.commands.world.TreeCmd;
 import org.essencemc.essence.config.Warps;
@@ -106,6 +104,7 @@ public class Essence extends JavaPlugin {
         cmds.registerCommand(this, MessageCmd.class, "message", "", "message", "Sends a private message to another online player.", new String[]{"msg", "tell"});
         cmds.registerCommand(this, WorldCmd.class, "world", "", "world", "Teleport to a specific world or show detailed world information.", new String[]{"worldinfo"});
         cmds.registerCommand(this, PushCmd.class, "push", "", "push", "Push yourself with a specific velocity.", new String[]{"velocity", "motion", "vel", "force"});
+        cmds.registerCommand(this, JumpCmd.class, "jump", "", "jump", "Jump to where you're looking.", new String[]{"jumpto"});
     }
 
     public void registerModules() {

@@ -2,6 +2,8 @@ package org.essencemc.essence;
 
 import org.bukkit.plugin.java.JavaPlugin;
 import org.essencemc.essence.commands.fun.PushCmd;
+import org.essencemc.essence.commands.item.GiveCmd;
+import org.essencemc.essence.commands.item.ItemCmd;
 import org.essencemc.essence.commands.item.ItemInfoCmd;
 import org.essencemc.essence.commands.location.DelWarpCmd;
 import org.essencemc.essence.commands.location.SetWarpCmd;
@@ -104,6 +106,8 @@ public class Essence extends JavaPlugin {
         cmds.registerCommand(this, MessageCmd.class, "message", "", "message", "Sends a private message to another online player.", new String[]{"msg", "tell"});
         cmds.registerCommand(this, WorldCmd.class, "world", "", "world", "Teleport to a specific world or show detailed world information.", new String[]{"worldinfo"});
         cmds.registerCommand(this, PushCmd.class, "push", "", "push", "Push yourself with a specific velocity.", new String[]{"velocity", "motion", "vel", "force"});
+        cmds.registerCommand(this, ItemCmd.class, "item", "", "item", "Give yourself items. [[http://www.wiki.essencemc.org/meta]{{&7Go to the wiki!}&9&nmeta info}]", new String[]{"i"});
+        cmds.registerCommand(this, GiveCmd.class, "give", "", "give", "Give an item to someone. [[http://www.wiki.essencemc.org/meta]{{&7Go to the wiki!}&9&nmeta info}]", new String[]{});
         cmds.registerCommand(this, JumpCmd.class, "jump", "", "jump", "Jump to where you're looking.", new String[]{"jumpto"});
         cmds.registerCommand(this, TopCmd.class, "top", "", "top", "Teleport to the highest block at your location.", new String[]{});
     }

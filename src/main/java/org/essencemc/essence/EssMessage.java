@@ -89,11 +89,17 @@ public enum EssMessage {
     CMD_WORLD_LIST(MsgCat.COMMAND, "{p} &6You're currently in the world&8: &a{world}\n&6&lWorlds&8: &7{worlds}"),
     CMD_PUSH(MsgCat.COMMAND, "{p} &6Pushed with &c$vec.bx({velocity}) &a$vec.by({velocity}) &9$vec.by({velocity}) &6velocity."),
     CMD_PUSH_OTHER(MsgCat.COMMAND, "{p} &6Pushed &a{player} &6with &c$vel.bx({velocity}) &a$vel.by({velocity}) &9$vel.by({velocity}) &6velocity."),
-    CMD_JUMP(MsgCat.COMMAND, "&6You've jumped somewhere."),
-    CMD_JUMP_ERROR(MsgCat.COMMAND, "&cThere's nothing there, or it's too far away!"),
-    CMD_TOP(MsgCat.COMMAND, "&6You're now on the highest block."),
-    CMD_TOP_NONE(MsgCat.COMMAND, "&cEvery block at your location is empty."),
-    CMD_TOP_SAME(MsgCat.COMMAND, "&cYou're already standing on the highest block."),
+    CMD_JUMP(MsgCat.COMMAND, "{p} &6You've jumped somewhere."),
+    CMD_JUMP_ERROR(MsgCat.COMMAND, "{p} &cThere's nothing there, or it's too far away!"),
+    CMD_TOP(MsgCat.COMMAND, "{p} &6You're now on the highest block."),
+    CMD_TOP_NONE(MsgCat.COMMAND, "{p} &cEvery block at your location is empty."),
+    CMD_TOP_SAME(MsgCat.COMMAND, "{p} &cYou're already standing on the highest block."),
+    CANT_SPAWN_AIR(MsgCat.COMMAND, "{p} &cYou can't spawn items that are air!"),
+    CMD_ITEM_GIVE(MsgCat.COMMAND, "{p} &6You have been given &a&l{amount} &a{item}&6."),
+    CMD_ITEM_GIVE_OTHER(MsgCat.COMMAND, "{p} &6You have given {player} &a&l{amount} &a{item}&6."),
+    CMD_ITEM_META_HELP(MsgCat.COMMAND, "&6Meta tags&8: {tags}"),
+    CMD_META_HELP_ENTRY(MsgCat.COMMAND, "{{&7{desc}}&7{tag}}"),
+    CMD_META_HELP_ENTRY_EXTRA(MsgCat.COMMAND, "{{&7{desc}\n&b{values}}&7{tag}}"),
 
     //Command modifiers
     MOD_HEAL_ONLY(MsgCat.COMMAND_MODIFIERS, "Only modify the health limited by the maximum health."),
@@ -123,6 +129,9 @@ public enum EssMessage {
     OPT_ALLOW_FLY(MsgCat.COMMAND_OPTIONS, "If true, it will allow the player to keep toggling\nflying by double tapping space.\nIf false the player can't start flying when double tapping space."),
     OPT_NO_HUNGER_LOSS(MsgCat.COMMAND_OPTIONS, "Don't lose hunger while in god mode?"),
     OPT_NO_DAMAGE(MsgCat.COMMAND_OPTIONS, "Don't damage other entities while in god mode?"),
+    OPT_ITEM_STACK(MsgCat.COMMAND_OPTIONS, "Ignore item stack sizes and stack all items?"),
+    OPT_ITEM_AMOUNT(MsgCat.COMMAND_OPTIONS, "The default amount of items when no amount is specified."),
+    OPT_ITEM_DROP(MsgCat.COMMAND_OPTIONS, "Drop items on the ground when the inventory is full?"),
     ;
 
     private EMessage message;

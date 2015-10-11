@@ -37,9 +37,7 @@ import org.essencemc.essencecore.arguments.PlayerArg;
 import org.essencemc.essencecore.commands.EssenceCommand;
 import org.essencemc.essencecore.commands.arguments.ArgumentParseResults;
 import org.essencemc.essencecore.commands.arguments.ArgumentRequirement;
-import org.essencemc.essencecore.message.Message;
 import org.essencemc.essencecore.message.Param;
-import org.essencemc.essencecore.util.Debug;
 
 import java.util.List;
 

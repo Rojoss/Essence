@@ -63,7 +63,7 @@ public class ItemInfoCmd extends EssenceCommand {
 
         EItem item = null;
         if (args.length > 0) {
-            ItemParser parser = new ItemParser(Util.implode(args, " "), false);
+            ItemParser parser = new ItemParser(Util.implode(args, " "), 1, false);
             if (!parser.isValid()) {
                 parser.getError().send(sender);
                 return true;

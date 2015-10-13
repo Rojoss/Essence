@@ -31,6 +31,23 @@ import org.essencemc.essencecore.message.EText;
 import org.essencemc.essencecore.message.MsgCat;
 
 public enum EssMessage {
+    //General
+    INPUT_MODE_DISABLED(MsgCat.GENERAL, "{p} &6Input mode disabled. &7You may chat again."),
+
+    //Module messages
+    CORE_SIGN_CREATED(MsgCat.CORE_MODULE, "{p} &a&l{name} &6sign created!"),
+    CORE_SIGN_BROKEN(MsgCat.CORE_MODULE, "{p} &6You broke a &a&l{name} &6sign. {{{line-1}\n{line-2}\n{line-3}\n{line-4}}&8&o[&7&oSignData&8&o]}"),
+    CORE_SIGN_ADD(MsgCat.CORE_MODULE, "{p} &6Please specify a &aname &6for the sign.\n&7You can type the name in chat to set it.\n" +
+            "&7This name is used to identify the sign and it &ccan't be changed &7later on!\n&7Type &c&lq &7to disable chat input mode."),
+    CORE_SIGN_INVALID_NAME(MsgCat.CORE_MODULE, "{p} &cThe specified name &4{input} &cis not a valid name!\n&7Please specify a new name without spaces that only contains alphanumeric characters.\n" +
+            "&7Type &c&lq &7to disable chat input mode."),
+    CORE_SIGN_NAME_EXISTS(MsgCat.CORE_MODULE, "{p} &cA sign with this name already exisits!\n&7Please specify a new name."),
+    CORE_SIGN_LINE_NOT_UNIQUE(MsgCat.CORE_MODULE, "{p} &cThis line is marked as unique but the value specified is already used by the &4{sign} &csign."),
+    CORE_SIGN_SET_LINE(MsgCat.CORE_MODULE, "{p} &6Type &6&lin chat &6what should should be displayed on &aline {line}&6.\n&7Type &c&lq &7to disable chat input mode."),
+    CORE_SIGN_SET_ACTION(MsgCat.CORE_MODULE, "{p} &6Type &6&lin chat &6what action should happen for &a{action}&6.\n&7Type &c&lq &7to disable chat input mode."),
+    CORE_SIGN_INVALID_SYNTAX(MsgCat.CORE_MODULE, "{p} &cThe syntax of this sign is no longer valid."),
+    CORE_SIGN_SYNTAX_MISMATCH(MsgCat.CORE_MODULE, "{p} &cSyntax mismatch at &8'&c{char}&8' &con line &4{line} &cexpected &8'&c{expected}&8'&c. &4&lSyntax&8: &c&l{syntax}"),
+
     //Command messages
     CMD_ESSENCE_INFO(MsgCat.COMMAND, "&8===== &4&lEssence plugin &8=====\n&8&o{0}\n&6Version&8: &7{1}\n&6Website&8: &9{2}\n&6Authors&8: &7{3}"),
     CMD_ESSENCE_RELOAD(MsgCat.COMMAND, "{p} &6Configs and commands reloaded."),

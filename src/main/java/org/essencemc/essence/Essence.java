@@ -12,6 +12,7 @@ import org.essencemc.essence.commands.location.WarpsCmd;
 import org.essencemc.essence.commands.misc.BroadcastCmd;
 import org.essencemc.essence.commands.misc.SummonCmd;
 import org.essencemc.essence.commands.misc.TestCmd;
+import org.essencemc.essence.commands.module.signs.SignsCmd;
 import org.essencemc.essence.commands.player.MessageCmd;
 import org.essencemc.essence.commands.player.NicknameCmd;
 import org.essencemc.essence.commands.player.SudoCmd;
@@ -23,6 +24,7 @@ import org.essencemc.essence.commands.world.LightningCmd;
 import org.essencemc.essence.commands.world.TreeCmd;
 import org.essencemc.essence.config.Warps;
 import org.essencemc.essence.modules.ban.BanModule;
+import org.essencemc.essence.modules.signs.SignModule;
 import org.essencemc.essencecore.EssenceCore;
 import org.essencemc.essencecore.commands.Commands;
 import org.essencemc.essencecore.modules.Modules;
@@ -111,11 +113,13 @@ public class Essence extends JavaPlugin {
         cmds.registerCommand(this, GiveCmd.class, "give", "", "give", "Give an item to someone. [[http://www.wiki.essencemc.org/meta]{{&7Go to the wiki!}&9&nmeta info}]", new String[]{});
         cmds.registerCommand(this, JumpCmd.class, "jump", "", "jump", "Jump to where you're looking.", new String[]{"jumpto"});
         cmds.registerCommand(this, BroadcastCmd.class, "broadcast", "", "broadcast", "Broadcast a message to all players.", new String[]{"bc","say","announce"});
+        cmds.registerCommand(this, SignsCmd.class, "signs", "signs", "signs_cmd", "Open the sign editing menu to add or edit custom signs.", new String[]{});
     }
 
     public void registerModules() {
         Modules modules = core.getModules();
         modules.registerModule(BanModule.class, "punishments", "ban");
+        modules.registerModule(SignModule.class, "signs", "signs_core");
     }
 
 

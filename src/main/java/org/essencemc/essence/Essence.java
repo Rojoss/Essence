@@ -112,6 +112,7 @@ public class Essence extends JavaPlugin {
         cmds.registerCommand(this, ItemCmd.class, "item", "", "item", "Give yourself items. [[http://www.wiki.essencemc.org/meta]{{&7Go to the wiki!}&9&nmeta info}]", new String[]{"i"});
         cmds.registerCommand(this, GiveCmd.class, "give", "", "give", "Give an item to someone. [[http://www.wiki.essencemc.org/meta]{{&7Go to the wiki!}&9&nmeta info}]", new String[]{});
         cmds.registerCommand(this, JumpCmd.class, "jump", "", "jump", "Jump to where you're looking.", new String[]{"jumpto"});
+        cmds.registerCommand(this, TopCmd.class, "top", "", "top", "Teleport to the highest block at your location.", new String[]{});
         cmds.registerCommand(this, BroadcastCmd.class, "broadcast", "", "broadcast", "Broadcast a message to all players.", new String[]{"bc","say","announce"});
         cmds.registerCommand(this, SignsCmd.class, "signs", "signs", "signs_cmd", "Open the sign editing menu to add or edit custom signs.", new String[]{});
     }

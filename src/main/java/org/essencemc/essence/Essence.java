@@ -115,6 +115,7 @@ public class Essence extends JavaPlugin {
         cmds.registerCommand(this, TopCmd.class, "top", "", "top", "Teleport to the highest block at your location.", new String[]{});
         cmds.registerCommand(this, BroadcastCmd.class, "broadcast", "", "broadcast", "Broadcast a message to all players.", new String[]{"bc","say","announce"});
         cmds.registerCommand(this, SignsCmd.class, "signs", "signs", "signs_cmd", "Open the sign editing menu to add or edit custom signs.", new String[]{});
+        cmds.registerCommand(this, EffectCmd.class, "effect", "", "effect", "Apply a potion effect.", new String[]{"pe", "potioneffect"});
     }
 
     public void registerModules() {

@@ -117,6 +117,8 @@ public enum EssMessage {
     CMD_ITEM_META_HELP(MsgCat.COMMAND, "&6Meta tags&8: {tags}"),
     CMD_META_HELP_ENTRY(MsgCat.COMMAND, "{{&7{desc}}&7{tag}}"),
     CMD_META_HELP_ENTRY_EXTRA(MsgCat.COMMAND, "{{&7{desc}\n&b{values}}&7{tag}}"),
+    CMD_EFFECT(MsgCat.COMMAND, "{p} &a{effect} &a&l{amplifier} &6applied for &a{duration} &6seconds."),
+    CMD_EFFECT_OTHER(MsgCat.COMMAND, "{p} &a{effect} &a&l{amplifier} &6applied for &a{duration} &6seconds for &a{player}&6."),
 
     //Command modifiers
     MOD_HEAL_ONLY(MsgCat.COMMAND_MODIFIERS, "Only modify the health limited by the maximum health."),
@@ -133,6 +135,8 @@ public enum EssMessage {
     MOD_PUSH_RELATIVE(MsgCat.COMMAND_MODIFIERS, "Makes the velocity relative to the player. (x,z are multipliers and y is raw value)"),
     MOD_BROACAST_NO_PREFIX(MsgCat.COMMAND_MODIFIERS, "Remove the prefix from the broadcasted message."),
     MOD_BROACAST_BAR(MsgCat.COMMAND_MODIFIERS, "Broadcast the message to people their action bar instead."),
+    MOD_EFFECT_AMBIENT(MsgCat.COMMAND_MODIFIERS, "Makes the effect an ambient effect.\nThe particles will be barely visible."),
+    MOD_EFFECT_FORCE(MsgCat.COMMAND_MODIFIERS, "Force apply the specified effect.\nWill override any existing effect."),
 
     //Command options/optional arguments
     OPT_HEAL_FEED(MsgCat.COMMAND_OPTIONS, "Restore hunger?"),

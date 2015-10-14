@@ -29,6 +29,7 @@ import org.bukkit.Material;
 import org.bukkit.block.Block;
 import org.bukkit.block.Sign;
 import org.bukkit.event.EventHandler;
+import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.block.SignChangeEvent;
@@ -66,7 +67,9 @@ public class LoreSignModule extends Module {
         if (!event.getPlayer().hasPermission("essence.signs.lore.place")) {
             return;
         }
-        text.put(event.getPlayer().getUniqueId(), hand.getLore());
+        if (hand.getLore() != null && !hand.getLore().isEmpty()) {
+            text.put(event.getPlayer().getUniqueId(), hand.getLore());
+        }
     }
 
     @EventHandler
@@ -82,7 +85,7 @@ public class LoreSignModule extends Module {
         text.remove(event.getPlayer().getUniqueId());
     }
 
-    @EventHandler
+    @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     private void blockBreak(BlockBreakEvent event) {
         event.getBlock().getDrops().clear();
         Block block = event.getBlock();

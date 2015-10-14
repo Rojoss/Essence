@@ -13,9 +13,12 @@ import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.essencemc.essence.EssMessage;
+import org.essencemc.essence.commands.module.signs.BreakSignCmd;
 import org.essencemc.essence.modules.signs.config.SignCfg;
 import org.essencemc.essence.modules.signs.config.SignData;
+import org.essencemc.essencecore.EssenceCore;
 import org.essencemc.essencecore.arguments.internal.Argument;
+import org.essencemc.essencecore.commands.EssenceCommand;
 import org.essencemc.essencecore.message.Message;
 import org.essencemc.essencecore.message.Param;
 import org.essencemc.essencecore.modules.Module;
@@ -150,7 +153,20 @@ public class SignModule extends Module implements StorageModule {
             return;
         }
 
-        //TODO: Check if player is in sign break list. /breaksign
+        EssenceCommand cmd = EssenceCore.inst().getCommands().getCommand(BreakSignCmd.class);
+        if (cmd != null) {
+            if (!((BreakSignCmd)cmd).inSignBreakList(event.getPlayer().getUniqueId())) {
+                event.setCancelled(true);
+                return;
+            }
+        }
+
+        //TODO: Better permission check.
+        String perm = "essence.signs.break" + (sign.getSubPermission().isEmpty() ? "" : "." + sign.getSubPermission());
+        if (!event.getPlayer().hasPermission(perm)) {
+            Message.NO_PERM.msg().send(event.getPlayer(), true, true, Param.P("perm", perm));
+            event.setCancelled(true);
+        }
 
         EssMessage.CORE_SIGN_BROKEN.msg().send(event.getPlayer(), true, true, Param.P("name", sign.getName()),
                 Param.P("line-1", signBlock.getLine(0)), Param.P("line-2", signBlock.getLine(1)),

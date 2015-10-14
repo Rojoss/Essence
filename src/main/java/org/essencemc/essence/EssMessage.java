@@ -119,6 +119,8 @@ public enum EssMessage {
     CMD_META_HELP_ENTRY_EXTRA(MsgCat.COMMAND, "{{&7{desc}\n&b{values}}&7{tag}}"),
     CMD_EFFECT(MsgCat.COMMAND, "{p} &a{effect} &a&l{amplifier} &6applied for &a{duration} &6seconds."),
     CMD_EFFECT_OTHER(MsgCat.COMMAND, "{p} &a{effect} &a&l{amplifier} &6applied for &a{duration} &6seconds for &a{player}&6."),
+    CMD_BREAKSIGN_ENABLED(MsgCat.COMMAND, "{p} &6You can now break custom signs."),
+    CMD_BREAKSIGN_DISABLED(MsgCat.COMMAND, "{p} &6You can no longer break custom signs."),
 
     //Command modifiers
     MOD_HEAL_ONLY(MsgCat.COMMAND_MODIFIERS, "Only modify the health limited by the maximum health."),

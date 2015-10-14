@@ -12,6 +12,7 @@ import org.essencemc.essence.commands.location.WarpsCmd;
 import org.essencemc.essence.commands.misc.BroadcastCmd;
 import org.essencemc.essence.commands.misc.SummonCmd;
 import org.essencemc.essence.commands.misc.TestCmd;
+import org.essencemc.essence.commands.module.signs.BreakSignCmd;
 import org.essencemc.essence.commands.module.signs.SignsCmd;
 import org.essencemc.essence.commands.player.MessageCmd;
 import org.essencemc.essence.commands.player.NicknameCmd;
@@ -117,6 +118,7 @@ public class Essence extends JavaPlugin {
         cmds.registerCommand(this, TopCmd.class, "top", "", "top", "Teleport to the highest block at your location.", new String[]{});
         cmds.registerCommand(this, BroadcastCmd.class, "broadcast", "", "broadcast", "Broadcast a message to all players.", new String[]{"bc","say","announce"});
         cmds.registerCommand(this, SignsCmd.class, "signs", "signs", "signs_cmd", "Open the sign editing menu to add or edit custom signs.", new String[]{});
+        cmds.registerCommand(this, BreakSignCmd.class, "breaksign", "signs", "breaksigns_cmd", "Toggle sign breaking on/off to break custom signs.", new String[]{"signbreak"});
         cmds.registerCommand(this, EffectCmd.class, "effect", "", "effect", "Apply a potion effect.", new String[]{"pe", "potioneffect"});
     }
 

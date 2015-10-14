@@ -8,6 +8,7 @@ import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
 import org.essencemc.essence.EssMessage;
 import org.essencemc.essence.Essence;
+import org.essencemc.essence.modules.signs.config.SignData;
 import org.essencemc.essencecore.entity.EItem;
 import org.essencemc.essencecore.menu.Menu;
 import org.essencemc.essencecore.message.Param;

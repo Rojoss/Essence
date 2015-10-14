@@ -13,6 +13,8 @@ import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.essencemc.essence.EssMessage;
+import org.essencemc.essence.modules.signs.config.SignCfg;
+import org.essencemc.essence.modules.signs.config.SignData;
 import org.essencemc.essencecore.arguments.internal.Argument;
 import org.essencemc.essencecore.message.Message;
 import org.essencemc.essencecore.message.Param;
@@ -114,12 +116,6 @@ public class SignModule extends Module implements StorageModule {
     private void signCreate(SignChangeEvent event) {
         SignData sign = getMatchingSign(event.getLines().clone());
         if (sign == null) {
-            //TODO: Better permission check.
-            if (event.getPlayer().hasPermission("essence.signs.color")) {
-                for (int i = 0; i < 4; i++) {
-                    event.setLine(i, Util.color(event.getLine(i)));
-                }
-            }
             return;
         }
         //TODO: Better permission check.

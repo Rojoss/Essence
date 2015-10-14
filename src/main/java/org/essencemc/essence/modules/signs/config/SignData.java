@@ -1,4 +1,4 @@
-package org.essencemc.essence.modules.signs;
+package org.essencemc.essence.modules.signs.config;
 
 public class SignData {
 

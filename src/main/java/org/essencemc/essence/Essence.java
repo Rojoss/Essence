@@ -24,6 +24,8 @@ import org.essencemc.essence.commands.world.LightningCmd;
 import org.essencemc.essence.commands.world.TreeCmd;
 import org.essencemc.essence.config.Warps;
 import org.essencemc.essence.modules.ban.BanModule;
+import org.essencemc.essence.modules.signs.ColoredSignsModule;
+import org.essencemc.essence.modules.signs.LoreSignModule;
 import org.essencemc.essence.modules.signs.SignModule;
 import org.essencemc.essencecore.EssenceCore;
 import org.essencemc.essencecore.commands.Commands;
@@ -122,6 +124,8 @@ public class Essence extends JavaPlugin {
         Modules modules = core.getModules();
         modules.registerModule(BanModule.class, "punishments", "ban");
         modules.registerModule(SignModule.class, "signs", "signs_core");
+        modules.registerModule(ColoredSignsModule.class, "signs", "coloredSigns");
+        modules.registerModule(LoreSignModule.class, "signs", "loreSigns");
     }
 
 

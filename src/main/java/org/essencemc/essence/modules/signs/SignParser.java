@@ -1,7 +1,7 @@
 package org.essencemc.essence.modules.signs;
 
 import org.essencemc.essence.EssMessage;
-import org.essencemc.essencecore.arguments.StringArg;
+import org.essencemc.essence.modules.signs.config.SignData;
 import org.essencemc.essencecore.arguments.internal.Argument;
 import org.essencemc.essencecore.arguments.internal.ArgumentType;
 import org.essencemc.essencecore.message.EText;

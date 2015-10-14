@@ -1,4 +1,4 @@
-package org.essencemc.essence.modules.signs;
+package org.essencemc.essence.modules.signs.config;
 
 import org.essencemc.essencecore.arguments.BoolArg;
 import org.essencemc.essencecore.config.internal.EasyConfig;

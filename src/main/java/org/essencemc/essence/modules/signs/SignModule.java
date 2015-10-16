@@ -121,9 +121,8 @@ public class SignModule extends Module implements StorageModule {
         if (sign == null) {
             return;
         }
-        //TODO: Better permission check.
         String perm = "essence.signs.create" + (sign.getSubPermission().isEmpty() ? "" : "." + sign.getSubPermission());
-        if (!event.getPlayer().hasPermission(perm)) {
+        if (!Util.hasPermission(event.getPlayer(), perm)) {
             Message.NO_PERM.msg().send(event.getPlayer(), true, true, Param.P("perm", perm));
             event.setCancelled(true);
         }
@@ -161,9 +160,8 @@ public class SignModule extends Module implements StorageModule {
             }
         }
 
-        //TODO: Better permission check.
         String perm = "essence.signs.break" + (sign.getSubPermission().isEmpty() ? "" : "." + sign.getSubPermission());
-        if (!event.getPlayer().hasPermission(perm)) {
+        if (!Util.hasPermission(event.getPlayer(), perm)) {
             Message.NO_PERM.msg().send(event.getPlayer(), true, true, Param.P("perm", perm));
             event.setCancelled(true);
         }
@@ -199,9 +197,8 @@ public class SignModule extends Module implements StorageModule {
             return;
         }
 
-        //TODO: Better permission check.
         String perm = "essence.signs.use" + (sign.getSubPermission().isEmpty() ? "" : "." + sign.getSubPermission());
-        if (!player.hasPermission(perm)) {
+        if (!Util.hasPermission(player, perm)) {
             Message.NO_PERM.msg().send(player, true, true, Param.P("perm", perm));
             event.setCancelled(true);
         }

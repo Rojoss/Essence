@@ -36,6 +36,7 @@ import org.bukkit.event.block.SignChangeEvent;
 import org.essencemc.essencecore.entity.EItem;
 import org.essencemc.essencecore.modules.Module;
 import org.essencemc.essencecore.util.ItemUtil;
+import org.essencemc.essencecore.util.Util;
 
 import java.util.*;
 
@@ -63,8 +64,7 @@ public class LoreSignModule extends Module {
         if (hand == null || hand.getType() != Material.SIGN) {
             return;
         }
-        //TODO: Better permission check.
-        if (!event.getPlayer().hasPermission("essence.signs.lore.place")) {
+        if (!Util.hasPermission(event.getPlayer(), "essence.signs.lore.place")) {
             return;
         }
         if (hand.getLore() != null && !hand.getLore().isEmpty()) {
@@ -92,8 +92,7 @@ public class LoreSignModule extends Module {
         if (!(block.getState() instanceof Sign)) {
             return;
         }
-        //TODO: Better permission check.
-        if (!event.getPlayer().hasPermission("essence.signs.lore.break")) {
+        if (!Util.hasPermission(event.getPlayer(), "essence.signs.lore.break")) {
             return;
         }
         Sign sign = (Sign)block.getState();

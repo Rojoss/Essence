@@ -48,8 +48,7 @@ public class ColoredSignsModule extends Module {
 
     @EventHandler
     private void signChange(SignChangeEvent event) {
-        //TODO: Better permission check.
-        if (event.getPlayer().hasPermission("essence.signs.color")) {
+        if (Util.hasPermission(event.getPlayer(), "essence.signs.color")) {
             for (int i = 0; i < 4; i++) {
                 event.setLine(i, Util.color(event.getLine(i)));
             }

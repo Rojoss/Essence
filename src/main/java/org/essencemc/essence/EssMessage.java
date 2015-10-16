@@ -47,6 +47,11 @@ public enum EssMessage {
     CORE_SIGN_SET_ACTION(MsgCat.CORE_MODULE, "{p} &6Type &6&lin chat &6what action should happen for &a{action}&6.\n&7Type &c&lq &7to disable chat input mode."),
     CORE_SIGN_INVALID_SYNTAX(MsgCat.CORE_MODULE, "{p} &cThe syntax of this sign is no longer valid."),
     CORE_SIGN_SYNTAX_MISMATCH(MsgCat.CORE_MODULE, "{p} &cSyntax mismatch at &8'&c{char}&8' &con line &4{line} &cexpected &8'&c{expected}&8'&c. &4&lSyntax&8: &c&l{syntax}"),
+    CORE_KITS_MENU_INFO(MsgCat.CORE_MODULE, "&aLeft &7click on any of the kits to &aget &7it.\n&eRight &7click to &edisplay &7the kit contents."),
+    CORE_KITS_MENU_TITLE(MsgCat.CORE_MODULE, "&9&lKits"),
+    CORE_KIT_DISPLAY_MENU_INFO(MsgCat.CORE_MODULE, "&7This menu displays the kit contents.\n&7Click on the kit icon to spawn it in."),
+    CORE_KIT_DISPLAY_MENU_ICON_INFO(MsgCat.CORE_MODULE, "&7Displaying kit contents for the kit &a{kit}&7!\n&eClick &7to &egive &7yourself the kit."),
+    CORE_KIT_DISPLAY_MENU_TITLE(MsgCat.CORE_MODULE, "&9&lKit Display"),
 
     //Command messages
     CMD_ESSENCE_INFO(MsgCat.COMMAND, "&8===== &4&lEssence plugin &8=====\n&8&o{0}\n&6Version&8: &7{1}\n&6Website&8: &9{2}\n&6Authors&8: &7{3}"),
@@ -121,6 +126,16 @@ public enum EssMessage {
     CMD_EFFECT_OTHER(MsgCat.COMMAND, "{p} &a{effect} &a&l{amplifier} &6applied for &a{duration} &6seconds for &a{player}&6."),
     CMD_BREAKSIGN_ENABLED(MsgCat.COMMAND, "{p} &6You can now break custom signs."),
     CMD_BREAKSIGN_DISABLED(MsgCat.COMMAND, "{p} &6You can no longer break custom signs."),
+    CMD_KIT_LIST(MsgCat.COMMAND, "&6&lKits&8&l: &7{kits}"),
+    CMD_KIT_INVALID(MsgCat.COMMAND, "{p} &cNo kit found with the name &4{input}&c!"),
+    CMD_KIT_DISABLED(MsgCat.COMMAND, "{p} &cThe &4{kit} &ckit is disabled!"),
+    CMD_KIT_GIVEN(MsgCat.COMMAND, "{p} &6You received the &a{kit} &6kit!"),
+    CMD_KIT_GIVEN_OTHER(MsgCat.COMMAND, "{p} &6You gave &a{player} &6the &a{kit} &6kit."),
+    CMD_KIT_CREATED(MsgCat.COMMAND, "{p} &6Kit &a{kit} &6created!"),
+    CMD_KIT_SET(MsgCat.COMMAND, "{p} &6Kit contents for the kit &a{kit} &6updated."),
+    CMD_KIT_TOGGLE(MsgCat.COMMAND, "{p} &6The &a{kit} &6kit is now {state}."),
+    CMD_KIT_ICON_AIR(MsgCat.COMMAND, "{p} &cYou can't set the kit icon to air."),
+    CMD_KIT_ICON(MsgCat.COMMAND, "{p} &6Kit icon updated for the kit &a{kit}&6."),
 
     //Command modifiers
     MOD_HEAL_ONLY(MsgCat.COMMAND_MODIFIERS, "Only modify the health limited by the maximum health."),
@@ -139,6 +154,10 @@ public enum EssMessage {
     MOD_BROACAST_BAR(MsgCat.COMMAND_MODIFIERS, "Broadcast the message to people their action bar instead."),
     MOD_EFFECT_AMBIENT(MsgCat.COMMAND_MODIFIERS, "Makes the effect an ambient effect.\nThe particles will be barely visible."),
     MOD_EFFECT_FORCE(MsgCat.COMMAND_MODIFIERS, "Force apply the specified effect.\nWill override any existing effect."),
+    MOD_KIT_DISPLAY(MsgCat.COMMAND_MODIFIERS, "Open the kit display menu."),
+    MOD_KIT_LIST(MsgCat.COMMAND_MODIFIERS, "List all kit names that can be used."),
+    MOD_KIT_ICON(MsgCat.COMMAND_MODIFIERS, "Sets the kit icon used in the kits menu."),
+    MOD_KIT_TOGGLE(MsgCat.COMMAND_MODIFIERS, "Toggles the kit on/off."),
 
     //Command options/optional arguments
     OPT_HEAL_FEED(MsgCat.COMMAND_OPTIONS, "Restore hunger?"),

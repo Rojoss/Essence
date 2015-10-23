@@ -31,22 +31,19 @@ import org.bukkit.scheduler.BukkitRunnable;
 import org.essencemc.essencecore.database.Column;
 import org.essencemc.essencecore.database.Database;
 import org.essencemc.essencecore.database.Operator;
-import org.essencemc.essencecore.modules.DataModules;
-import org.essencemc.essencecore.modules.Module;
-import org.essencemc.essencecore.modules.PlayerStorageModule;
-import org.essencemc.essencecore.modules.SqlStorageModule;
+import org.essencemc.essencecore.modules.*;
 import org.essencemc.essencecore.util.Util;
 
 import java.sql.*;
 import java.util.*;
 
-public class BanModule extends Module implements SqlStorageModule, PlayerStorageModule {
+public class BanModule extends SqlStorageModule implements PlayerStorageModule {
 
     public Map<UUID, List<Ban>> bans = new HashMap<UUID, List<Ban>>();
     public Map<UUID, List<Ban>> bans_local = new HashMap<UUID, List<Ban>>();
 
     public BanModule(String name) {
-        super(name);
+        super(name, "ban", DataModules.BAN);
     }
 
     @Override
@@ -222,7 +219,7 @@ public class BanModule extends Module implements SqlStorageModule, PlayerStorage
     }
 
     @Override
-    public void createTable() {
+    public Column[] getTableColumns() {
         new BukkitRunnable() {
             @Override
             public void run() {
@@ -257,11 +254,7 @@ public class BanModule extends Module implements SqlStorageModule, PlayerStorage
                 }
             }
         }.runTaskAsynchronously(ess);
-    }
-
-    @Override
-    public DataModules getDataType() {
-        return DataModules.BAN;
+        return null;
     }
 
 

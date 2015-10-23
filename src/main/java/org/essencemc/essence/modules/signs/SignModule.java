@@ -26,7 +26,7 @@ import org.essencemc.essencecore.modules.StorageModule;
 import org.essencemc.essencecore.parsers.ItemParser;
 import org.essencemc.essencecore.util.Util;
 
-public class SignModule extends Module implements StorageModule {
+public class SignModule extends Module {
 
     private SignCfg config;
     private SignMenu menu;
@@ -48,14 +48,6 @@ public class SignModule extends Module implements StorageModule {
     @Override
     protected void onReload() {
         config.load();
-    }
-
-    @Override
-    public void onLoad() {
-    }
-
-    @Override
-    public void onSave() {
     }
 
     public SignCfg getConfig() {

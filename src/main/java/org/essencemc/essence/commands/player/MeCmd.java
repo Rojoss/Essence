@@ -33,15 +33,11 @@ import org.essencemc.essencecore.arguments.StringArg;
 import org.essencemc.essencecore.commands.EssenceCommand;
 import org.essencemc.essencecore.commands.arguments.ArgumentParseResults;
 import org.essencemc.essencecore.commands.arguments.ArgumentRequirement;
-import org.essencemc.essencecore.message.EText;
 import org.essencemc.essencecore.message.Param;
 import org.essencemc.essencecore.util.Util;
 
 import java.util.List;
 
-/**
- * Created by Cody on 15-10-24.
- */
 public class MeCmd extends EssenceCommand{
 
     public MeCmd(Plugin plugin, String command, String description, String permission, List<String> aliases) {
@@ -63,7 +59,7 @@ public class MeCmd extends EssenceCommand{
         }
 
         args = result.getArgs();
-        String message = Util.implode(args, " ", 1);
+        String message = Util.implode(args, " ");
 
         EssMessage.CMD_ME_MESSAGE.msg().broadcast(Param.P("sender", sender.getName()), Param.P("msg", message));
 

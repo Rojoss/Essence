@@ -86,7 +86,7 @@ public class Essence extends JavaPlugin {
 
     public void registerCommands() {
         Commands cmds = core.getCommands();
-        cmds.registerCommand(this, MeCmd.class, "me", "", "me", "Command to emote.", new String[]{});
+        cmds.registerCommand(this, MeCmd.class, "me", "me", "me", "Command to emote.", new String[]{});
         cmds.registerCommand(this, TestCmd.class, "test", "", "", "Command for testing plugin functionality.", new String[]{});
         cmds.registerCommand(this, MainPluginCmd.class, "essence", "", "", "Main plugin command and config reloading", new String[]{"essentials", "essential"});
         cmds.registerCommand(this, HealCmd.class, "heal", "", "heal", "Heal a player", new String[]{"health", "sethealth"});

@@ -103,6 +103,7 @@ public enum EssMessage {
     CMD_SUMMON(MsgCat.COMMAND, "{p} &6Entities summoned!"),
     CMD_MESSAGE_SENT(MsgCat.COMMAND, "&a&l@&a{receiver}&8>> &7&o{msg}"),
     CMD_MESSAGE_RECEIVE(MsgCat.COMMAND, "&a&l{sender}&8&l: &7&l&o{msg}"),
+    CMD_ME_MESSAGE(MsgCat.COMMAND, "&7{sender} &f* &3{msg}"),
     CMD_ITEM_INFO(MsgCat.COMMAND, "&8===== &4&l{amount} {name} &8=====\n&6Type&8: &7{type}&8:&7{data}\n&6Aliases&8: &7{aliases}\n&6String&8: &7<<<{string}>>&7{string}>"),
     CMD_ITEM_INFO_META(MsgCat.COMMAND, "&6{key}&8: &7{value}"),
     CMD_WORLD_INFO(MsgCat.COMMAND, "&8===== &4&l{name} &8=====\n&6UUID&8: &7{uuid}\n&6Seed&8: &7{seed}\n&6Type&8: &7{type}\n&6Environment&8: &7{environment}\n&6Difficulty&8: &7{difficulty}\n&6Loaded chunks&8: &7{chunks}\n&6Spawn&8: &7{spawn}"),

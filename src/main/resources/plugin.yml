@@ -3,6 +3,7 @@ name: Essence
 version: ${project.version}
 description: ${project.description}
 website: ${project.url}
-authors: [Worstboy]
+author: ${project.author}
+authors: ${project.authors}
 depend: [EssenceCore]
 softdepend: [Vault]

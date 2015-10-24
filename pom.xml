@@ -12,6 +12,8 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.author>Worstboy</project.author>
+        <project.authors>[KingGoesGaming, Pqqqqq, Protophite, WarmakerT]</project.authors>
     </properties>
 
     <repositories>

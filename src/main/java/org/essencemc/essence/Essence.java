@@ -10,6 +10,7 @@ import org.essencemc.essence.commands.location.SetWarpCmd;
 import org.essencemc.essence.commands.location.WarpCmd;
 import org.essencemc.essence.commands.location.WarpsCmd;
 import org.essencemc.essence.commands.misc.BroadcastCmd;
+import org.essencemc.essence.commands.misc.ListCmd;
 import org.essencemc.essence.commands.misc.SummonCmd;
 import org.essencemc.essence.commands.misc.TestCmd;
 import org.essencemc.essence.commands.module.kits.KitCmd;
@@ -86,6 +87,7 @@ public class Essence extends JavaPlugin {
 
     public void registerCommands() {
         Commands cmds = core.getCommands();
+        cmds.registerCommand(this, ListCmd.class, "list", "list", "list", "List of online players.", new String[]{});
         cmds.registerCommand(this, MeCmd.class, "me", "me", "me", "Command to emote.", new String[]{});
         cmds.registerCommand(this, TestCmd.class, "test", "", "", "Command for testing plugin functionality.", new String[]{});
         cmds.registerCommand(this, MainPluginCmd.class, "essence", "", "", "Main plugin command and config reloading", new String[]{"essentials", "essential"});

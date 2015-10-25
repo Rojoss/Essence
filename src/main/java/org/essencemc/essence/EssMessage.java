@@ -64,6 +64,7 @@ public enum EssMessage {
     CMD_GAMEMODE_CHANGED(MsgCat.COMMAND, "{p} &6Gamemode changed to &a{mode}&6."),
     CMD_GAMEMODE_OTHER(MsgCat.COMMAND, "{p} &6You have changed &a{player}'s &6gamemode to &a{mode}&6."),
     CMD_LIGHTNING(MsgCat.COMMAND, "{p} &6Lightning has struck!"),
+    CMD_LIST_PLAYERLIST(MsgCat.COMMAND, "&8===== &2&lPlayer list &8=====\n&fOnline[{online}/{slots}]: &a{players}"),
     CMD_WARP_SET(MsgCat.COMMAND, "{p} &6Warp &a{warp} &6set!"),
     CMD_WARP_DELETED(MsgCat.COMMAND, "{p} &6Warp &a{warp} &6deleted!"),
     CMD_WARP_DELETED_AlL(MsgCat.COMMAND, "{p} &6All warps have been deleted!"),

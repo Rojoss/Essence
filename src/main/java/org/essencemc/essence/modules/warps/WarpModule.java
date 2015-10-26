@@ -1,6 +1,7 @@
 package org.essencemc.essence.modules.warps;
 
 import org.bukkit.Location;
+import org.essencemc.essence.Essence;
 import org.essencemc.essencecore.modules.Module;
 
 import java.util.ArrayList;
@@ -12,7 +13,7 @@ public class WarpModule extends Module {
     private WarpsCfg config;
 
     public WarpModule(String name) {
-        super(name);
+        super(Essence.inst(), name);
     }
 
     @Override

@@ -2,6 +2,7 @@ package org.essencemc.essence.modules.kits;
 
 import org.bukkit.entity.Player;
 import org.essencemc.essence.EssMessage;
+import org.essencemc.essence.Essence;
 import org.essencemc.essencecore.message.Param;
 import org.essencemc.essencecore.modules.Module;
 import org.essencemc.essencecore.util.InvUtil;
@@ -13,7 +14,7 @@ public class KitModule extends Module {
     private KitDisplayMenu kitDisplayMenu;
 
     public KitModule(String name) {
-        super(name);
+        super(Essence.inst(), name);
     }
 
     @Override

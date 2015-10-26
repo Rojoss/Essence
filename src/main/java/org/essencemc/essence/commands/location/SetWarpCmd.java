@@ -49,6 +49,8 @@ public class SetWarpCmd extends EssenceCommand {
     public SetWarpCmd(Plugin plugin, String command, String description, String permission, List<String> aliases) {
         super(plugin, command, description, permission, aliases);
 
+        addDependency(WarpModule.class);
+
         addArgument("name", new StringArg(2, 32), ArgumentRequirement.REQUIRED);
         addArgument("location", new LocationArg(), ArgumentRequirement.REQUIRED_CONSOLE, "location");
 
@@ -57,17 +59,12 @@ public class SetWarpCmd extends EssenceCommand {
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        WarpModule warps = (WarpModule) EssenceCore.inst().getModules().getModule(WarpModule.class);
-        if (warps == null) {
-            Message.MODULE_DISABLED.msg().send(sender, true, true, Param.P("module", "warps core"));
-            return true;
-        }
-
         ArgumentParseResults result = parseArgs(this, sender, args);
         if (!result.success) {
             return true;
         }
         args = result.getArgs();
+        WarpModule warps = (WarpModule)getModule(WarpModule.class);
 
         String name = (String)result.getArg("name");
         Location location = (Location)result.getArg("location", sender instanceof Player ? ((Player)sender).getLocation() : null);

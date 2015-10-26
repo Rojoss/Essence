@@ -1,6 +1,7 @@
 package org.essencemc.essence.modules.shops;
 
 import org.bukkit.Material;
+import org.essencemc.essence.Essence;
 import org.essencemc.essencecore.EssenceCore;
 import org.essencemc.essencecore.database.Column;
 import org.essencemc.essencecore.database.Database;
@@ -20,7 +21,7 @@ public class ShopsModule extends SqlStorageModule {
     private ShopItemMenu itemMenu = null;
 
     public ShopsModule(String name) {
-        super(name, "ShopItems", DataModules.SHOP_ITEMS);
+        super(Essence.inst(), name, "ShopItems", DataModules.SHOP_ITEMS);
     }
 
     @Override

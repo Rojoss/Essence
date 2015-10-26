@@ -51,6 +51,9 @@ public class WarpsCmd extends EssenceCommand {
     public WarpsCmd(Plugin plugin, String command, String description, String permission, List<String> aliases) {
         super(plugin, command, description, permission, aliases);
 
+        addDependency(WarpModule.class);
+        addSoftDependency(WarpCmd.class);
+
         addArgument("world", new WorldArg(), ArgumentRequirement.OPTIONAL);
 
         register();
@@ -58,17 +61,12 @@ public class WarpsCmd extends EssenceCommand {
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        WarpModule warps = (WarpModule) EssenceCore.inst().getModules().getModule(WarpModule.class);
-        if (warps == null) {
-            Message.MODULE_DISABLED.msg().send(sender, true, true, Param.P("module", "warps core"));
-            return true;
-        }
-
         ArgumentParseResults result = parseArgs(this, sender, args);
         if (!result.success) {
             return true;
         }
         args = result.getArgs();
+        WarpModule warps = (WarpModule)getModule(WarpModule.class);
 
         World world = (World)result.getArg("world");
 
@@ -83,8 +81,8 @@ public class WarpsCmd extends EssenceCommand {
             }
         }
 
-        EssenceCommand warpCmd = EssenceCore.inst().getCommands().getCommand(WarpCmd.class);
-        if (warpCmd != null && (Boolean)((WarpCmd)warpCmd).cmdOptions.get("permission-based-warps").getArg().getValue()) {
+        WarpCmd warpCmd = (WarpCmd)getCmd(WarpCmd.class);
+        if (warpCmd != null && (Boolean)warpCmd.cmdOptions.get("permission-based-warps").getArg().getValue()) {
             List<String> warpsClone = new ArrayList<String>(warpList);
             for (String warp : warpsClone) {
                 if (!sender.hasPermission("essence.*") && !sender.hasPermission("essence.warps.*") && !sender.hasPermission("essence.warps." + warp.toLowerCase())) {

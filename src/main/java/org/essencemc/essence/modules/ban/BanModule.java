@@ -28,6 +28,7 @@ package org.essencemc.essence.modules.ban;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.essencemc.essence.Essence;
 import org.essencemc.essencecore.database.Column;
 import org.essencemc.essencecore.database.Database;
 import org.essencemc.essencecore.database.Operator;
@@ -43,7 +44,7 @@ public class BanModule extends SqlStorageModule implements PlayerStorageModule {
     public Map<UUID, List<Ban>> bans_local = new HashMap<UUID, List<Ban>>();
 
     public BanModule(String name) {
-        super(name, "ban", DataModules.BAN);
+        super(Essence.inst(), name, "ban", DataModules.BAN);
     }
 
     @Override

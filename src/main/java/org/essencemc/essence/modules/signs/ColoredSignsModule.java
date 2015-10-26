@@ -27,13 +27,14 @@ package org.essencemc.essence.modules.signs;
 
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.block.SignChangeEvent;
+import org.essencemc.essence.Essence;
 import org.essencemc.essencecore.modules.Module;
 import org.essencemc.essencecore.util.Util;
 
 public class ColoredSignsModule extends Module {
 
     public ColoredSignsModule(String name) {
-        super(name);
+        super(Essence.inst(), name);
     }
 
     @Override

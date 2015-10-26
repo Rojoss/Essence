@@ -49,6 +49,8 @@ public class DelWarpCmd extends EssenceCommand {
     public DelWarpCmd(Plugin plugin, String command, String description, String permission, List<String> aliases) {
         super(plugin, command, description, permission, aliases);
 
+        addDependency(WarpModule.class);
+
         addArgument("name", new StringArg(), ArgumentRequirement.REQUIRED);
 
         addModifier("-a", EssMessage.MOD_DELWARP_ALL.msg());
@@ -60,17 +62,12 @@ public class DelWarpCmd extends EssenceCommand {
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
-        WarpModule warps = (WarpModule)EssenceCore.inst().getModules().getModule(WarpModule.class);
-        if (warps == null) {
-            Message.MODULE_DISABLED.msg().send(sender, true, true, Param.P("module", "warps core"));
-            return true;
-        }
-
         ArgumentParseResults result = parseArgs(this, sender, args);
         if (!result.success) {
             return true;
         }
         args = result.getArgs();
+        WarpModule warps = (WarpModule)getModule(WarpModule.class);
 
         if (result.hasModifier("-a")) {
             warps.delWarps();
@@ -97,10 +94,8 @@ public class DelWarpCmd extends EssenceCommand {
         if (!hasPermission(sender)) {
             return null;
         }
-        WarpModule warps = (WarpModule)EssenceCore.inst().getModules().getModule(WarpModule.class);
-        if (warps == null) {
-            return null;
-        }
+
+        WarpModule warps = (WarpModule)getModule(WarpModule.class);
         List<String> warpList = new ArrayList<String>();
         for (String warp : warps.getWarpNames()) {
             if (StringUtil.startsWithIgnoreCase(warp, args[0])) {

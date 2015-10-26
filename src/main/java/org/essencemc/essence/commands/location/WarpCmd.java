@@ -31,6 +31,8 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.essencemc.essence.EssMessage;
 import org.essencemc.essence.Essence;
+import org.essencemc.essence.modules.warps.WarpModule;
+import org.essencemc.essencecore.EssenceCore;
 import org.essencemc.essencecore.arguments.PlayerArg;
 import org.essencemc.essencecore.arguments.StringArg;
 import org.essencemc.essencecore.commands.EssenceCommand;
@@ -57,6 +59,12 @@ public class WarpCmd extends EssenceCommand {
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+        WarpModule warps = (WarpModule) EssenceCore.inst().getModules().getModule(WarpModule.class);
+        if (warps == null) {
+            Message.MODULE_DISABLED.msg().send(sender, true, true, Param.P("module", "warps core"));
+            return true;
+        }
+
         ArgumentParseResults result = parseArgs(this, sender, args);
         if (!result.success) {
             return true;
@@ -66,7 +74,7 @@ public class WarpCmd extends EssenceCommand {
         String name = (String)result.getArg("name");
         Player player = (Player)result.getArg("player", castPlayer(sender));
 
-        if (Essence.inst().getWarps().getWarp(name) == null) {
+        if (warps.getWarp(name) == null) {
             EssMessage.CMD_WARP_INVALID.msg().send(sender, Param.P("warp", name));
             return true;
         }
@@ -78,7 +86,7 @@ public class WarpCmd extends EssenceCommand {
             }
         }
 
-        player.teleport(Essence.inst().getWarps().getWarp(name));
+        player.teleport(warps.getWarp(name));
         if (!result.hasModifier("-s")) {
             EssMessage.CMD_WARP_USE.msg().send(player, Param.P("warp", name));
             if (!sender.equals(player)) {

@@ -32,11 +32,14 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.essencemc.essence.EssMessage;
 import org.essencemc.essence.Essence;
+import org.essencemc.essence.modules.warps.WarpModule;
+import org.essencemc.essencecore.EssenceCore;
 import org.essencemc.essencecore.arguments.LocationArg;
 import org.essencemc.essencecore.arguments.StringArg;
 import org.essencemc.essencecore.commands.EssenceCommand;
 import org.essencemc.essencecore.commands.arguments.ArgumentParseResults;
 import org.essencemc.essencecore.commands.arguments.ArgumentRequirement;
+import org.essencemc.essencecore.message.Message;
 import org.essencemc.essencecore.message.Param;
 
 import java.util.List;
@@ -54,6 +57,12 @@ public class SetWarpCmd extends EssenceCommand {
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+        WarpModule warps = (WarpModule) EssenceCore.inst().getModules().getModule(WarpModule.class);
+        if (warps == null) {
+            Message.MODULE_DISABLED.msg().send(sender, true, true, Param.P("module", "warps core"));
+            return true;
+        }
+
         ArgumentParseResults result = parseArgs(this, sender, args);
         if (!result.success) {
             return true;
@@ -63,7 +72,7 @@ public class SetWarpCmd extends EssenceCommand {
         String name = (String)result.getArg("name");
         Location location = (Location)result.getArg("location", sender instanceof Player ? ((Player)sender).getLocation() : null);
 
-        Essence.inst().getWarps().setWarp(name, location);
+        warps.setWarp(name, location);
         if (!result.hasModifier("-s")) {
             EssMessage.CMD_WARP_SET.msg().send(sender, Param.P("warp", name));
         }

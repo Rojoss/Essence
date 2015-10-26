@@ -52,6 +52,13 @@ public enum EssMessage {
     CORE_KIT_DISPLAY_MENU_INFO(MsgCat.CORE_MODULE, "&7This menu displays the kit contents.\n&7Click on the kit icon to spawn it in."),
     CORE_KIT_DISPLAY_MENU_ICON_INFO(MsgCat.CORE_MODULE, "&7Displaying kit contents for the kit &a{kit}&7!\n&eClick &7to &egive &7yourself the kit."),
     CORE_KIT_DISPLAY_MENU_TITLE(MsgCat.CORE_MODULE, "&9&lKit Display"),
+    CORE_SHOPITEMS_DISPLAY(MsgCat.CORE_MODULE, "&8===== &4&lShop Items &7[&c&l{page}&7] &8=====\n{items}\n" +
+            "&8===== <<{cmd} {prev}>&6&lPREV>  &8- <<<{cmd} item:>>&a&lNEW> &8- " +
+            "<<{cmd}>&c&lCLOSE> &8- <<{cmd} {next}>&6&lNEXT> &8====="),
+    CORE_SHOPITEMS_DISPLAY_ITEM(MsgCat.CORE_MODULE, "&6&l{item} &8- " +
+            "[[&7The buy price.\n&aClick to edit.]&a{currency}{buy}]&7/" +
+            "[[&7The sell price.\n&aClick to edit.]&c{currency}{sell}] &8- " +
+            "[[&7Can the item be placed on the market?\n&aClick to toggle.]&6Market&7({market}&7)]"),
 
     //Command messages
     CMD_ESSENCE_INFO(MsgCat.COMMAND, "&8===== &4&lEssence plugin &8=====\n&8&o{0}\n&6Version&8: &7{1}\n&6Website&8: &9{2}\n&6Authors&8: &7{3}"),
@@ -178,6 +185,7 @@ public enum EssMessage {
     OPT_ITEM_DROP(MsgCat.COMMAND_OPTIONS, "Drop items on the ground when the inventory is full?"),
     OPT_BROADCAST_WORLD(MsgCat.COMMAND_OPTIONS, "Only broadcast the message to this world."),
     OPT_BROADCAST_PREFIX(MsgCat.COMMAND_OPTIONS, "The prefix that will be added in front of the message."),
+    OPT_SHOPITEM_ITEMSPERPAGE(MsgCat.COMMAND_OPTIONS, "The amount of items displayed per page."),
     ;
 
     private EMessage message;

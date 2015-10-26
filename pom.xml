@@ -12,6 +12,8 @@
 
     <properties>
         <project.build.sourceEncoding>UTF-8</project.build.sourceEncoding>
+        <project.author>Worstboy</project.author>
+        <project.authors>[KingGoesGaming, Pqqqqq, Protophite, WarmakerT]</project.authors>
     </properties>
 
     <repositories>
@@ -22,6 +24,11 @@
         <repository>
             <id>essence-repo</id>
             <url>http://essencemc.org/maven/maven2/</url>
+        </repository>
+
+        <repository>
+            <id>vault-repo</id>
+            <url>http://nexus.theyeticave.net/content/repositories/pub_releases</url>
         </repository>
     </repositories>
 
@@ -37,6 +44,13 @@
             <groupId>org.essencemc</groupId>
             <artifactId>essence-core</artifactId>
             <version>0.0.1-SNAPSHOT</version>
+            <scope>provided</scope>
+        </dependency>
+
+        <dependency>
+            <groupId>net.milkbowl.vault</groupId>
+            <artifactId>Vault</artifactId>
+            <version>1.5.6</version>
             <scope>provided</scope>
         </dependency>
     </dependencies>

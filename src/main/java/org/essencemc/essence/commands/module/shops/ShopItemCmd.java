@@ -25,33 +25,17 @@
 
 package org.essencemc.essence.commands.module.shops;
 
-import org.bukkit.Bukkit;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.entity.EntityDamageEvent;
-import org.bukkit.event.player.AsyncPlayerChatEvent;
-import org.bukkit.material.MaterialData;
 import org.bukkit.plugin.Plugin;
-import org.essencemc.essence.EssMessage;
-import org.essencemc.essence.modules.shops.ShopItem;
 import org.essencemc.essence.modules.shops.ShopsModule;
 import org.essencemc.essencecore.EssenceCore;
-import org.essencemc.essencecore.aliases.Items;
-import org.essencemc.essencecore.arguments.BoolArg;
-import org.essencemc.essencecore.arguments.IntArg;
-import org.essencemc.essencecore.arguments.MaterialArg;
 import org.essencemc.essencecore.commands.EssenceCommand;
 import org.essencemc.essencecore.commands.arguments.ArgumentParseResults;
-import org.essencemc.essencecore.commands.arguments.ArgumentRequirement;
-import org.essencemc.essencecore.commands.links.ConflictLink;
-import org.essencemc.essencecore.commands.links.LinkLink;
 import org.essencemc.essencecore.message.Message;
 import org.essencemc.essencecore.message.Param;
 import org.essencemc.essencecore.modules.Module;
-import org.essencemc.essencecore.util.Debug;
-import org.essencemc.essencecore.util.Util;
 
 import java.util.*;
 

@@ -186,10 +186,21 @@ public class ShopItemMenu extends Menu {
 
             //TODO: Messages for these values.
             setSlot(21, new EItem(Material.GOLD_INGOT).setName("&a&l$" + shopItem.getBuyPrice()).addLore("&7The default buy price.", "&7Click to edit!"));
-            setSlot(39, new EItem(Material.GOLD_INGOT).setName("&c&l$" + shopItem.getSellPrice()).addLore("&7The default sell price.", "&7Click to edit!"));
+            if (shopItem.canBuy()) {
+                setSlot(22, new EItem(Material.INK_SACK, 1, (short)10).setName("&aCan be bought.").setLore("&7Players can buy these items in shops.", "&8Click to disable."), player);
+            } else {
+                setSlot(22, new EItem(Material.INK_SACK, 1, (short)8).setName("&7Can't be bought.").setLore("&7Players can't buy these items in shops.", "&8Click to enable."), player);
+            }
 
-            setSlot(24, new EItem(Material.GOLD_INGOT).setName("&6&l$0.0").addLore("&7The minimum market price.", "&7Click to edit!"));
-            setSlot(42, new EItem(Material.GOLD_INGOT).setName("&e&l$0.0").addLore("&7The maximum market price.", "&7Click to edit!"));
+            setSlot(39, new EItem(Material.GOLD_INGOT).setName("&c&l$" + shopItem.getSellPrice()).addLore("&7The default sell price.", "&7Click to edit!"));
+            if (shopItem.canSell()) {
+                setSlot(40, new EItem(Material.INK_SACK, 1, (short)10).setName("&aCan be sold.").setLore("&7Players can sell these items in shops.", "&8Click to disable."), player);
+            } else {
+                setSlot(40, new EItem(Material.INK_SACK, 1, (short)8).setName("&7Can't be sold.").setLore("&7Players can't sell these items in shops.", "&8Click to enable."), player);
+            }
+
+            setSlot(24, new EItem(Material.GOLD_INGOT).setName("&6&l$" + shopItem.getMinMarketPrice()).addLore("&7The minimum market price.", "&7Click to edit!"));
+            setSlot(42, new EItem(Material.GOLD_INGOT).setName("&e&l$" + shopItem.getMaxMarketPrice()).addLore("&7The maximum market price.", "&7Click to edit!"));
 
             if (shopItem.isMarket()) {
                 setSlot(33, new EItem(Material.INK_SACK, 1, (short)10).setName("&aCan be placed on the market.").setLore("&7Players can place this item on the market.", "&8Click to disable."), player);

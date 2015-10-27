@@ -23,37 +23,22 @@
  * THE SOFTWARE.
  */
 
-package org.essencemc.essence.modules.signs;
+package org.essencemc.essence.modules.warps;
 
-import org.bukkit.event.EventHandler;
-import org.bukkit.event.block.SignChangeEvent;
-import org.essencemc.essence.Essence;
-import org.essencemc.essencecore.modules.Module;
-import org.essencemc.essencecore.util.Util;
+import org.bukkit.Location;
+import org.essencemc.essencecore.config.internal.EasyConfig;
 
-public class ColoredSignsModule extends Module {
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.List;
+import java.util.Map;
 
-    public ColoredSignsModule(String name) {
-        super(Essence.inst(), name);
+public class WarpsCfg extends EasyConfig {
+
+    public Map<String, Location> warps = new HashMap<String, Location>();
+
+    public WarpsCfg(String fileName) {
+        this.setFile(fileName);
+        load();
     }
-
-    @Override
-    protected void onEnable() {}
-
-    @Override
-    protected void onDisable() {}
-
-    @Override
-    protected void onReload() {}
-
-
-    @EventHandler
-    private void signChange(SignChangeEvent event) {
-        if (Util.hasPermission(event.getPlayer(), "essence.signs.color")) {
-            for (int i = 0; i < 4; i++) {
-                event.setLine(i, Util.color(event.getLine(i)));
-            }
-        }
-    }
-
 }

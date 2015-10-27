@@ -13,6 +13,7 @@ import org.essencemc.essence.commands.misc.TestCmd;
 import org.essencemc.essence.commands.module.kits.KitCmd;
 import org.essencemc.essence.commands.module.kits.KitsCmd;
 import org.essencemc.essence.commands.module.kits.SetKitCmd;
+import org.essencemc.essence.commands.module.shops.ShopItemCmd;
 import org.essencemc.essence.commands.module.signs.BreakSignCmd;
 import org.essencemc.essence.commands.module.signs.SignsCmd;
 import org.essencemc.essence.commands.player.*;
@@ -22,7 +23,8 @@ import org.essencemc.essence.commands.punishments.BanCmd;
 import org.essencemc.essence.commands.teleport.*;
 import org.essencemc.essence.commands.world.LightningCmd;
 import org.essencemc.essence.commands.world.TreeCmd;
-import org.essencemc.essence.config.Warps;
+import org.essencemc.essence.modules.shops.ShopsModule;
+import org.essencemc.essence.modules.warps.WarpModule;
 import org.essencemc.essence.modules.ban.BanModule;
 import org.essencemc.essence.modules.kits.KitModule;
 import org.essencemc.essence.modules.signs.ColoredSignsModule;
@@ -38,8 +40,6 @@ public class Essence extends JavaPlugin {
 
     private static Essence instance;
     private static EssenceCore core;
-
-    private Warps warps;
 
     private final Logger log = Logger.getLogger("Essence");
 
@@ -57,9 +57,6 @@ public class Essence extends JavaPlugin {
 
         //TODO: Validate that EssenceCore is running and make sure the version is compatible etc.
         core = EssenceCore.inst();
-
-        //TODO: Have a class for modules were it would create the config and such.
-        warps = new Warps("plugins/Essence/data/Warps.yml");
 
         registerCommands();
         registerModules();
@@ -127,6 +124,7 @@ public class Essence extends JavaPlugin {
         cmds.registerCommand(this, KitCmd.class, "kit", "kits", "kit_cmd", "Give or display a specific kit.", new String[]{});
         cmds.registerCommand(this, SetKitCmd.class, "setkit", "kits", "setkit_cmd", "Create or modify a kit based on inventory contents.", new String[]{"editkit", "createkit", "newkit", "modifykit"});
         cmds.registerCommand(this, KitsCmd.class, "kits", "kits", "kits_cmd", "Open the kit menu to list all kits.", new String[]{"kitlist"});
+        cmds.registerCommand(this, ShopItemCmd.class, "shopitems", "shops", "shopitems_cmd", "Shop item management.", new String[]{"shopitem"});
     }
 
     public void registerModules() {
@@ -136,6 +134,8 @@ public class Essence extends JavaPlugin {
         modules.registerModule(ColoredSignsModule.class, "signs", "coloredSigns");
         modules.registerModule(LoreSignModule.class, "signs", "loreSigns");
         modules.registerModule(KitModule.class, "kits", "kits_core");
+        modules.registerModule(WarpModule.class, "warps", "warps_core");
+        modules.registerModule(ShopsModule.class, "shops", "shops_core");
     }
 
 
@@ -145,11 +145,6 @@ public class Essence extends JavaPlugin {
 
     public static EssenceCore core() {
         return core;
-    }
-
-
-    public Warps getWarps() {
-        return warps;
     }
 
 }

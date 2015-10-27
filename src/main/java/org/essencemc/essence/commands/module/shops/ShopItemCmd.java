@@ -23,57 +23,49 @@
  * THE SOFTWARE.
  */
 
-package org.essencemc.essence.commands.location;
+package org.essencemc.essence.commands.module.shops;
 
-import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
-import org.essencemc.essence.EssMessage;
-import org.essencemc.essence.Essence;
-import org.essencemc.essence.modules.warps.WarpModule;
+import org.essencemc.essence.modules.shops.ShopsModule;
 import org.essencemc.essencecore.EssenceCore;
-import org.essencemc.essencecore.arguments.LocationArg;
-import org.essencemc.essencecore.arguments.StringArg;
 import org.essencemc.essencecore.commands.EssenceCommand;
 import org.essencemc.essencecore.commands.arguments.ArgumentParseResults;
-import org.essencemc.essencecore.commands.arguments.ArgumentRequirement;
 import org.essencemc.essencecore.message.Message;
 import org.essencemc.essencecore.message.Param;
+import org.essencemc.essencecore.modules.Module;
 
-import java.util.List;
+import java.util.*;
 
-public class SetWarpCmd extends EssenceCommand {
+public class ShopItemCmd extends EssenceCommand {
 
-    public SetWarpCmd(Plugin plugin, String command, String description, String permission, List<String> aliases) {
+    public ShopItemCmd(Plugin plugin, String command, String description, String permission, List<String> aliases) {
         super(plugin, command, description, permission, aliases);
-
-        addDependency(WarpModule.class);
-
-        addArgument("name", new StringArg(2, 32), ArgumentRequirement.REQUIRED);
-        addArgument("location", new LocationArg(), ArgumentRequirement.REQUIRED_CONSOLE, "location");
-
         register();
     }
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+        Module module = EssenceCore.inst().getModules().getModule(ShopsModule.class);
+        if (module == null) {
+            Message.MODULE_DISABLED.msg().send(sender, Param.P("module", "shops core"));
+            return true;
+        }
+
+        if (!(sender instanceof Player)) {
+            Message.CMD_PLAYER_ONLY.msg().params().send(sender);
+            return true;
+        }
+
         ArgumentParseResults result = parseArgs(this, sender, args);
         if (!result.success) {
             return true;
         }
-        args = result.getArgs();
-        WarpModule warps = (WarpModule)getModule(WarpModule.class);
 
-        String name = (String)result.getArg("name");
-        Location location = (Location)result.getArg("location", sender instanceof Player ? ((Player)sender).getLocation() : null);
-
-        warps.setWarp(name, location);
-        if (!result.hasModifier("-s")) {
-            EssMessage.CMD_WARP_SET.msg().send(sender, Param.P("warp", name));
-        }
+        Player player = (Player)sender;
+        ((ShopsModule)module).getItemMenu().show(player);
         return true;
     }
-
 }

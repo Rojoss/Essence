@@ -31,11 +31,14 @@ import org.bukkit.plugin.Plugin;
 import org.bukkit.util.StringUtil;
 import org.essencemc.essence.Essence;
 import org.essencemc.essence.EssMessage;
+import org.essencemc.essence.modules.warps.WarpModule;
+import org.essencemc.essencecore.EssenceCore;
 import org.essencemc.essencecore.arguments.StringArg;
 import org.essencemc.essencecore.commands.EssenceCommand;
 import org.essencemc.essencecore.commands.arguments.ArgumentParseResults;
 import org.essencemc.essencecore.commands.arguments.ArgumentRequirement;
 import org.essencemc.essencecore.commands.links.RemoveLink;
+import org.essencemc.essencecore.message.Message;
 import org.essencemc.essencecore.message.Param;
 
 import java.util.ArrayList;
@@ -45,6 +48,8 @@ public class DelWarpCmd extends EssenceCommand {
 
     public DelWarpCmd(Plugin plugin, String command, String description, String permission, List<String> aliases) {
         super(plugin, command, description, permission, aliases);
+
+        addDependency(WarpModule.class);
 
         addArgument("name", new StringArg(), ArgumentRequirement.REQUIRED);
 
@@ -62,9 +67,10 @@ public class DelWarpCmd extends EssenceCommand {
             return true;
         }
         args = result.getArgs();
+        WarpModule warps = (WarpModule)getModule(WarpModule.class);
 
         if (result.hasModifier("-a")) {
-            Essence.inst().getWarps().clear();
+            warps.delWarps();
             if (!result.hasModifier("-s")) {
                 EssMessage.CMD_WARP_DELETED_AlL.msg().send(sender);
             }
@@ -72,7 +78,7 @@ public class DelWarpCmd extends EssenceCommand {
         }
 
         String name = (String)result.getArg("name");
-        if (!Essence.inst().getWarps().delWarp(name)) {
+        if (!warps.delWarp(name)) {
             EssMessage.CMD_WARP_INVALID.msg().send(sender, Param.P("warp", name));
             return true;
         }
@@ -88,13 +94,15 @@ public class DelWarpCmd extends EssenceCommand {
         if (!hasPermission(sender)) {
             return null;
         }
-        List<String> warps = new ArrayList<String>();
-        for (String warp : Essence.inst().getWarps().getWarpNames()) {
+
+        WarpModule warps = (WarpModule)getModule(WarpModule.class);
+        List<String> warpList = new ArrayList<String>();
+        for (String warp : warps.getWarpNames()) {
             if (StringUtil.startsWithIgnoreCase(warp, args[0])) {
-                warps.add(warp);
+                warpList.add(warp);
             }
         }
-        return warps;
+        return warpList;
     }
 
 }

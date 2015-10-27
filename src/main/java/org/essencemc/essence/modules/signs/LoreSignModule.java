@@ -33,6 +33,7 @@ import org.bukkit.event.EventPriority;
 import org.bukkit.event.block.BlockBreakEvent;
 import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.block.SignChangeEvent;
+import org.essencemc.essence.Essence;
 import org.essencemc.essencecore.entity.EItem;
 import org.essencemc.essencecore.modules.Module;
 import org.essencemc.essencecore.util.ItemUtil;
@@ -45,7 +46,7 @@ public class LoreSignModule extends Module {
     Map<UUID, List<String>> text = new HashMap<UUID, List<String>>();
 
     public LoreSignModule(String name) {
-        super(name);
+        super(Essence.inst(), name);
     }
 
     @Override

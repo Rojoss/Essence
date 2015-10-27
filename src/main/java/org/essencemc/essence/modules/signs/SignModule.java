@@ -13,6 +13,7 @@ import org.bukkit.event.block.SignChangeEvent;
 import org.bukkit.event.player.AsyncPlayerChatEvent;
 import org.bukkit.event.player.PlayerInteractEvent;
 import org.essencemc.essence.EssMessage;
+import org.essencemc.essence.Essence;
 import org.essencemc.essence.commands.module.signs.BreakSignCmd;
 import org.essencemc.essence.modules.signs.config.SignCfg;
 import org.essencemc.essence.modules.signs.config.SignData;
@@ -32,7 +33,7 @@ public class SignModule extends Module {
     private SignMenu menu;
 
     public SignModule(String name) {
-        super(name);
+        super(Essence.inst(), name);
     }
 
     @Override

@@ -100,7 +100,7 @@ public class ShopItemMenu extends Menu {
 
                 itemInput.remove(uuid);
                 playerMenu.put(uuid, "item-" + Items.getItem(event.getCurrentItem().getType(), event.getCurrentItem().getDurability()).getName().replace(" ", "") + ":" + event.getCurrentItem().getDurability());
-                shopsModule.setShopItem(new ShopItem(event.getCurrentItem().getType(), event.getCurrentItem().getDurability(), 0, 0, "*", true), new SqlUpdateCallback() {
+                shopsModule.setShopItem(new ShopItem(event.getCurrentItem().getType(), event.getCurrentItem().getDurability(), true, 0, true, 0, "*", true, 0, 0), new SqlUpdateCallback() {
                     @Override
                     public void onExecute(int rowsChanged) {
                         updateContent(player);
@@ -246,9 +246,9 @@ public class ShopItemMenu extends Menu {
             }
 
             if (type.equalsIgnoreCase("buy")) {
-                shopItem.setBuy((Double)arg.getValue());
+                shopItem.setBuyPrice((Double) arg.getValue());
             } else if (type.equalsIgnoreCase("sell")) {
-                shopItem.setSell((Double) arg.getValue());
+                shopItem.setSellPrice((Double) arg.getValue());
             } else if (type.equalsIgnoreCase("min")) {
                 //TODO: Set min market price
             } else if (type.equalsIgnoreCase("max")) {

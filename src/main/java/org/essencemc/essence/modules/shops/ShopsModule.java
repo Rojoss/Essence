@@ -26,31 +26,25 @@ public class ShopsModule extends SqlStorageModule {
 
     @Override
     public void onLoad() {
-        Debug.bc("onLoad");
         //TODO: Load vault
 
         itemMenu = new ShopItemMenu(this);
 
         final PreparedStatement statement = getDatabase().createQuery().select("*").from(getTable()).getStatement();
-        Debug.bc(statement);
         executeQuery(statement, new SqlQueryCallback() {
             @Override
             public void onExecute(ResultSet result) {
-                Debug.bc("onExecute");
                 try {
                     Map<String, ShopItem> loadedItems = new HashMap<String, ShopItem>();
 
                     while (result.next()) {
-                        Debug.bc("Result");
                         Material material = Material.valueOf(result.getString("material"));
                         short data = result.getShort("data");
 
-                        ShopItem shopItem = new ShopItem(material, data, result.getDouble("buy"), result.getDouble("sell"), result.getString("category"), result.getBoolean("market"));
+                        ShopItem shopItem = new ShopItem(material, data, result.getBoolean("buy"), result.getDouble("buyprice"), result.getBoolean("sell"), result.getDouble("sellprice"),
+                                result.getString("category"), result.getBoolean("market"), result.getDouble("minmarketprice"), result.getDouble("maxmarketprice"));
                         loadedItems.put(getKey(material, data), shopItem);
                     }
-
-                    Debug.bc("Setting shop items...");
-                    Debug.bc(loadedItems.size());
                     shopItems = loadedItems;
                 } catch (SQLException e) {}
             }
@@ -84,13 +78,16 @@ public class ShopsModule extends SqlStorageModule {
                 db.createColumn("id").type("INT").primaryKey().autoIncrement(),
                 db.createColumn("material").type("VARCHAR", 64).notNull(),
                 db.createColumn("data").type("SMALLINT").notNull(),
-                db.createColumn("buy").type("DOUBLE").defaultValue(-1).notNull(),
-                db.createColumn("sell").type("DOUBLE").defaultValue(-1).notNull(),
+                db.createColumn("buy").type("BOOLEAN").defaultValue(true).notNull(),
+                db.createColumn("buyprice").type("DOUBLE").defaultValue(-1).notNull(),
+                db.createColumn("sell").type("BOOLEAN").defaultValue(true).notNull(),
+                db.createColumn("sellprice").type("DOUBLE").defaultValue(-1).notNull(),
                 db.createColumn("category").type("VARCHAR", 128).defaultValue("*").notNull(),
-                db.createColumn("market").type("BOOLEAN").defaultValue(true).notNull()
+                db.createColumn("market").type("BOOLEAN").defaultValue(true).notNull(),
+                db.createColumn("minmarketprice").type("DOUBLE").defaultValue(-1).notNull(),
+                db.createColumn("maxmarketprice").type("DOUBLE").defaultValue(-1).notNull()
         };
     }
-
 
     public ShopItemMenu getItemMenu() {
         return itemMenu;
@@ -105,14 +102,18 @@ public class ShopsModule extends SqlStorageModule {
         short data = item.getData();
         String key = getKey(material, data);
 
-        List<String> columns = Arrays.asList("material", "data", "buy", "sell", "category", "market");
+        List<String> columns = Arrays.asList("material", "data", "buy", "buyprice", "sell", "sellprice", "category", "market", "minmarketprice", "maxmarketprice");
         List<Object> values = new ArrayList<Object>();
         values.add(material.toString());
         values.add(data);
+        values.add(item.canBuy());
         values.add(item.getBuyPrice());
+        values.add(item.canSell());
         values.add(item.getSellPrice());
         values.add(item.getCategory());
         values.add(item.isMarket());
+        values.add(item.getMinMarketPrice());
+        values.add(item.getMaxMarketPrice());
 
         PreparedStatement statement = null;
         if (shopItems.containsKey(key)) {

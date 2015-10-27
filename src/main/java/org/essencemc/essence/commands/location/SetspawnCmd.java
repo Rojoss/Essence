@@ -23,27 +23,34 @@
  * THE SOFTWARE.
  */
 
-package org.essencemc.essence.commands.misc;
+package org.essencemc.essence.commands.location;
 
+import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.essencemc.essence.EssMessage;
+import org.essencemc.essencecore.arguments.LocationArg;
+import org.essencemc.essencecore.arguments.PlayerArg;
 import org.essencemc.essencecore.commands.EssenceCommand;
 import org.essencemc.essencecore.commands.arguments.ArgumentParseResults;
+import org.essencemc.essencecore.commands.arguments.ArgumentRequirement;
 import org.essencemc.essencecore.message.Param;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class ListCmd extends EssenceCommand {
+public class SetspawnCmd extends EssenceCommand {
 
-    public ListCmd(Plugin plugin, String command, String description, String permission, List<String> aliases) {
+    public SetspawnCmd(Plugin plugin, String command, String description, String permission, List<String> aliases) {
         super(plugin, command, description, permission, aliases);
+
+        addArgument("location", new LocationArg(), ArgumentRequirement.REQUIRED_CONSOLE);
+        addArgument("player", new PlayerArg(), ArgumentRequirement.OPTIONAL);
 
         register();
     }
+
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -52,19 +59,19 @@ public class ListCmd extends EssenceCommand {
             return true;
         }
 
-        List<String> players = new ArrayList();
-        int online = getPlugin().getServer().getOnlinePlayers().size();
-        int max = getPlugin().getServer().getMaxPlayers();
+        Player player = (Player)result.getArg("player", castPlayer(sender));
+        Location location = (Location)result.getArg("location", sender instanceof Player ? ((Player)sender).getLocation() : null);
 
-        for(Player p : getPlugin().getServer().getOnlinePlayers()){
-            players.add(p.getDisplayName());
+        if(result.getArg("player") != null){
+            //save player spawn location in the db.
+        } else {
+            //Save default spawn location in the db.
         }
 
-        EssMessage.CMD_LIST_PLAYERLIST.msg().send(sender,
-                Param.P("online", Integer.toString(online)),
-                Param.P("slots", Integer.toString(max)),
-                Param.P("players", players.toString()));
-
+        if (!result.hasModifier("-s")) {
+            EssMessage.CMD_SETSPAWN_SET.msg().send(sender);
+        }
         return true;
     }
+
 }

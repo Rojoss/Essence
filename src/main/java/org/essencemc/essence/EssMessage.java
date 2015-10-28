@@ -92,6 +92,8 @@ public enum EssMessage {
     CMD_BURN_OTHER(MsgCat.COMMAND, "{p} &a{player} &6will burn for &a{ticks} &6ticks."),
     CMD_FLY(MsgCat.COMMAND, "{p} &6Flight state: &a{state}&6."),
     CMD_FLY_OTHER(MsgCat.COMMAND, "{p} &a{player}&6's flight state: &a{state}&6."),
+    CMD_GOD_TOGGLEON(MsgCat.COMMAND, "{p}&6You are now god!"),
+    CMD_GOD_TOGGLEOFF(MsgCat.COMMAND, "{p}&4You are no longer god!"),
     CMD_WALKSPEED(MsgCat.COMMAND, "{p} &6Your walking speed is now &a{speed}&6."),
     CMD_WALKSPEED_OTHER(MsgCat.COMMAND, "{p} &a{player}&6's walking speed is now &a{speed}&6."),
     CMD_FLYSPEED(MsgCat.COMMAND, "{p} &6Your flying speed is now &a{speed}&6."),
@@ -201,8 +203,7 @@ public enum EssMessage {
     OPT_VANISH_SILENT_JOIN(MsgCat.COMMAND_OPTIONS, "Hide join message when logging in while vanished?"),
     OPT_VANISH_SILENT_QUIT(MsgCat.COMMAND_OPTIONS, "Hide quit/leave message when logging out while vanished?"),
     OPT_VANISH_SCOREBOARD_TEAM(MsgCat.COMMAND_OPTIONS, "Add vanished players to a scoreboard team.\nVanished players can see eachother as ghosts."),
-    OPT_VANISH_INVIS_POTION(MsgCat.COMMAND_OPTIONS, "Add invisibility effect to vanished players. (for visuals only)"),
-    ;
+    OPT_VANISH_INVIS_POTION(MsgCat.COMMAND_OPTIONS, "Add invisibility effect to vanished players. (for visuals only)");
 
     private EMessage message;
 

@@ -26,13 +26,17 @@
 package org.essencemc.essence.modules.god;
 
 
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageEvent;
 import org.essencemc.essence.Essence;
 import org.essencemc.essencecore.modules.Module;
 
 import java.util.ArrayList;
 import java.util.List;
 
-public class GodModule extends Module {
+public class GodModule extends Module implements Listener {
 
     private List<String> godPlayers = new ArrayList<>();
 
@@ -67,18 +71,29 @@ public class GodModule extends Module {
         return godPlayers.contains(playerName);
     }
 
-    public void toggleGod(String playerName){
+    /**
+     * Toggle god mode for specified player.
+     * @param playerName Player name
+     * @return Return true if player is god, false if he is not.
+     */
+    public boolean toggleGod(String playerName){
         if(godPlayers.contains(playerName)){
             godPlayers.remove(playerName);
-            return;
+            return false;
         }
         godPlayers.add(playerName);
+        return true;
     }
 
-    public void setGod(String playerName){
-        if(godPlayers.contains(playerName)){
+    @EventHandler
+    public void onEntityDamage(EntityDamageEvent event) {
+        if (!(event.getEntity() instanceof Player)) {
             return;
         }
-        godPlayers.add(playerName);
+
+        Player player = (Player) event.getEntity();
+        if(isGod(player.getName())){
+            event.setCancelled(true);
+        }
     }
 }

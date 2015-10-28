@@ -50,12 +50,12 @@ public class SetspawnCmd extends EssenceCommand {
 
         addDependency(SpawnModule.class);
 
+        //addModifier();
         addOptionalArgument("player", new PlayerArg());
         addArgument("location", new LocationArg(), ArgumentRequirement.REQUIRED_CONSOLE);
 
         // TODO: Fix LinkLink order.
-        // TODO: Arguments broken.
-        //addLink(new LinkLink("-p", "player"));
+        addLink(new LinkLink("-p", "player"));
         addLink(new MakeOptionalLink("player", "location"));
         addLink(new MakeOptionalLink("-p", "location"));
 

@@ -32,6 +32,7 @@ import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.plugin.Plugin;
 import org.essencemc.essence.EssMessage;
+import org.essencemc.essence.modules.god.GodModule;
 import org.essencemc.essencecore.arguments.BoolArg;
 import org.essencemc.essencecore.arguments.PlayerArg;
 import org.essencemc.essencecore.commands.EssenceCommand;
@@ -47,7 +48,6 @@ public class GodCmd extends EssenceCommand {
         super(plugin, command, description, permission, aliases);
 
         addArgument("player", new PlayerArg(), ArgumentRequirement.REQUIRED_CONSOLE, "others");
-        addArgument("state", new BoolArg(), ArgumentRequirement.OPTIONAL);
 
         addModifier("-r", EssMessage.MOD_GOD_RESET.msg());
         addCommandOption("no-hunger-loss", EssMessage.OPT_NO_HUNGER_LOSS.msg(), new BoolArg(true));
@@ -63,25 +63,21 @@ public class GodCmd extends EssenceCommand {
         if(!result.success) {
             return true;
         }
-        args = result.getArgs();
+
+        GodModule gods = (GodModule)getModule(GodModule.class);
 
         Player player = (Player)result.getArg("player", castPlayer(sender));
-        // TODO: Check current god mode state
-        boolean state = (boolean) result.getArg("state");
+        boolean god = gods.isGod(player.getName());
+        gods.toggleGod(player.getName());
+
+        if(!result.hasModifier("-s")){
+            if(god){
+                EssMessage.CMD_GOD_TOGGLEOFF.msg().send(player);
+            } else {
+                EssMessage.CMD_GOD_TOGGLEON.msg().send(player);
+            }
+        }
 
         return true;
     }
-
-    @EventHandler
-    public void onEntityDamage(EntityDamageEvent event) {
-        if (!(event.getEntity() instanceof Player)) {
-            return;
-        }
-
-        Player player = (Player) event.getEntity();
-
-        // TODO: Check god mode state
-
-    }
-
 }

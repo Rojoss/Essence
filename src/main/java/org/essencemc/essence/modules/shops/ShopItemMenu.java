@@ -5,6 +5,7 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.inventory.InventoryClickEvent;
 import org.bukkit.event.inventory.InventoryCloseEvent;
 import org.bukkit.event.inventory.InventoryOpenEvent;
+import org.bukkit.inventory.ItemStack;
 import org.bukkit.material.MaterialData;
 import org.essencemc.essence.EssMessage;
 import org.essencemc.essence.Essence;
@@ -15,6 +16,7 @@ import org.essencemc.essencecore.menu.Menu;
 import org.essencemc.essencecore.message.Message;
 import org.essencemc.essencecore.message.Param;
 import org.essencemc.essencecore.modules.SqlUpdateCallback;
+import org.essencemc.essencecore.util.Debug;
 import org.essencemc.essencecore.util.NumberUtil;
 import org.essencemc.essencecore.util.Util;
 
@@ -98,9 +100,17 @@ public class ShopItemMenu extends Menu {
                     return;
                 }
 
+                ItemStack singleItem = event.getCurrentItem().clone();
+                singleItem.setAmount(1);
+
+                double buyPrice = shopsModule.getMaterialValues().getPrice(singleItem, true);
+                Debug.bc("Buy: ", buyPrice);
+                double sellPrice = shopsModule.getMaterialValues().getPrice(singleItem, false);
+                Debug.bc("Sell: ", sellPrice);
+
                 itemInput.remove(uuid);
                 playerMenu.put(uuid, "item-" + Items.getItem(event.getCurrentItem().getType(), event.getCurrentItem().getDurability()).getName().replace(" ", "") + ":" + event.getCurrentItem().getDurability());
-                shopsModule.setShopItem(new ShopItem(event.getCurrentItem().getType(), event.getCurrentItem().getDurability(), true, 0, true, 0, "*", true, 0, 0), new SqlUpdateCallback() {
+                shopsModule.setShopItem(new ShopItem(event.getCurrentItem().getType(), event.getCurrentItem().getDurability(), true, buyPrice, true, sellPrice, "*", true, sellPrice / 4, sellPrice * 2), new SqlUpdateCallback() {
                     @Override
                     public void onExecute(int rowsChanged) {
                         updateContent(player);

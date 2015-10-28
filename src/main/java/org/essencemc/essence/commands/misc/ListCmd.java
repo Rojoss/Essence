@@ -30,6 +30,7 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.essencemc.essence.EssMessage;
+import org.essencemc.essence.modules.vanish.VanishModule;
 import org.essencemc.essencecore.commands.EssenceCommand;
 import org.essencemc.essencecore.commands.arguments.ArgumentParseResults;
 import org.essencemc.essencecore.message.Param;
@@ -52,13 +53,16 @@ public class ListCmd extends EssenceCommand {
             return true;
         }
 
+        VanishModule vanished = (VanishModule)getModule(VanishModule.class);
+
         List<String> players = new ArrayList();
         int online = getPlugin().getServer().getOnlinePlayers().size();
         int max = getPlugin().getServer().getMaxPlayers();
 
-        // TODO: Don't show vanished players.
         for(Player p : getPlugin().getServer().getOnlinePlayers()){
-            players.add(p.getDisplayName());
+            if(!vanished.isVanished(p.getUniqueId())){
+                players.add(p.getDisplayName());
+            }
         }
 
         EssMessage.CMD_LIST_PLAYERLIST.msg().send(sender,

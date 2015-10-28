@@ -5,10 +5,7 @@ import org.essencemc.essence.commands.fun.PushCmd;
 import org.essencemc.essence.commands.item.GiveCmd;
 import org.essencemc.essence.commands.item.ItemCmd;
 import org.essencemc.essence.commands.item.ItemInfoCmd;
-import org.essencemc.essence.commands.location.DelWarpCmd;
-import org.essencemc.essence.commands.location.SetWarpCmd;
-import org.essencemc.essence.commands.location.WarpCmd;
-import org.essencemc.essence.commands.location.WarpsCmd;
+import org.essencemc.essence.commands.location.*;
 import org.essencemc.essence.commands.misc.BroadcastCmd;
 import org.essencemc.essence.commands.misc.ListCmd;
 import org.essencemc.essence.commands.misc.SummonCmd;
@@ -19,10 +16,7 @@ import org.essencemc.essence.commands.module.kits.SetKitCmd;
 import org.essencemc.essence.commands.module.shops.ShopItemCmd;
 import org.essencemc.essence.commands.module.signs.BreakSignCmd;
 import org.essencemc.essence.commands.module.signs.SignsCmd;
-import org.essencemc.essence.commands.player.MeCmd;
-import org.essencemc.essence.commands.player.MessageCmd;
-import org.essencemc.essence.commands.player.NicknameCmd;
-import org.essencemc.essence.commands.player.SudoCmd;
+import org.essencemc.essence.commands.player.*;
 import org.essencemc.essence.commands.player_status.*;
 import org.essencemc.essence.commands.plugin.MainPluginCmd;
 import org.essencemc.essence.commands.punishments.BanCmd;
@@ -84,7 +78,9 @@ public class Essence extends JavaPlugin {
 
     public void registerCommands() {
         Commands cmds = core.getCommands();
-        cmds.registerCommand(this, ListCmd.class, "list", "list", "list", "List of online players.", new String[]{});
+        cmds.registerCommand(this, SpawnCmd.class, "spawn", "", "spawn", "Teleport to spawn.", new String[]{});
+        cmds.registerCommand(this, SetspawnCmd.class, "setspawn", "", "setspawn", "Set a spawn point for the server or player.", new String[]{});
+        cmds.registerCommand(this, ListCmd.class, "list", "", "list", "List of online players.", new String[]{});
         cmds.registerCommand(this, MeCmd.class, "me", "me", "me", "Command to emote.", new String[]{});
         cmds.registerCommand(this, TestCmd.class, "test", "", "", "Command for testing plugin functionality.", new String[]{});
         cmds.registerCommand(this, MainPluginCmd.class, "essence", "", "", "Main plugin command and config reloading", new String[]{"essentials", "essential"});

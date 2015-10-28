@@ -71,7 +71,7 @@ public enum EssMessage {
     CMD_GAMEMODE_CHANGED(MsgCat.COMMAND, "{p} &6Gamemode changed to &a{mode}&6."),
     CMD_GAMEMODE_OTHER(MsgCat.COMMAND, "{p} &6You have changed &a{player}'s &6gamemode to &a{mode}&6."),
     CMD_LIGHTNING(MsgCat.COMMAND, "{p} &6Lightning has struck!"),
-    CMD_LIST_PLAYERLIST(MsgCat.COMMAND, "&8===== &2&lPlayer list &8=====\n&fOnline[{online}/{slots}]: &a{players}"),
+    CMD_LIST_PLAYERLIST(MsgCat.COMMAND, "&8===== &2&lPlayer list &8=====\n&fOnline: [{online}/{slots}]&a{players}"),
     CMD_WARP_SET(MsgCat.COMMAND, "{p} &6Warp &a{warp} &6set!"),
     CMD_WARP_DELETED(MsgCat.COMMAND, "{p} &6Warp &a{warp} &6deleted!"),
     CMD_WARP_DELETED_AlL(MsgCat.COMMAND, "{p} &6All warps have been deleted!"),
@@ -125,6 +125,8 @@ public enum EssMessage {
     CMD_TOP(MsgCat.COMMAND, "{p} &6You're now on the highest block."),
     CMD_TOP_NONE(MsgCat.COMMAND, "{p} &cEvery block at your location is empty."),
     CMD_TOP_SAME(MsgCat.COMMAND, "{p} &cYou're already standing on the highest block."),
+    CMD_SPAWN_TELEPORT(MsgCat.COMMAND, "{p} &6You have been teleported to spawn."),
+    CMD_SETSPAWN_SET(MsgCat.COMMAND, "{p} &6A new spawn point has been set!"),
     CANT_SPAWN_AIR(MsgCat.COMMAND, "{p} &cYou can't spawn items that are air!"),
     CMD_ITEM_GIVE(MsgCat.COMMAND, "{p} &6You have been given &a&l{amount} &a{item}&6."),
     CMD_ITEM_GIVE_OTHER(MsgCat.COMMAND, "{p} &6You have given {player} &a&l{amount} &a{item}&6."),
@@ -167,6 +169,8 @@ public enum EssMessage {
     MOD_KIT_LIST(MsgCat.COMMAND_MODIFIERS, "List all kit names that can be used."),
     MOD_KIT_ICON(MsgCat.COMMAND_MODIFIERS, "Sets the kit icon used in the kits menu."),
     MOD_KIT_TOGGLE(MsgCat.COMMAND_MODIFIERS, "Toggles the kit on/off."),
+    MOD_VANISH_FAKE_QUIT(MsgCat.COMMAND_MODIFIERS, "Sends a fakse quit message when vanishing."),
+    MOD_VANISH_FAKE_JOIN(MsgCat.COMMAND_MODIFIERS, "Sends a fake join message when unvanishing."),
 
     //Command options/optional arguments
     OPT_HEAL_FEED(MsgCat.COMMAND_OPTIONS, "Restore hunger?"),
@@ -188,6 +192,16 @@ public enum EssMessage {
     OPT_BROADCAST_WORLD(MsgCat.COMMAND_OPTIONS, "Only broadcast the message to this world."),
     OPT_BROADCAST_PREFIX(MsgCat.COMMAND_OPTIONS, "The prefix that will be added in front of the message."),
     OPT_SHOPITEM_ITEMSPERPAGE(MsgCat.COMMAND_OPTIONS, "The amount of items displayed per page."),
+    OPT_VANISH_CHAT(MsgCat.COMMAND_OPTIONS, "Can chat while vanished?"),
+    OPT_VANISH_ATTACK(MsgCat.COMMAND_OPTIONS, "Can attack entities while vanished?"),
+    OPT_VANISH_DAMAGE(MsgCat.COMMAND_OPTIONS, "Can take damage while vanished?"),
+    OPT_VANISH_INTERACT(MsgCat.COMMAND_OPTIONS, "Can interact with the world while vanished?"),
+    OPT_VANISH_PICKUP(MsgCat.COMMAND_OPTIONS, "Can pickup items while vanished?"),
+    OPT_VANISH_TARGET(MsgCat.COMMAND_OPTIONS, "Can be targeted by entities while vanished?"),
+    OPT_VANISH_SILENT_JOIN(MsgCat.COMMAND_OPTIONS, "Hide join message when logging in while vanished?"),
+    OPT_VANISH_SILENT_QUIT(MsgCat.COMMAND_OPTIONS, "Hide quit/leave message when logging out while vanished?"),
+    OPT_VANISH_SCOREBOARD_TEAM(MsgCat.COMMAND_OPTIONS, "Add vanished players to a scoreboard team.\nVanished players can see eachother as ghosts."),
+    OPT_VANISH_INVIS_POTION(MsgCat.COMMAND_OPTIONS, "Add invisibility effect to vanished players. (for visuals only)"),
     ;
 
     private EMessage message;

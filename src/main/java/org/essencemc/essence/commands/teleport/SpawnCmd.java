@@ -23,24 +23,26 @@
  * THE SOFTWARE.
  */
 
-package org.essencemc.essence.commands.misc;
+package org.essencemc.essence.commands.teleport;
 
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.essencemc.essence.EssMessage;
+import org.essencemc.essencecore.arguments.PlayerArg;
 import org.essencemc.essencecore.commands.EssenceCommand;
 import org.essencemc.essencecore.commands.arguments.ArgumentParseResults;
-import org.essencemc.essencecore.message.Param;
+import org.essencemc.essencecore.commands.arguments.ArgumentRequirement;
 
-import java.util.ArrayList;
 import java.util.List;
 
-public class ListCmd extends EssenceCommand {
+public class SpawnCmd extends EssenceCommand {
 
-    public ListCmd(Plugin plugin, String command, String description, String permission, List<String> aliases) {
+    public SpawnCmd(Plugin plugin, String command, String description, String permission, List<String> aliases) {
         super(plugin, command, description, permission, aliases);
+
+        addArgument("player", new PlayerArg(), ArgumentRequirement.REQUIRED_CONSOLE, "others");
 
         register();
     }
@@ -52,19 +54,14 @@ public class ListCmd extends EssenceCommand {
             return true;
         }
 
-        List<String> players = new ArrayList();
-        int online = getPlugin().getServer().getOnlinePlayers().size();
-        int max = getPlugin().getServer().getMaxPlayers();
+        //Location spawnLocation;
+        Player player = (Player)result.getArg("player", castPlayer(sender));
 
-        for(Player p : getPlugin().getServer().getOnlinePlayers()){
-            players.add(p.getDisplayName());
+        //player.teleport(spawnLocation);
+
+        if(!result.hasModifier("-s")){
+            EssMessage.CMD_SPAWN_TELEPORT.msg().send(player);
         }
-
-        EssMessage.CMD_LIST_PLAYERLIST.msg().send(sender,
-                Param.P("online", Integer.toString(online)),
-                Param.P("slots", Integer.toString(max)),
-                Param.P("players", players.toString()));
-
         return true;
     }
 }

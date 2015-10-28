@@ -24,6 +24,7 @@ import org.essencemc.essence.commands.teleport.*;
 import org.essencemc.essence.commands.world.LightningCmd;
 import org.essencemc.essence.commands.world.TreeCmd;
 import org.essencemc.essence.modules.shops.ShopsModule;
+import org.essencemc.essence.modules.spawn.SpawnModule;
 import org.essencemc.essence.modules.warps.WarpModule;
 import org.essencemc.essence.modules.ban.BanModule;
 import org.essencemc.essence.modules.kits.KitModule;
@@ -81,7 +82,7 @@ public class Essence extends JavaPlugin {
         cmds.registerCommand(this, SpawnCmd.class, "spawn", "", "spawn", "Teleport to spawn.", new String[]{});
         cmds.registerCommand(this, SetspawnCmd.class, "setspawn", "", "setspawn", "Set a spawn point for the server or player.", new String[]{});
         cmds.registerCommand(this, ListCmd.class, "list", "", "list", "List of online players.", new String[]{});
-        cmds.registerCommand(this, MeCmd.class, "me", "me", "me", "Command to emote.", new String[]{});
+        cmds.registerCommand(this, MeCmd.class, "me", "", "me", "Command to emote.", new String[]{});
         cmds.registerCommand(this, TestCmd.class, "test", "", "", "Command for testing plugin functionality.", new String[]{});
         cmds.registerCommand(this, MainPluginCmd.class, "essence", "", "", "Main plugin command and config reloading", new String[]{"essentials", "essential"});
         cmds.registerCommand(this, HealCmd.class, "heal", "", "heal", "Heal a player", new String[]{"health", "sethealth"});
@@ -129,6 +130,7 @@ public class Essence extends JavaPlugin {
 
     public void registerModules() {
         Modules modules = core.getModules();
+        modules.registerModule(SpawnModule.class, "spawn", "spawns_core");
         modules.registerModule(BanModule.class, "punishments", "ban");
         modules.registerModule(SignModule.class, "signs", "signs_core");
         modules.registerModule(ColoredSignsModule.class, "signs", "coloredSigns");

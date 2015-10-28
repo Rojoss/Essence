@@ -56,6 +56,7 @@ public class ListCmd extends EssenceCommand {
         int online = getPlugin().getServer().getOnlinePlayers().size();
         int max = getPlugin().getServer().getMaxPlayers();
 
+        // TODO: Don't show vanished players.
         for(Player p : getPlugin().getServer().getOnlinePlayers()){
             players.add(p.getDisplayName());
         }

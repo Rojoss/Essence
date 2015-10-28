@@ -25,11 +25,13 @@
 
 package org.essencemc.essence.commands.teleport;
 
+import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.essencemc.essence.EssMessage;
+import org.essencemc.essence.modules.spawn.SpawnModule;
 import org.essencemc.essencecore.arguments.PlayerArg;
 import org.essencemc.essencecore.commands.EssenceCommand;
 import org.essencemc.essencecore.commands.arguments.ArgumentParseResults;
@@ -41,6 +43,8 @@ public class SpawnCmd extends EssenceCommand {
 
     public SpawnCmd(Plugin plugin, String command, String description, String permission, List<String> aliases) {
         super(plugin, command, description, permission, aliases);
+
+        addDependency(SpawnModule.class);
 
         addArgument("player", new PlayerArg(), ArgumentRequirement.REQUIRED_CONSOLE, "others");
 
@@ -54,10 +58,13 @@ public class SpawnCmd extends EssenceCommand {
             return true;
         }
 
-        //Location spawnLocation;
-        Player player = (Player)result.getArg("player", castPlayer(sender));
+        SpawnModule spawns = (SpawnModule)getModule(SpawnModule.class);
 
-        //player.teleport(spawnLocation);
+        Player player = (Player)result.getArg("player", castPlayer(sender));
+        String uuid = player.getUniqueId().toString();
+
+        Location spawn = spawns.getSpawn(uuid) == null ? player.getWorld().getSpawnLocation() : spawns.getSpawn(uuid);
+        player.teleport(spawn);
 
         if(!result.hasModifier("-s")){
             EssMessage.CMD_SPAWN_TELEPORT.msg().send(player);

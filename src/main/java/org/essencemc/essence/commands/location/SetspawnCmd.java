@@ -31,11 +31,14 @@ import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.essencemc.essence.EssMessage;
+import org.essencemc.essence.modules.spawn.SpawnModule;
 import org.essencemc.essencecore.arguments.LocationArg;
 import org.essencemc.essencecore.arguments.PlayerArg;
 import org.essencemc.essencecore.commands.EssenceCommand;
 import org.essencemc.essencecore.commands.arguments.ArgumentParseResults;
 import org.essencemc.essencecore.commands.arguments.ArgumentRequirement;
+import org.essencemc.essencecore.commands.links.LinkLink;
+import org.essencemc.essencecore.commands.links.MakeOptionalLink;
 import org.essencemc.essencecore.message.Param;
 
 import java.util.List;
@@ -45,12 +48,19 @@ public class SetspawnCmd extends EssenceCommand {
     public SetspawnCmd(Plugin plugin, String command, String description, String permission, List<String> aliases) {
         super(plugin, command, description, permission, aliases);
 
+        addDependency(SpawnModule.class);
+
+        addOptionalArgument("player", new PlayerArg());
         addArgument("location", new LocationArg(), ArgumentRequirement.REQUIRED_CONSOLE);
-        addArgument("player", new PlayerArg(), ArgumentRequirement.OPTIONAL);
+
+        // TODO: Fix LinkLink order.
+        // TODO: Arguments broken.
+        //addLink(new LinkLink("-p", "player"));
+        addLink(new MakeOptionalLink("player", "location"));
+        addLink(new MakeOptionalLink("-p", "location"));
 
         register();
     }
-
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
@@ -58,20 +68,40 @@ public class SetspawnCmd extends EssenceCommand {
         if (!result.success) {
             return true;
         }
+        boolean eSpawn = false;
+        boolean playerArg = result.getOptionalArg("player") != null;
 
-        Player player = (Player)result.getArg("player", castPlayer(sender));
-        Location location = (Location)result.getArg("location", sender instanceof Player ? ((Player)sender).getLocation() : null);
+        SpawnModule spawns = (SpawnModule)getModule(SpawnModule.class);
 
-        if(result.getArg("player") != null){
-            //save player spawn location in the db.
+        Player player = (Player) result.getOptionalArg("player");
+        Location spawn;
+        if(result.hasModifier("-p")){
+            spawn = player.getLocation();
         } else {
-            //Save default spawn location in the db.
+            spawn = (Location)result.getArg("location", player == null ? (sender instanceof Player ? castPlayer(sender).getLocation() : null) : player.getLocation());
+        }
+
+       // Location spawn = (Location)result.getArg("location", player == null ? (sender instanceof Player ? castPlayer(sender).getLocation() : null) : player.getLocation());
+       // Player player = (Player) (result.getOptionalArg("player") == null ? castPlayer(sender) : result.getOptionalArg("player"));
+       // Location spawn = (Location)result.getArg("location", sender instanceof Player ? castPlayer(sender).getLocation() : null);
+
+        //TODO: Add group spawn.
+        if(playerArg){
+            String uuid = player.getUniqueId().toString();
+            spawns.setSpawn(uuid, spawn);
+        } else {
+            spawns.setSpawn(null, spawn);
+            eSpawn = true;
         }
 
         if (!result.hasModifier("-s")) {
-            EssMessage.CMD_SETSPAWN_SET.msg().send(sender);
+            String var = eSpawn ? getPlugin().getServer().getServerName() : player.getDisplayName();
+            EssMessage.CMD_SETSPAWN_SET.msg().send(sender, Param.P("location", parse(spawn)), Param.P("variable", var));
         }
         return true;
     }
 
+    private String parse(Location loc) {
+        return "X:" + loc.getBlockX() + " Y:" + loc.getBlockY() + " Z:" + loc.getBlockZ() + ":" + loc.getWorld().getName();
+    }
 }

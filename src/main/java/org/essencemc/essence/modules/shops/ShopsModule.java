@@ -17,6 +17,7 @@ import java.util.*;
 
 public class ShopsModule extends SqlStorageModule {
 
+    private MaterialValuesCfg matValues;
     private Map<String, ShopItem> shopItems = new HashMap<String, ShopItem>();
     private ShopItemMenu itemMenu = null;
 
@@ -26,10 +27,6 @@ public class ShopsModule extends SqlStorageModule {
 
     @Override
     public void onLoad() {
-        //TODO: Load vault
-
-        itemMenu = new ShopItemMenu(this);
-
         final PreparedStatement statement = getDatabase().createQuery().select("*").from(getTable()).getStatement();
         executeQuery(statement, new SqlQueryCallback() {
             @Override
@@ -58,17 +55,19 @@ public class ShopsModule extends SqlStorageModule {
 
     @Override
     protected void onEnable() {
-
+        //TODO: Load vault
+        matValues = new MaterialValuesCfg("plugins/Essence/modules/shops/MaterialValues.yml");
+        itemMenu = new ShopItemMenu(this);
     }
 
     @Override
     protected void onDisable() {
-
+        itemMenu.destroyMenu();
     }
 
     @Override
     protected void onReload() {
-
+        matValues.load();
     }
 
     @Override
@@ -87,6 +86,10 @@ public class ShopsModule extends SqlStorageModule {
                 db.createColumn("minmarketprice").type("DOUBLE").defaultValue(-1).notNull(),
                 db.createColumn("maxmarketprice").type("DOUBLE").defaultValue(-1).notNull()
         };
+    }
+
+    public MaterialValuesCfg getMaterialValues() {
+        return matValues;
     }
 
     public ShopItemMenu getItemMenu() {

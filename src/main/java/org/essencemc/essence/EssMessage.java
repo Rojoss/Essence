@@ -61,9 +61,14 @@ public enum EssMessage {
             "[[&7Can the item be placed on the market?\n&aClick to toggle.]&6Market&7({market}&7)]"),
 
     //Command messages
+    CMD_ERROR(MsgCat.COMMAND, "{p} &4Error while executing your command."),
     CMD_ESSENCE_INFO(MsgCat.COMMAND, "&8===== &4&lEssence plugin &8=====\n&8&o{0}\n&6Version&8: &7{1}\n&6Website&8: &9{2}\n&6Authors&8: &7{3}"),
     CMD_ESSENCE_RELOAD(MsgCat.COMMAND, "{p} &6Configs and commands reloaded."),
     CMD_HEAL_HEALED(MsgCat.COMMAND, "{p} &6You have been healed!"),
+    CMD_DELSPAWN_ALL(MsgCat.COMMAND, "{p} &4Deleted all spawns from database."),
+    CMD_DELSPAWN_ALLPLAYERS(MsgCat.COMMAND, "{p} &4Deleted all player spawns from database."),
+    CMD_DELSPAWN_MAIN(MsgCat.COMMAND, "{p} &4Deleted main spawn from database."),
+    CMD_DELSPAWN_PLAYER(MsgCat.COMMAND, "{p} &4Deleted {player}'s personal spawn."),
     CMD_HEAL_OTHER(MsgCat.COMMAND, "{p} &6You have healed &a{player}&6."),
     CMD_HEAL_ALL(MsgCat.COMMAND, "{p} &6You have healed all players!"),
     CMD_FEED_FEEDED(MsgCat.COMMAND, "{p} &6You have been fed!"),
@@ -128,7 +133,7 @@ public enum EssMessage {
     CMD_TOP_NONE(MsgCat.COMMAND, "{p} &cEvery block at your location is empty."),
     CMD_TOP_SAME(MsgCat.COMMAND, "{p} &cYou're already standing on the highest block."),
     CMD_SPAWN_TELEPORT(MsgCat.COMMAND, "{p} &6Teleported to spawn!"),
-    CMD_SETSPAWN_SET(MsgCat.COMMAND, "{p} &6Spawn point set at &a{location} &6for &a{variable}&6!"),
+    CMD_SETSPAWN_SET(MsgCat.COMMAND, "{p} &6Spawn point set at for {variable}!"),
     CANT_SPAWN_AIR(MsgCat.COMMAND, "{p} &cYou can't spawn items that are air!"),
     CMD_ITEM_GIVE(MsgCat.COMMAND, "{p} &6You have been given &a&l{amount} &a{item}&6."),
     CMD_ITEM_GIVE_OTHER(MsgCat.COMMAND, "{p} &6You have given {player} &a&l{amount} &a{item}&6."),
@@ -151,6 +156,9 @@ public enum EssMessage {
     CMD_KIT_ICON(MsgCat.COMMAND, "{p} &6Kit icon updated for the kit &a{kit}&6."),
 
     //Command modifiers
+    MOD_SETSPAWN_PLAYER(MsgCat.COMMAND_MODIFIERS, "Set personal spawn at specified player location."),
+    MOD_DELSPAWN_ALL(MsgCat.COMMAND_MODIFIERS, "Delete all spawns."),
+    MOD_DELSPAWN_ALLPLAYERS(MsgCat.COMMAND_MODIFIERS, "Delete all player spawns."),
     MOD_HEAL_ONLY(MsgCat.COMMAND_MODIFIERS, "Only modify the health limited by the maximum health."),
     MOD_HEAL_MAX_ONLY(MsgCat.COMMAND_MODIFIERS, "Only modify the maximum health."),
     MOD_HEAL_ALL(MsgCat.COMMAND_MODIFIERS, "Heals every player on the server."),

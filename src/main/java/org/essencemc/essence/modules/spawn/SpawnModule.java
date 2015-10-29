@@ -30,6 +30,7 @@ import org.essencemc.essence.Essence;
 import org.essencemc.essencecore.modules.Module;
 
 import java.util.Map;
+import java.util.UUID;
 
 public class SpawnModule extends Module{
 
@@ -55,88 +56,6 @@ public class SpawnModule extends Module{
     }
 
     /**
-     * Set a spawn point for a specific player uuid. if uuid is null, then set essence spawn instead.
-     * @param uuid Player uuid.
-     * @param loc Spawn location.
-     */
-    public void setSpawn(String uuid, Location loc){
-        if(uuid == null){
-            setEssenceSpawn(loc);
-        } else {
-            config.playerSpawn.put(uuid, loc);
-            config.save();
-        }
-    }
-
-    /**
-     * Set default spawn for server.
-     * @param loc Location of default spawn.
-     */
-    public void setEssenceSpawn(Location loc){
-        config.spawn = loc;
-        config.save();
-    }
-
-    /**
-     * Delete player spawn
-     * @param uuid Player uuid;
-     */
-    public void delSpawn(String uuid) {
-        for (Map.Entry<String, Location> spawn : config.playerSpawn.entrySet()) {
-            if (spawn.getKey().equalsIgnoreCase(uuid)) {
-                config.playerSpawn.remove(spawn.getKey());
-                config.save();
-            }
-        }
-    }
-
-    /**
-     * Delete essence spawn.
-     */
-    public void delEssenceSpawn(){
-        config.spawn = null;
-        config.save();
-    }
-
-    /**
-     * Delete all player spawns.
-     */
-    public void delPlayerSpawns(){
-        config.playerSpawn.clear();
-        config.save();
-    }
-
-    /**
-     * Delete all spawns.
-     */
-    public void delSpawns(){
-        delEssenceSpawn();
-        delPlayerSpawns();
-    }
-
-    /**
-     *  Check if essence spawn is set.
-     * @return Return true if essence spawn is set.
-     */
-    public boolean hasEssenceSpawn(){
-        return config.spawn != null;
-    }
-
-    /**
-     * Check if a player has personal spawn.
-     * @param uuid Player uuid.
-     * @return returns true if player has personal spawn.
-     */
-    public boolean hasSpawn(String uuid){
-        for (Map.Entry<String, Location> spawn : config.playerSpawn.entrySet()) {
-            if (spawn.getKey().equalsIgnoreCase(name)) {
-                return true;
-            }
-        }
-        return false;
-    }
-
-    /**
      * Get spawn config.
      * @return Return spawn config.
      */
@@ -145,24 +64,103 @@ public class SpawnModule extends Module{
     }
 
     /**
-     * Get the spawn location for a specific player.
-     * @param uuid Player uuid.
-     * @return Return spawn location for a specific player.
+     * Get main spawn location.
+     * @return Return main spawn location. Return null if no entry.
      */
-    public Location getSpawn(String uuid){
-        for (Map.Entry<String, Location> spawn : config.playerSpawn.entrySet()) {
-            if (spawn.getKey().equalsIgnoreCase(uuid)) {
-                return spawn.getValue();
-            }
-        }
+    public Location getMainSpawn(){
         return config.spawn;
     }
 
     /**
-     * Get essence spawn point.
-     * @return Return essence spawn.
+     * Set main spawn location.
+     * @param loc Spawn location.
      */
-    public Location getEssenceSpawn() {
-        return config.spawn;
+    public void setMainSpawn(Location loc){
+        config.spawn = loc;
+        config.save();
+    }
+
+    /**
+     * Delete main spawn.
+     */
+    public void delMainSpawn(){
+        config.spawn = null;
+        config.save();
+    }
+
+    /**
+     * Delete all spawns in database.
+     */
+    public void delAllSpawns(){
+        delMainSpawn();
+        delAllPlayerSpawns();
+    }
+
+    /**
+     * Delete all player spawns in database.
+     */
+    public void delAllPlayerSpawns(){
+        config.playerSpawn.clear();
+        config.save();
+    }
+    
+    /**
+     * Check if main spawn was set.
+     * @return Return true if main spawn is set.
+     */
+    public boolean hasMainSpawn(){
+        return config.spawn != null;
+    }
+
+    /**
+     * Get personal player spawn.
+     * @param uuid Player uuid.
+     * @return Return personal player spawn. Return null if he doesn't have one.
+     */
+    public Location getPlayerSpawn(UUID uuid){
+        if(config.playerSpawn.containsKey(uuid.toString())){
+            return config.playerSpawn.get(uuid.toString());
+        }
+        return null;
+    }
+
+    /**
+     * Set personal player spawn.
+     * @param uuid Player uuid.
+     * @param loc Spawn location.
+     */
+    public void setPlayerSpawn(UUID uuid, Location loc){
+        config.playerSpawn.put(uuid.toString(), loc);
+        config.save();
+    }
+
+    /**
+     * Delete personal player spawn.
+     * @param uuid Player uuid.
+     */
+    public void delPlayerSpawn(UUID uuid){
+        if(config.playerSpawn.containsKey(uuid.toString())){
+            config.playerSpawn.remove(uuid.toString());
+            config.save();
+        }
+    }
+
+    /**
+     * Check if player has a personal spawn.
+     * @param uuid Player uuid.
+     * @return Return true if player has personal spawn.
+     */
+    public boolean hasPlayerSpawn(UUID uuid){
+        return config.playerSpawn.containsKey(uuid.toString());
+    }
+
+    /**
+     * Get a spawn point for player.
+     * @param uuid Player uuid.
+     * @return Return personal player spawn, main spawn or server default spawn.
+     */
+    public Location getSpawn(UUID uuid){
+        Location mainSpawn = hasMainSpawn() ? getMainSpawn() : Essence.inst().getServer().getWorld(uuid).getSpawnLocation();
+        return hasPlayerSpawn(uuid) ? getPlayerSpawn(uuid) : mainSpawn;
     }
 }

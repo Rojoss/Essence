@@ -68,7 +68,7 @@ public class VanishCmd extends EssenceCommand {
         addCommandOption("invisibility-potion", EssMessage.OPT_VANISH_INVIS_POTION.msg(), new BoolArg(true), false);
 
         addLink(new ConflictLink("-fq", "-fj"));
-        addLink(new ConflictLink("-fj", "-fq"));
+
         register();
     }
 

@@ -79,8 +79,9 @@ public class Essence extends JavaPlugin {
 
     public void registerCommands() {
         Commands cmds = core.getCommands();
-        cmds.registerCommand(this, SpawnCmd.class, "spawn", "", "spawn", "Teleport to spawn.", new String[]{});
-        cmds.registerCommand(this, SetspawnCmd.class, "setspawn", "", "setspawn", "Set a spawn point for the server or player.", new String[]{});
+        cmds.registerCommand(this, DelspawnCmd.class, "delspawn", "spawn", "delspawn", "Delete specified spawn.", new String[]{});
+        cmds.registerCommand(this, SpawnCmd.class, "spawn", "spawn", "spawn", "Teleport to spawn.", new String[]{});
+        cmds.registerCommand(this, SetspawnCmd.class, "setspawn", "spawn", "setspawn", "Set a spawn point for the server or player.", new String[]{});
         cmds.registerCommand(this, ListCmd.class, "list", "", "list", "List of online players.", new String[]{});
         cmds.registerCommand(this, MeCmd.class, "me", "", "me", "Command to emote.", new String[]{});
         cmds.registerCommand(this, TestCmd.class, "test", "", "", "Command for testing plugin functionality.", new String[]{});

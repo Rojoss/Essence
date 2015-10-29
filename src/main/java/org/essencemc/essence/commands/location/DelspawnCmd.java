@@ -25,39 +25,36 @@
 
 package org.essencemc.essence.commands.location;
 
-import org.bukkit.Location;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.essencemc.essence.EssMessage;
 import org.essencemc.essence.modules.spawn.SpawnModule;
-import org.essencemc.essencecore.arguments.LocationArg;
 import org.essencemc.essencecore.arguments.PlayerArg;
 import org.essencemc.essencecore.commands.EssenceCommand;
 import org.essencemc.essencecore.commands.arguments.ArgumentParseResults;
 import org.essencemc.essencecore.commands.arguments.ArgumentRequirement;
-import org.essencemc.essencecore.commands.links.LinkLink;
-import org.essencemc.essencecore.commands.links.MakeOptionalLink;
+import org.essencemc.essencecore.commands.links.ConflictLink;
 import org.essencemc.essencecore.message.Param;
 
 import java.util.List;
-import java.util.UUID;
 
-public class SetspawnCmd extends EssenceCommand {
+public class DelspawnCmd extends EssenceCommand {
 
-    public SetspawnCmd(Plugin plugin, String command, String description, String permission, List<String> aliases) {
+    public DelspawnCmd(Plugin plugin, String command, String description, String permission, List<String> aliases) {
         super(plugin, command, description, permission, aliases);
 
         addDependency(SpawnModule.class);
 
-        addModifier("-p", EssMessage.MOD_SETSPAWN_PLAYER.msg());
+        addModifier("-all", EssMessage.MOD_DELSPAWN_ALL.msg());
+        addModifier("-allp", EssMessage.MOD_DELSPAWN_ALLPLAYERS.msg());
 
-        addOptionalArgument("player", new PlayerArg());
-        addArgument("location", new LocationArg(), ArgumentRequirement.REQUIRED_CONSOLE);
+        addArgument("player", new PlayerArg(), ArgumentRequirement.OPTIONAL);
 
-        addLink(new LinkLink("-p", "player"));
-        addLink(new MakeOptionalLink("player", "location"));
+        addLink(new ConflictLink("-all", "player"));
+        addLink(new ConflictLink("-allp", "player"));
+        addLink(new ConflictLink("-all", "-allp"));
 
         register();
     }
@@ -65,36 +62,33 @@ public class SetspawnCmd extends EssenceCommand {
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
         ArgumentParseResults result = parseArgs(this, sender, args);
-        if (!result.success) {
+        if(!result.success) {
             return true;
         }
-        boolean eSpawn = false;
-        boolean playerArg = result.getOptionalArg("player") != null;
 
         SpawnModule spawns = (SpawnModule)getModule(SpawnModule.class);
+        Player player = (Player)result.getArg("player", null);
+        String playerName = "";
 
-        Player player = (Player) result.getOptionalArg("player");
-        Location spawn;
+        EssMessage msg;
 
-        if(result.hasModifier("-p")){
-            spawn = player.getLocation();
+        if(result.hasModifier("-dall")){
+            spawns.delAllSpawns();
+            msg = EssMessage.CMD_DELSPAWN_ALL;
+        } else if(result.hasModifier("-dallp")){
+            spawns.delAllPlayerSpawns();
+            msg = EssMessage.CMD_DELSPAWN_ALLPLAYERS;
+        } else if(player == null) {
+            spawns.delMainSpawn();
+            msg = EssMessage.CMD_DELSPAWN_MAIN;
         } else {
-            spawn = (Location)result.getArg("location", player == null ? (sender instanceof Player ? castPlayer(sender).getLocation() : null) : player.getLocation());
+            spawns.delPlayerSpawn(player.getUniqueId());
+            msg = EssMessage.CMD_DELSPAWN_PLAYER;
+            playerName = player.getName();
         }
 
-        //TODO: Add group spawn.
-        if(playerArg){
-            UUID uuid = player.getUniqueId();
-            spawns.setPlayerSpawn(uuid, spawn);
-        } else {
-            spawns.setMainSpawn(spawn);
-            eSpawn = true;
-        }
-
-        if (!result.hasModifier("-s")) {
-            String var = eSpawn ? getPlugin().getServer().getServerName() : player.getDisplayName();
-            var = var.equalsIgnoreCase("unknown server") ? "the server" : var;
-            EssMessage.CMD_SETSPAWN_SET.msg().send(sender, Param.P("variable", var));
+        if(!result.hasModifier("-s")){
+            msg.msg().send(sender, Param.P("player", playerName), Param.P("command", getLabel()));
         }
         return true;
     }

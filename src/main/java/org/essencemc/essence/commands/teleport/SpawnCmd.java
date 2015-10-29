@@ -38,6 +38,7 @@ import org.essencemc.essencecore.commands.arguments.ArgumentParseResults;
 import org.essencemc.essencecore.commands.arguments.ArgumentRequirement;
 
 import java.util.List;
+import java.util.UUID;
 
 public class SpawnCmd extends EssenceCommand {
 
@@ -61,7 +62,7 @@ public class SpawnCmd extends EssenceCommand {
         SpawnModule spawns = (SpawnModule)getModule(SpawnModule.class);
 
         Player player = (Player)result.getArg("player", castPlayer(sender));
-        String uuid = player.getUniqueId().toString();
+        UUID uuid = player.getUniqueId();
 
         Location spawn = spawns.getSpawn(uuid) == null ? player.getWorld().getSpawnLocation() : spawns.getSpawn(uuid);
         player.teleport(spawn);

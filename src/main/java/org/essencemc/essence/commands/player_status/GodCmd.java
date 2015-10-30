@@ -31,7 +31,9 @@ import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.plugin.Plugin;
+import org.bukkit.potion.PotionEffect;
 import org.essencemc.essence.EssMessage;
+import org.essencemc.essence.modules.god.GodData;
 import org.essencemc.essence.modules.god.GodModule;
 import org.essencemc.essencecore.arguments.BoolArg;
 import org.essencemc.essencecore.arguments.PlayerArg;
@@ -39,13 +41,17 @@ import org.essencemc.essencecore.commands.EssenceCommand;
 import org.essencemc.essencecore.commands.arguments.ArgumentParseResults;
 import org.essencemc.essencecore.commands.arguments.ArgumentRequirement;
 import org.essencemc.essencecore.commands.arguments.CmdArgument;
+import org.essencemc.essencecore.message.Param;
 
 import java.util.List;
+import java.util.UUID;
 
 public class GodCmd extends EssenceCommand {
 
     public GodCmd(Plugin plugin, String command, String description, String permission, List<String> aliases) {
         super(plugin, command, description, permission, aliases);
+
+        addDependency(GodModule.class);
 
         addArgument("player", new PlayerArg(), ArgumentRequirement.REQUIRED_CONSOLE, "others");
 
@@ -54,7 +60,6 @@ public class GodCmd extends EssenceCommand {
         addCommandOption("no-damage", EssMessage.OPT_NO_DAMAGE.msg(), new BoolArg(true));
 
         register();
-
     }
 
     @Override
@@ -66,18 +71,37 @@ public class GodCmd extends EssenceCommand {
 
         GodModule gods = (GodModule)getModule(GodModule.class);
 
+        boolean god;
         Player player = (Player)result.getArg("player", castPlayer(sender));
-        boolean god = gods.isGod(player.getName());
-        gods.toggleGod(player.getName());
+        UUID uuid = player.getUniqueId();
+
+        if(result.hasModifier("-r")){
+            player.setFireTicks(0);
+            for(PotionEffect effect : player.getActivePotionEffects()){
+                player.removePotionEffect(effect.getType());
+            }
+        }
+        if(gods.isGod(uuid)){
+            gods.ungod(uuid);
+            god = false;
+        } else {
+            gods.god(uuid, new GodData((Boolean)result.getOptionalArg("no-hunger-loss"), (boolean)result.getOptionalArg("no-damage")));
+            god = true;
+        }
 
         if(!result.hasModifier("-s")){
             if(god){
-                EssMessage.CMD_GOD_TOGGLEOFF.msg().send(player);
+                EssMessage.CMD_GOD_RECEIVER_ON.msg().send(player);
+                if(!sender.equals(player)){
+                    EssMessage.CMD_GOD_SENDER_ON.msg().send(sender, Param.P("player", player.getDisplayName()));
+                }
             } else {
-                EssMessage.CMD_GOD_TOGGLEON.msg().send(player);
+                EssMessage.CMD_GOD_RECEIVER_OFF.msg().send(player);
+                if(!sender.equals(player)){
+                    EssMessage.CMD_GOD_SENDER_OFF.msg().send(sender, Param.P("player", player.getDisplayName()));
+                }
             }
         }
-
         return true;
     }
 }

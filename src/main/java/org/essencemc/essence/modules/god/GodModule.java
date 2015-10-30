@@ -26,19 +26,20 @@
 package org.essencemc.essence.modules.god;
 
 
+
 import org.bukkit.entity.Player;
 import org.bukkit.event.EventHandler;
-import org.bukkit.event.Listener;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.FoodLevelChangeEvent;
 import org.essencemc.essence.Essence;
 import org.essencemc.essencecore.modules.Module;
 
-import java.util.ArrayList;
-import java.util.List;
+import java.util.*;
 
-public class GodModule extends Module implements Listener {
+public class GodModule extends Module {
 
-    private List<String> godPlayers = new ArrayList<>();
+    private Map<UUID, GodData> gods = new HashMap<UUID, GodData>();
 
     public GodModule(String name){
         super(Essence.inst(), name);
@@ -59,41 +60,78 @@ public class GodModule extends Module implements Listener {
 
     }
 
-    /**
-     * Get the god list of this session.
-     * @return Returns god list.
-     */
-    public List<String> getGodList(){
-        return godPlayers;
-    }
-
-    public boolean isGod(String playerName){
-        return godPlayers.contains(playerName);
-    }
-
-    /**
-     * Toggle god mode for specified player.
-     * @param playerName Player name
-     * @return Return true if player is god, false if he is not.
-     */
-    public boolean toggleGod(String playerName){
-        if(godPlayers.contains(playerName)){
-            godPlayers.remove(playerName);
-            return false;
+    public void god(UUID uuid, GodData data){
+        if(isGod(uuid)){
+            return;
         }
-        godPlayers.add(playerName);
-        return true;
+        gods.put(uuid, data);
+    }
+
+    public void ungod(UUID uuid){
+        if(!isGod(uuid)){
+            return;
+        }
+        gods.remove(uuid);
+    }
+
+    public boolean isGod(UUID uuid){
+        return gods.containsKey(uuid);
+    }
+
+    public GodData getGodData(UUID uuid){
+        if(isGod(uuid)){
+            return gods.get(uuid);
+        }
+        return null;
+    }
+
+    public Map<UUID, GodData> getGodPlayers(){
+        return gods;
     }
 
     @EventHandler
-    public void onEntityDamage(EntityDamageEvent event) {
-        if (!(event.getEntity() instanceof Player)) {
+    public void onDamageByPlayer(EntityDamageByEntityEvent e){
+        if(!(e.getEntity() instanceof Player)){
             return;
         }
 
-        Player player = (Player) event.getEntity();
-        if(isGod(player.getName())){
-            event.setCancelled(true);
+        if(e.getDamager() instanceof Player){
+
+            Player damager = (Player) e.getDamager();
+            UUID uuid = damager.getUniqueId();
+
+            if(isGod(uuid) && !getGodData(uuid).canAttack()){
+                e.setCancelled(true);
+            }
         }
     }
+
+    @EventHandler
+    public void onDamage(EntityDamageEvent e){
+        if(!(e.getEntity() instanceof Player)){
+            return;
+        }
+
+        Player player = (Player)e.getEntity();
+        UUID uuid = player.getUniqueId();
+
+        if(isGod(uuid)){
+            e.setCancelled(true);
+        }
+    }
+
+    @EventHandler
+    public void onHungerLoss(FoodLevelChangeEvent e){
+        if(!(e.getEntity() instanceof Player)){
+            return;
+        }
+
+        Player player = (Player)e.getEntity();
+        UUID uuid = player.getUniqueId();
+
+        if(isGod(uuid) && !getGodData(uuid).canStarve()){
+            e.setFoodLevel(20);
+        }
+    }
+
 }

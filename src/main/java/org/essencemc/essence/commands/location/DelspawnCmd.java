@@ -72,10 +72,10 @@ public class DelspawnCmd extends EssenceCommand {
 
         EssMessage msg;
 
-        if(result.hasModifier("-dall")){
+        if(result.hasModifier("-all")){
             spawns.delAllSpawns();
             msg = EssMessage.CMD_DELSPAWN_ALL;
-        } else if(result.hasModifier("-dallp")){
+        } else if(result.hasModifier("-allp")){
             spawns.delAllPlayerSpawns();
             msg = EssMessage.CMD_DELSPAWN_ALLPLAYERS;
         } else if(player == null) {
@@ -88,7 +88,7 @@ public class DelspawnCmd extends EssenceCommand {
         }
 
         if(!result.hasModifier("-s")){
-            msg.msg().send(sender, Param.P("player", playerName), Param.P("command", getLabel()));
+            msg.msg().send(sender, Param.P("player", playerName));
         }
         return true;
     }

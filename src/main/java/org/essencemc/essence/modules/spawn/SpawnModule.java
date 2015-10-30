@@ -26,6 +26,10 @@
 package org.essencemc.essence.modules.spawn;
 
 import org.bukkit.Location;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.player.PlayerResourcePackStatusEvent;
+import org.bukkit.event.player.PlayerRespawnEvent;
 import org.essencemc.essence.Essence;
 import org.essencemc.essencecore.modules.Module;
 
@@ -160,7 +164,13 @@ public class SpawnModule extends Module{
      * @return Return personal player spawn, main spawn or server default spawn.
      */
     public Location getSpawn(UUID uuid){
-        Location mainSpawn = hasMainSpawn() ? getMainSpawn() : Essence.inst().getServer().getWorld(uuid).getSpawnLocation();
+        Location mainSpawn = hasMainSpawn() ? getMainSpawn() : Essence.inst().getServer().getPlayer(uuid).getWorld().getSpawnLocation();
         return hasPlayerSpawn(uuid) ? getPlayerSpawn(uuid) : mainSpawn;
+    }
+
+    @EventHandler
+    public void onRespawn(PlayerRespawnEvent e){
+        Player player = e.getPlayer();
+        e.setRespawnLocation(getSpawn(player.getUniqueId()));
     }
 }

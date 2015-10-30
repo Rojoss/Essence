@@ -23,6 +23,7 @@ import org.essencemc.essence.commands.punishments.BanCmd;
 import org.essencemc.essence.commands.teleport.*;
 import org.essencemc.essence.commands.world.LightningCmd;
 import org.essencemc.essence.commands.world.TreeCmd;
+import org.essencemc.essence.modules.god.GodModule;
 import org.essencemc.essence.modules.shops.ShopsModule;
 import org.essencemc.essence.modules.spawn.SpawnModule;
 import org.essencemc.essence.modules.warps.WarpModule;
@@ -131,6 +132,7 @@ public class Essence extends JavaPlugin {
 
     public void registerModules() {
         Modules modules = core.getModules();
+        modules.registerModule(GodModule.class, "god", "god_core");
         modules.registerModule(SpawnModule.class, "spawn", "spawns_core");
         modules.registerModule(BanModule.class, "punishments", "ban");
         modules.registerModule(SignModule.class, "signs", "signs_core");

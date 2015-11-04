@@ -23,6 +23,7 @@ import org.essencemc.essence.commands.punishments.BanCmd;
 import org.essencemc.essence.commands.teleport.*;
 import org.essencemc.essence.commands.world.LightningCmd;
 import org.essencemc.essence.commands.world.TreeCmd;
+import org.essencemc.essence.modules.back.BackModule;
 import org.essencemc.essence.modules.god.GodModule;
 import org.essencemc.essence.modules.shops.ShopsModule;
 import org.essencemc.essence.modules.spawn.SpawnModule;
@@ -80,11 +81,12 @@ public class Essence extends JavaPlugin {
 
     public void registerCommands() {
         Commands cmds = core.getCommands();
-        cmds.registerCommand(this, DelspawnCmd.class, "delspawn", "spawn", "delspawn", "Delete specified spawn.", new String[]{});
+        cmds.registerCommand(this, BackCmd.class, "back", "back", "back", "Go back to your previous location.", new String[]{"previous"});
+        cmds.registerCommand(this, DelspawnCmd.class, "delspawn", "spawn", "delspawn", "Delete specified spawn.", new String[]{"remspawn", "spawndel", "deletespawn", "spawndelete"});
         cmds.registerCommand(this, SpawnCmd.class, "spawn", "spawn", "spawn", "Teleport to spawn.", new String[]{});
-        cmds.registerCommand(this, SetspawnCmd.class, "setspawn", "spawn", "setspawn", "Set a spawn point for the server or player.", new String[]{});
-        cmds.registerCommand(this, ListCmd.class, "list", "", "list", "List of online players.", new String[]{});
-        cmds.registerCommand(this, MeCmd.class, "me", "", "me", "Command to emote.", new String[]{});
+        cmds.registerCommand(this, SetspawnCmd.class, "setspawn", "spawn", "setspawn", "Set a spawn point for the server or player.", new String[]{"spawnset"});
+        cmds.registerCommand(this, ListCmd.class, "list", "", "list", "List of online players.", new String[]{"players", "online"});
+        cmds.registerCommand(this, MeCmd.class, "me", "", "me", "Command to emote.", new String[]{"emote"});
         cmds.registerCommand(this, TestCmd.class, "test", "", "", "Command for testing plugin functionality.", new String[]{});
         cmds.registerCommand(this, MainPluginCmd.class, "essence", "", "", "Main plugin command and config reloading", new String[]{"essentials", "essential"});
         cmds.registerCommand(this, HealCmd.class, "heal", "", "heal", "Heal a player", new String[]{"health", "sethealth"});
@@ -132,6 +134,7 @@ public class Essence extends JavaPlugin {
 
     public void registerModules() {
         Modules modules = core.getModules();
+        modules.registerModule(BackModule.class, "back", "back_core");
         modules.registerModule(GodModule.class, "god", "god_core");
         modules.registerModule(SpawnModule.class, "spawn", "spawns_core");
         modules.registerModule(BanModule.class, "punishments", "ban");

@@ -25,30 +25,30 @@
 
 package org.essencemc.essence.commands.player;
 
+
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.essencemc.essence.EssMessage;
 import org.essencemc.essence.modules.message.MessageModule;
-import org.essencemc.essencecore.arguments.PlayerArg;
 import org.essencemc.essencecore.arguments.StringArg;
 import org.essencemc.essencecore.commands.EssenceCommand;
 import org.essencemc.essencecore.commands.arguments.ArgumentParseResults;
 import org.essencemc.essencecore.commands.arguments.ArgumentRequirement;
+import org.essencemc.essencecore.message.Message;
 import org.essencemc.essencecore.message.Param;
 import org.essencemc.essencecore.util.Util;
 
 import java.util.List;
 
-public class MessageCmd extends EssenceCommand {
+public class ReplyCmd extends EssenceCommand {
 
-    public MessageCmd(Plugin plugin, String command, String description, String permission, List<String> aliases) {
+    public ReplyCmd(Plugin plugin, String command, String description, String permission, List<String> aliases) {
         super(plugin, command, description, permission, aliases);
 
         addDependency(MessageModule.class);
 
-        addArgument("player", new PlayerArg(), ArgumentRequirement.REQUIRED);
         addArgument("message", new StringArg(), ArgumentRequirement.REQUIRED);
 
         register();
@@ -56,23 +56,31 @@ public class MessageCmd extends EssenceCommand {
 
     @Override
     public boolean onCommand(CommandSender sender, Command cmd, String label, String[] args) {
+        if(!(sender instanceof Player)){
+            Message.CMD_PLAYER_ONLY.msg().params().send(sender);
+            return true;
+        }
         ArgumentParseResults result = parseArgs(this, sender, args);
-        if (!result.success) {
+        if(!result.success) {
             return true;
         }
 
         MessageModule messages = (MessageModule)getModule(MessageModule.class);
         Player target = (Player)result.getArg("player");
-        String message = Util.implode(args, " ", 1);
+        String message = Util.implode(args, " ");
 
-        if(sender instanceof Player){
-            messages.setReply(target.getUniqueId(), castPlayer(sender).getUniqueId());
+        if(!messages.canReply(castPlayer(sender).getUniqueId())){
+            EssMessage.CMD_REPLY_NULL.msg().send(sender);
+            return true;
         }
+
+        messages.setReply(target.getUniqueId(), castPlayer(sender).getUniqueId());
 
         EssMessage.CMD_MESSAGE_RECEIVE.msg().send(target, Param.P("receiver", target.getDisplayName()), Param.P("sender", sender.getName()), Param.P("msg", message));
         if (!result.hasModifier("-s")) {
             EssMessage.CMD_MESSAGE_SENT.msg().send(target, Param.P("receiver", target.getDisplayName()), Param.P("sender", sender.getName()), Param.P("msg", message));
         }
+
         return true;
     }
 }

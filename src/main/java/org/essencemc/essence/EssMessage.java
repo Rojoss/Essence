@@ -61,6 +61,10 @@ public enum EssMessage {
             "[[&7Can the item be placed on the market?\n&aClick to toggle.]&6Market&7({market}&7)]"),
 
     //Command messages
+    CMD_BACK_NULL(MsgCat.COMMAND, "{p} &cYou don't have a previous location to teleport to."),
+    CMD_BACK_NULL_OTHER(MsgCat.COMMAND, "{p} &4{player} &cdoesn't have a previous location to teleport to."),
+    CMD_BACK_TP(MsgCat.COMMAND, "{p} &6You have been teleported to your previous location."),
+    CMD_BACK_TP_OTHER(MsgCat.COMMAND, "{p} &6You have teleported &2{player} &6to their previous location."),
     CMD_GOD_SENDER_ON(MsgCat.COMMAND, "{p} &6You enabled god mode for &2{player}&6!"),
     CMD_GOD_SENDER_OFF(MsgCat.COMMAND, "{p} &cYou disabled god mode for &4{player}&c!"),
     CMD_GOD_RECEIVER_ON(MsgCat.COMMAND, "{p} &6You are now a god!"),
@@ -119,6 +123,7 @@ public enum EssMessage {
     CMD_TPHERE(MsgCat.COMMAND, "{p} &6You have teleported &a{player} &6here."),
     CMD_SUDO(MsgCat.COMMAND, "{p} &6You made &a{player} &6run &a{cmd}&6."),
     CMD_SUMMON(MsgCat.COMMAND, "{p} &6Entities summoned!"),
+    CMD_REPLY_NULL(MsgCat.COMMAND, "{p} &cYou have no one to reply."),
     CMD_MESSAGE_SENT(MsgCat.COMMAND, "&a&l@&a{receiver}&8>> &7&o{msg}"),
     CMD_MESSAGE_RECEIVE(MsgCat.COMMAND, "&a&l{sender}&8&l: &7&l&o{msg}"),
     CMD_ME_MESSAGE(MsgCat.COMMAND, "&7{sender} &f* &3{msg}"),

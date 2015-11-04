@@ -41,7 +41,7 @@ public class GodData {
         this.damage = damage;
     }
 
-    public boolean canAttack(){
+    public boolean canAttack() {
         return damage;
     }
 

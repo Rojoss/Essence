@@ -33,6 +33,7 @@ import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
+import org.essencemc.essence.EssMessage;
 import org.essencemc.essencecore.aliases.AliasType;
 import org.essencemc.essencecore.aliases.Aliases;
 import org.essencemc.essencecore.arguments.*;
@@ -41,6 +42,7 @@ import org.essencemc.essencecore.commands.arguments.ArgumentParseResult;
 import org.essencemc.essencecore.commands.arguments.ArgumentParseResults;
 import org.essencemc.essencecore.commands.arguments.ArgumentRequirement;
 import org.essencemc.essencecore.message.EText;
+import org.essencemc.essencecore.message.Param;
 import org.essencemc.essencecore.util.Duration;
 
 import java.util.List;
@@ -48,8 +50,6 @@ import java.util.Random;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class WeatherCmd extends EssenceCommand {
-    // TODO: Change messages to the Essence message system.
-
     public WeatherCmd(Plugin plugin, String label, String description, String permission, List<String> aliases) {
         super(plugin, label, description, permission, aliases);
 
@@ -78,7 +78,7 @@ public class WeatherCmd extends EssenceCommand {
         String type = (result.hasModifier("-t") ? "TOGGLE" : ((String) result.getArg("type")));
 
         if(type == null) {
-            sender.sendMessage("It is " + (world.hasStorm() ? (world.isThundering() ? "thundering" : "rainy") : "sunny") + " in " + world.getName() + ".");
+            EssMessage.CMD_WEATHER_INFO.msg().send(sender, Param.P("world", world.getName()), Param.P("type", (world.hasStorm() ? (world.isThundering() ? "thundering" : "rainy") : "sunny")));
             return true;
         }
 

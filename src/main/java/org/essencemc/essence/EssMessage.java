@@ -83,7 +83,7 @@ public enum EssMessage {
     CMD_GAMEMODE_CHANGED(MsgCat.COMMAND, "{p} &6Gamemode changed to &a{mode}&6."),
     CMD_GAMEMODE_OTHER(MsgCat.COMMAND, "{p} &6You have changed &a{player}'s &6gamemode to &a{mode}&6."),
     CMD_WEATHER_INFO(MsgCat.COMMAND, "&6It is &a{type} &6in &a{world}&6."),
-    CMD_WEATHER_CHANGED(MsgCat.COMMAND, "&6You have changed the weather in &a{world} &6to &a{type} &6for &a{time} &6seconds."),
+    CMD_WEATHER_CHANGED(MsgCat.COMMAND, "&6You have changed the weather in &a{world} &6to &a{type} &6for &a{duration} &6seconds."),
     CMD_LIGHTNING(MsgCat.COMMAND, "{p} &6Lightning has struck!"),
     CMD_LIST_PLAYERLIST(MsgCat.COMMAND, "&8===== &2&lPlayer list &8=====\n&fOnline: [{online}/{slots}]&a{players}"),
     CMD_WARP_SET(MsgCat.COMMAND, "{p} &6Warp &a{warp} &6set!"),

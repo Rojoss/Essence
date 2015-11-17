@@ -106,9 +106,7 @@ public class WeatherCmd extends EssenceCommand {
                 break;
         }
 
-        // Don't look at this, it will be changed to the message system later but I get crazy when the grammar of a message isn't correct x-) <3 (ex. 1 seconds)
-        sender.sendMessage("Changed weather to " + (type.equalsIgnoreCase("SUN") ? "sunny" : (type.equalsIgnoreCase("RAIN") ? "rainy" : (type.equalsIgnoreCase("TOGGLE") ? (world.hasStorm() ? "rainy" : "sunny") : "thundering"))) + " for " + duration + ((duration == 1) ? " second" : " seconds") + ((result.getOptionalArg("world") == null) ? "" : (" in " + world.getName())) + ".");
-
+        EssMessage.CMD_WEATHER_CHANGED.msg().send(sender, Param.P("world", world.getName()), Param.P("type", (world.hasStorm() ? (world.isThundering() ? "thundering" : "rainy") : "sunny")), Param.P("duration", String.valueOf(duration)));
         return true;
     }
 }

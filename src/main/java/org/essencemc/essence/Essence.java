@@ -23,6 +23,7 @@ import org.essencemc.essence.commands.punishments.BanCmd;
 import org.essencemc.essence.commands.teleport.*;
 import org.essencemc.essence.commands.world.LightningCmd;
 import org.essencemc.essence.commands.world.TreeCmd;
+import org.essencemc.essence.commands.world.WeatherCmd;
 import org.essencemc.essence.modules.back.BackModule;
 import org.essencemc.essence.modules.god.GodModule;
 import org.essencemc.essence.modules.shops.ShopsModule;
@@ -93,6 +94,7 @@ public class Essence extends JavaPlugin {
         cmds.registerCommand(this, FeedCmd.class, "feed", "", "feed", "Feed a player", new String[]{"hunger", "eat"});
         cmds.registerCommand(this, LightningCmd.class, "lightning", "", "lightning", "Strike lightning somewhere", new String[]{"smite"});
         cmds.registerCommand(this, GamemodeCmd.class, "gamemode", "", "gamemode", "Change a player his gamemmode", new String[]{"gm"});
+        cmds.registerCommand(this, WeatherCmd.class, "weather", "", "weather", "Change the weather from a world", new String[] {"wh"});
         cmds.registerCommand(this, SetWarpCmd.class, "setwarp", "warps", "setwarp", "Set a warp with the given name", new String[]{"addwarp", "warpset"});
         cmds.registerCommand(this, DelWarpCmd.class, "delwarp", "warps", "delwarp", "Delete a warp with the given name", new String[]{"warpdel", "deletewarp", "rmwarp", "removewarp", "warpdelete", "warprm", "warpremove"});
         cmds.registerCommand(this, WarpsCmd.class, "warps", "warps", "warplist", "List all the warps (for a world)", new String[]{"warplist"});

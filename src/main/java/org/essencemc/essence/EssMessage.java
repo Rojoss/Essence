@@ -162,6 +162,7 @@ public enum EssMessage {
     CMD_KIT_TOGGLE(MsgCat.COMMAND, "{p} &6The &a{kit} &6kit is now {state}."),
     CMD_KIT_ICON_AIR(MsgCat.COMMAND, "{p} &cYou can't set the kit icon to air."),
     CMD_KIT_ICON(MsgCat.COMMAND, "{p} &6Kit icon updated for the kit &a{kit}&6."),
+    CMD_LAUNCH(MsgCat.COMMAND, "&6You've launched a &a{projectile}&6."),
 
     //Command modifiers
     MOD_SETSPAWN_PLAYER(MsgCat.COMMAND_MODIFIERS, "Set personal spawn at specified player location."),

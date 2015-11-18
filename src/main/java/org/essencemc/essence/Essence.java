@@ -1,6 +1,7 @@
 package org.essencemc.essence;
 
 import org.bukkit.plugin.java.JavaPlugin;
+import org.essencemc.essence.commands.fun.LaunchCmd;
 import org.essencemc.essence.commands.fun.PushCmd;
 import org.essencemc.essence.commands.item.GiveCmd;
 import org.essencemc.essence.commands.item.ItemCmd;
@@ -130,6 +131,7 @@ public class Essence extends JavaPlugin {
         cmds.registerCommand(this, SetKitCmd.class, "setkit", "kits", "setkit_cmd", "Create or modify a kit based on inventory contents.", new String[]{"editkit", "createkit", "newkit", "modifykit"});
         cmds.registerCommand(this, KitsCmd.class, "kits", "kits", "kits_cmd", "Open the kit menu to list all kits.", new String[]{"kitlist"});
         cmds.registerCommand(this, ShopItemCmd.class, "shopitems", "shops", "shopitems_cmd", "Shop item management.", new String[]{"shopitem"});
+        cmds.registerCommand(this, LaunchCmd.class, "launch", "", "launch", "Launch a projectile.", new String[] {"projectile"});
     }
 
     public void registerModules() {

@@ -3,9 +3,7 @@ package org.essencemc.essence;
 import org.bukkit.plugin.java.JavaPlugin;
 import org.essencemc.essence.commands.fun.LaunchCmd;
 import org.essencemc.essence.commands.fun.PushCmd;
-import org.essencemc.essence.commands.item.GiveCmd;
-import org.essencemc.essence.commands.item.ItemCmd;
-import org.essencemc.essence.commands.item.ItemInfoCmd;
+import org.essencemc.essence.commands.item.*;
 import org.essencemc.essence.commands.location.*;
 import org.essencemc.essence.commands.misc.BroadcastCmd;
 import org.essencemc.essence.commands.misc.ListCmd;
@@ -134,6 +132,7 @@ public class Essence extends JavaPlugin {
         cmds.registerCommand(this, KitsCmd.class, "kits", "kits", "kits_cmd", "Open the kit menu to list all kits.", new String[]{"kitlist"});
         cmds.registerCommand(this, ShopItemCmd.class, "shopitems", "shops", "shopitems_cmd", "Shop item management.", new String[]{"shopitem"});
         cmds.registerCommand(this, LaunchCmd.class, "launch", "", "launch", "Launch a projectile.", new String[] {"projectile"});
+        cmds.registerCommand(this, SkullCmd.class, "skull", "", "skull", "Get the skull from a player.", new String[] {"head"});
     }
 
     public void registerModules() {

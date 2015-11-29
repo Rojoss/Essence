@@ -59,6 +59,8 @@ public enum EssMessage {
             "[[&7The buy price.\n&aClick to edit.]&a{currency}{buy}]&7/" +
             "[[&7The sell price.\n&aClick to edit.]&c{currency}{sell}] &8- " +
             "[[&7Can the item be placed on the market?\n&aClick to toggle.]&6Market&7({market}&7)]"),
+    CORE_BAN_BANNED(MsgCat.CORE_MODULE, "&4&lYou've been banned from the server!\n&cReason&8: &7&o{reason}\n&cTime left&8: &7{remaining} &cby&8: &7{punisher}"),
+    CORE_BAN_NOREASON(MsgCat.CORE_MODULE, "No reason specified."),
 
     //Command messages
     CMD_BACK_NULL(MsgCat.COMMAND, "{p} &cYou don't have a previous location to teleport to."),
@@ -164,7 +166,10 @@ public enum EssMessage {
     CMD_KIT_TOGGLE(MsgCat.COMMAND, "{p} &6The &a{kit} &6kit is now {state}."),
     CMD_KIT_ICON_AIR(MsgCat.COMMAND, "{p} &cYou can't set the kit icon to air."),
     CMD_KIT_ICON(MsgCat.COMMAND, "{p} &6Kit icon updated for the kit &a{kit}&6."),
-    CMD_LAUNCH(MsgCat.COMMAND, "&6You've launched a &a{projectile}&6."),
+    CMD_LAUNCH(MsgCat.COMMAND, "{p} &6You've launched a &a{projectile}&6."),
+    CMD_BAN_BANNED(MsgCat.COMMAND, "{p} &6You've banned &a{player}&6!\n&6Duration&8: &7{duration}\n&6Reason&8: &7&o{reason}"),
+    CMD_BAN_ALREADY_BANNED(MsgCat.COMMAND, "{p} &4{player} &cis already banned!"),
+    CMD_BAN_BROADCAST(MsgCat.COMMAND, "{p} &4&l{player} &cgot banned by &4&l{punisher}&c!"),
 
     //Command modifiers
     MOD_SETSPAWN_PLAYER(MsgCat.COMMAND_MODIFIERS, "Set personal spawn at specified player location."),
@@ -192,6 +197,7 @@ public enum EssMessage {
     MOD_KIT_TOGGLE(MsgCat.COMMAND_MODIFIERS, "Toggles the kit on/off."),
     MOD_VANISH_FAKE_QUIT(MsgCat.COMMAND_MODIFIERS, "Sends a fakse quit message when vanishing."),
     MOD_VANISH_FAKE_JOIN(MsgCat.COMMAND_MODIFIERS, "Sends a fake join message when unvanishing."),
+    MOD_BAN_PERMANENT(MsgCat.COMMAND_MODIFIERS, "Makes the ban last forever unless manually unbanned."),
 
     //Command options/optional arguments
     OPT_HEAL_FEED(MsgCat.COMMAND_OPTIONS, "Restore hunger?"),
@@ -222,7 +228,9 @@ public enum EssMessage {
     OPT_VANISH_SILENT_JOIN(MsgCat.COMMAND_OPTIONS, "Hide join message when logging in while vanished?"),
     OPT_VANISH_SILENT_QUIT(MsgCat.COMMAND_OPTIONS, "Hide quit/leave message when logging out while vanished?"),
     OPT_VANISH_SCOREBOARD_TEAM(MsgCat.COMMAND_OPTIONS, "Add vanished players to a scoreboard team.\nVanished players can see eachother as ghosts."),
-    OPT_VANISH_INVIS_POTION(MsgCat.COMMAND_OPTIONS, "Add invisibility effect to vanished players. (for visuals only)");
+    OPT_VANISH_INVIS_POTION(MsgCat.COMMAND_OPTIONS, "Add invisibility effect to vanished players. (for visuals only)"),
+    OPT_BAN_DEFAULT_DURATION(MsgCat.COMMAND_OPTIONS, "The default duration if it's not specified."),
+    OPT_BAN_BROADCAST(MsgCat.COMMAND_OPTIONS, "Broadcast a message to the server when banning someone?");
 
     private EMessage message;
 

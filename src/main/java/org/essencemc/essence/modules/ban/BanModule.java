@@ -25,14 +25,18 @@
 
 package org.essencemc.essence.modules.ban;
 
+import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerLoginEvent;
 import org.bukkit.scheduler.BukkitRunnable;
+import org.essencemc.essence.EssMessage;
 import org.essencemc.essence.Essence;
 import org.essencemc.essencecore.database.Column;
 import org.essencemc.essencecore.database.Database;
 import org.essencemc.essencecore.database.Operator;
+import org.essencemc.essencecore.message.Param;
 import org.essencemc.essencecore.modules.*;
+import org.essencemc.essencecore.util.Duration;
 import org.essencemc.essencecore.util.Util;
 
 import java.sql.*;
@@ -273,8 +277,13 @@ public class BanModule extends SqlStorageModule implements PlayerStorageModule {
         if (activeBan == null) {
             return;
         }
-        //TODO: Get proper message with formatting and punisher/time remaining etc.
-        event.setKickMessage(activeBan.getReason());
+        String kickMsg = EssMessage.CORE_BAN_BANNED.msg().parsePlaceholders(event.getPlayer()).params(
+                Param.P("reason", activeBan.getReason().isEmpty() ? EssMessage.CORE_BAN_NOREASON.msg().getText() : activeBan.getReason()),
+                Param.P("remaining", new Duration(activeBan.getRemainingTime()).getString()),
+                Param.P("duration", new Duration(activeBan.getDuration()).getString()),
+                Param.P("time", activeBan.getTimestamp().toString()),
+                Param.P("punisher", activeBan.getPunisher() == null ? "console" : Bukkit.getOfflinePlayer(activeBan.getPunisher()).getName())).color().getText();
+        event.setKickMessage(kickMsg);
         event.setResult(PlayerLoginEvent.Result.KICK_BANNED);
     }
 

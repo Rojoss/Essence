@@ -19,16 +19,18 @@ import org.essencemc.essence.commands.player.*;
 import org.essencemc.essence.commands.player_status.*;
 import org.essencemc.essence.commands.plugin.MainPluginCmd;
 import org.essencemc.essence.commands.punishments.BanCmd;
+import org.essencemc.essence.commands.punishments.KickCmd;
 import org.essencemc.essence.commands.teleport.*;
 import org.essencemc.essence.commands.world.LightningCmd;
 import org.essencemc.essence.commands.world.TreeCmd;
 import org.essencemc.essence.commands.world.WeatherCmd;
 import org.essencemc.essence.modules.back.BackModule;
 import org.essencemc.essence.modules.god.GodModule;
+import org.essencemc.essence.modules.punishments.KickModule;
 import org.essencemc.essence.modules.shops.ShopsModule;
 import org.essencemc.essence.modules.spawn.SpawnModule;
 import org.essencemc.essence.modules.warps.WarpModule;
-import org.essencemc.essence.modules.ban.BanModule;
+import org.essencemc.essence.modules.punishments.BanModule;
 import org.essencemc.essence.modules.kits.KitModule;
 import org.essencemc.essence.modules.signs.ColoredSignsModule;
 import org.essencemc.essence.modules.signs.LoreSignModule;
@@ -114,7 +116,8 @@ public class Essence extends JavaPlugin {
         cmds.registerCommand(this, GodCmd.class, "god", "", "god", "Turns your or another player's god mode on or off.", new String[]{"immortal", "invulnerable", "immortality", "invulnerability"});
         cmds.registerCommand(this, TpHereCmd.class, "tphere", "", "tphere", "Teleports a player to your location.", new String[]{});
         cmds.registerCommand(this, SudoCmd.class, "sudo", "", "sudo", "Execute a command on someone's behalf.", new String[]{});
-        cmds.registerCommand(this, BanCmd.class, "ban", "", "ban", "Bans a player from the server.", new String[]{});
+        cmds.registerCommand(this, BanCmd.class, "ban", "punishments", "ban", "Bans a player from the server.", new String[]{});
+        cmds.registerCommand(this, KickCmd.class, "kick", "punishments", "kick", "Kicks a player from the server.", new String[]{});
         cmds.registerCommand(this, SummonCmd.class, "summon", "", "summon", "Summons any entity with any specified data.", new String[]{"spawnmob", "sm", "spawnentity", "se"});
         cmds.registerCommand(this, MessageCmd.class, "message", "", "message", "Sends a private message to another online player.", new String[]{"msg", "tell"});
         cmds.registerCommand(this, WorldCmd.class, "world", "", "world", "Teleport to a specific world or show detailed world information.", new String[]{"worldinfo"});
@@ -124,29 +127,30 @@ public class Essence extends JavaPlugin {
         cmds.registerCommand(this, JumpCmd.class, "jump", "", "jump", "Jump to where you're looking.", new String[]{"jumpto"});
         cmds.registerCommand(this, TopCmd.class, "top", "", "top", "Teleport to the highest block at your location.", new String[]{});
         cmds.registerCommand(this, BroadcastCmd.class, "broadcast", "", "broadcast", "Broadcast a message to all players.", new String[]{"bc","say","announce"});
-        cmds.registerCommand(this, SignsCmd.class, "signs", "signs", "signs_cmd", "Open the sign editing menu to add or edit custom signs.", new String[]{});
-        cmds.registerCommand(this, BreakSignCmd.class, "breaksign", "signs", "breaksigns_cmd", "Toggle sign breaking on/off to break custom signs.", new String[]{"signbreak"});
+        cmds.registerCommand(this, SignsCmd.class, "signs", "signs", "signs", "Open the sign editing menu to add or edit custom signs.", new String[]{});
+        cmds.registerCommand(this, BreakSignCmd.class, "breaksign", "signs", "breaksigns", "Toggle sign breaking on/off to break custom signs.", new String[]{"signbreak"});
         cmds.registerCommand(this, EffectCmd.class, "effect", "", "effect", "Apply a potion effect.", new String[]{"pe", "potioneffect"});
-        cmds.registerCommand(this, KitCmd.class, "kit", "kits", "kit_cmd", "Give or display a specific kit.", new String[]{});
-        cmds.registerCommand(this, SetKitCmd.class, "setkit", "kits", "setkit_cmd", "Create or modify a kit based on inventory contents.", new String[]{"editkit", "createkit", "newkit", "modifykit"});
-        cmds.registerCommand(this, KitsCmd.class, "kits", "kits", "kits_cmd", "Open the kit menu to list all kits.", new String[]{"kitlist"});
-        cmds.registerCommand(this, ShopItemCmd.class, "shopitems", "shops", "shopitems_cmd", "Shop item management.", new String[]{"shopitem"});
+        cmds.registerCommand(this, KitCmd.class, "kit", "kits", "kit", "Give or display a specific kit.", new String[]{});
+        cmds.registerCommand(this, SetKitCmd.class, "setkit", "kits", "setkit", "Create or modify a kit based on inventory contents.", new String[]{"editkit", "createkit", "newkit", "modifykit"});
+        cmds.registerCommand(this, KitsCmd.class, "kits", "kits", "kits", "Open the kit menu to list all kits.", new String[]{"kitlist"});
+        cmds.registerCommand(this, ShopItemCmd.class, "shopitems", "shops", "shopitems", "Shop item management.", new String[]{"shopitem"});
         cmds.registerCommand(this, LaunchCmd.class, "launch", "", "launch", "Launch a projectile.", new String[] {"projectile"});
         cmds.registerCommand(this, SkullCmd.class, "skull", "", "skull", "Get the skull from a player.", new String[] {"head"});
     }
 
     public void registerModules() {
         Modules modules = core.getModules();
-        modules.registerModule(BackModule.class, "back", "back_core");
-        modules.registerModule(GodModule.class, "god", "god_core");
-        modules.registerModule(SpawnModule.class, "spawn", "spawns_core");
+        modules.registerModule(BackModule.class, "back", "back");
+        modules.registerModule(GodModule.class, "god", "god");
+        modules.registerModule(SpawnModule.class, "spawn", "spawns");
         modules.registerModule(BanModule.class, "punishments", "ban");
-        modules.registerModule(SignModule.class, "signs", "signs_core");
+        modules.registerModule(KickModule.class, "punishments", "kick");
+        modules.registerModule(SignModule.class, "signs", "signs");
         modules.registerModule(ColoredSignsModule.class, "signs", "coloredSigns");
         modules.registerModule(LoreSignModule.class, "signs", "loreSigns");
-        modules.registerModule(KitModule.class, "kits", "kits_core");
-        modules.registerModule(WarpModule.class, "warps", "warps_core");
-        modules.registerModule(ShopsModule.class, "shops", "shops_core");
+        modules.registerModule(KitModule.class, "kits", "kits");
+        modules.registerModule(WarpModule.class, "warps", "warps");
+        modules.registerModule(ShopsModule.class, "shops", "shops");
     }
 
 

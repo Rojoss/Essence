@@ -23,7 +23,7 @@
  * THE SOFTWARE.
  */
 
-package org.essencemc.essence.modules.ban;
+package org.essencemc.essence.modules.punishments;
 
 import java.sql.Timestamp;
 import java.util.UUID;

@@ -23,12 +23,11 @@
  * THE SOFTWARE.
  */
 
-package org.essencemc.essence.modules.ban;
+package org.essencemc.essence.modules.punishments;
 
 import org.bukkit.Bukkit;
 import org.bukkit.event.EventHandler;
 import org.bukkit.event.player.PlayerLoginEvent;
-import org.bukkit.scheduler.BukkitRunnable;
 import org.essencemc.essence.EssMessage;
 import org.essencemc.essence.Essence;
 import org.essencemc.essencecore.database.Column;
@@ -124,6 +123,9 @@ public class BanModule extends SqlStorageModule implements PlayerStorageModule {
     @Override
     public void onSavePlayer(final UUID uuid) {
         List<Ban> playerBans = bans_local.get(uuid);
+        if (playerBans == null || playerBans.isEmpty()) {
+            return;
+        }
         for (final Ban ban : playerBans) {
             //Try update ban if it exist.
             List<Object> values = new ArrayList<Object>();
@@ -278,7 +280,7 @@ public class BanModule extends SqlStorageModule implements PlayerStorageModule {
             return;
         }
         String kickMsg = EssMessage.CORE_BAN_BANNED.msg().parsePlaceholders(event.getPlayer()).params(
-                Param.P("reason", activeBan.getReason().isEmpty() ? EssMessage.CORE_BAN_NOREASON.msg().getText() : activeBan.getReason()),
+                Param.P("reason", activeBan.getReason().isEmpty() ? EssMessage.CORE_NO_REASON.msg().getText() : activeBan.getReason()),
                 Param.P("remaining", new Duration(activeBan.getRemainingTime()).getString()),
                 Param.P("duration", new Duration(activeBan.getDuration()).getString()),
                 Param.P("time", activeBan.getTimestamp().toString()),

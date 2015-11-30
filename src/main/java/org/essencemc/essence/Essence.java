@@ -21,6 +21,7 @@ import org.essencemc.essence.commands.player_status.*;
 import org.essencemc.essence.commands.plugin.MainPluginCmd;
 import org.essencemc.essence.commands.punishments.BanCmd;
 import org.essencemc.essence.commands.punishments.KickCmd;
+import org.essencemc.essence.commands.punishments.PunishmentsCmd;
 import org.essencemc.essence.commands.punishments.UnbanCmd;
 import org.essencemc.essence.commands.teleport.*;
 import org.essencemc.essence.commands.world.LightningCmd;
@@ -119,6 +120,7 @@ public class Essence extends JavaPlugin {
         cmds.registerCommand(this, GodCmd.class, "god", "", "god", "Turns your or another player's god mode on or off.", new String[]{"immortal", "invulnerable", "immortality", "invulnerability"});
         cmds.registerCommand(this, TpHereCmd.class, "tphere", "", "tphere", "Teleports a player to your location.", new String[]{});
         cmds.registerCommand(this, SudoCmd.class, "sudo", "", "sudo", "Execute a command on someone's behalf.", new String[]{});
+        cmds.registerCommand(this, PunishmentsCmd.class, "punishments", "punishments", "punishments", "List specific punishments.", new String[]{"pments", "punish"});
         cmds.registerCommand(this, BanCmd.class, "ban", "punishments", "ban", "Bans a player from the server.", new String[]{});
         cmds.registerCommand(this, UnbanCmd.class, "unban", "punishments", "unban", "Unban a banned player.", new String[]{"pardon"});
         cmds.registerCommand(this, KickCmd.class, "kick", "punishments", "kick", "Kicks a player from the server.", new String[]{});

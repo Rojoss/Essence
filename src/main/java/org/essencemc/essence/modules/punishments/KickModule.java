@@ -143,7 +143,7 @@ public class KickModule extends SqlStorageModule implements PlayerStorageModule 
             executeUpdate(statement, new SqlUpdateCallback() {
                 @Override
                 public void onExecute(int rowsChanged) {
-                    if (rowsChanged < 1) {
+                    if (rowsChanged > 0) {
                         return;
                     }
 

@@ -32,36 +32,29 @@ import org.bukkit.entity.Player;
 import org.bukkit.plugin.Plugin;
 import org.essencemc.essence.EssMessage;
 import org.essencemc.essence.modules.punishments.BanModule;
-import org.essencemc.essencecore.arguments.*;
+import org.essencemc.essencecore.arguments.BoolArg;
+import org.essencemc.essencecore.arguments.DurationArg;
+import org.essencemc.essencecore.arguments.OfflinePlayerArg;
+import org.essencemc.essencecore.arguments.StringArg;
 import org.essencemc.essencecore.commands.EssenceCommand;
 import org.essencemc.essencecore.commands.arguments.ArgumentParseResults;
 import org.essencemc.essencecore.commands.arguments.ArgumentRequirement;
 import org.essencemc.essencecore.commands.links.RemoveLink;
 import org.essencemc.essencecore.message.Param;
-import org.essencemc.essencecore.util.Debug;
 import org.essencemc.essencecore.util.Duration;
 import org.essencemc.essencecore.util.Util;
 
 import java.util.List;
 import java.util.UUID;
 
-public class BanCmd extends EssenceCommand {
+public class UnbanCmd extends EssenceCommand {
 
-    public BanCmd(Plugin plugin, String command, String description, String permission, List<String> aliases) {
+    public UnbanCmd(Plugin plugin, String command, String description, String permission, List<String> aliases) {
         super(plugin, command, description, permission, aliases);
 
         addDependency(BanModule.class);
 
         addArgument("player", new OfflinePlayerArg(), ArgumentRequirement.REQUIRED);
-        addArgument("duration", new DurationArg(), ArgumentRequirement.OPTIONAL);
-        addArgument("reason", new StringArg(), ArgumentRequirement.OPTIONAL);
-
-        addModifier("-p", EssMessage.MOD_BAN_PERMANENT.msg(), "permanent");
-
-        addCommandOption("default-duration", EssMessage.OPT_BAN_DEFAULT_DURATION.msg(), new DurationArg(new Duration("1d")), false);
-        addCommandOption("broadcast-ban", EssMessage.OPT_BAN_BROADCAST.msg(), new BoolArg(true), false);
-
-        addLink(new RemoveLink("-p", "duration"));
 
         register();
     }
@@ -78,35 +71,15 @@ public class BanCmd extends EssenceCommand {
 
         OfflinePlayer player = (OfflinePlayer)result.getArg("player");
         UUID uuid = player.getUniqueId();
-        Duration duration = result.hasModifier("-p") ? new Duration("9999d") : (Duration)result.getArg("duration");
-        if (duration == null) {
-            duration = (Duration)cmdOptions.get("default-duration").getArg().getValue();
-        }
-        String reason = Util.implode(args, " ", result.hasModifier("-p") ? 1 : 2).trim();
 
-        if (banmodule.isBanned(uuid)) {
-            EssMessage.CMD_BAN_ALREADY_BANNED.msg().send(sender, true, true, Param.P("player", player.getName()));
+        if (!banmodule.isBanned(uuid)) {
+            EssMessage.CMD_UNBAN_NOT_BANNED.msg().send(sender, true, true, Param.P("player", player.getName()));
             return true;
         }
 
-        banmodule.ban(uuid, duration.getMS(), sender instanceof Player ? ((Player) sender).getUniqueId() : null, reason);
-        if (player.isOnline()) {
-            String kickMsg = EssMessage.CORE_BAN_BANNED.msg().params(
-                    Param.P("reason", reason.isEmpty() ? EssMessage.CORE_NO_REASON.msg().getText() : reason),
-                    Param.P("remaining", duration.getString()),
-                    Param.P("duration", duration.getString()),
-                    Param.P("time", Util.getTimeStamp().toString()),
-                    Param.P("punisher", sender.getName())).color().getText();
-            ((Player)player).kickPlayer(kickMsg);
-        }
-
+        banmodule.unban(uuid);
         if (!result.hasModifier("-s")) {
-            EssMessage.CMD_BAN_BANNED.msg().send(sender, true, true, Param.P("player", player.getName()),
-                    Param.P("reason", reason.isEmpty() ? EssMessage.CORE_NO_REASON.msg().getText() : reason), Param.P("duration", duration.getString()));
-            if ((Boolean)cmdOptions.get("broadcast-ban").getArg().getValue()) {
-                EssMessage.CMD_BAN_BROADCAST.msg().broadcast(true, true, Param.P("player", player.getName()), Param.P("punisher", sender.getName()),
-                        Param.P("reason", reason.isEmpty() ? EssMessage.CORE_NO_REASON.msg().getText() : reason), Param.P("duration", duration.getString()));
-            }
+            EssMessage.CMD_UNBAN_UNBANNED.msg().send(sender, true, true, Param.P("player", player.getName()));
         }
         return true;
     }

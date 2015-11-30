@@ -60,7 +60,8 @@ public enum EssMessage {
             "[[&7The sell price.\n&aClick to edit.]&c{currency}{sell}] &8- " +
             "[[&7Can the item be placed on the market?\n&aClick to toggle.]&6Market&7({market}&7)]"),
     CORE_BAN_BANNED(MsgCat.CORE_MODULE, "&4&lYou've been banned from the server!\n&cReason&8: &7&o{reason}\n&cTime left&8: &7{remaining} &cby&8: &7{punisher}"),
-    CORE_BAN_NOREASON(MsgCat.CORE_MODULE, "No reason specified."),
+    CORE_NO_REASON(MsgCat.CORE_MODULE, "No reason specified."),
+    CORE_KICK_MESSAGE(MsgCat.CORE_MODULE, "&4&lYou've been kicked from the server!\n&cReason&8: &7&o{reason}\n&cBy&8: &7{punisher}"),
 
     //Command messages
     CMD_BACK_NULL(MsgCat.COMMAND, "{p} &cYou don't have a previous location to teleport to."),
@@ -172,6 +173,10 @@ public enum EssMessage {
     CMD_BAN_BROADCAST(MsgCat.COMMAND, "{p} &4&l{player} &cgot banned by &4&l{punisher}&c!"),
     CMD_SKULL_SET(MsgCat.COMMAND,"{p} &6The block you're looking at has been set to a skull: &a{owner}"),
     CMD_SKULL_INVALID_BLOCK(MsgCat.COMMAND, "{p} &cYou're not looking at a block."),
+    CMD_UNBAN_UNBANNED(MsgCat.COMMAND, "{p} &6You've unbanned &a{player}&6!"),
+    CMD_UNBAN_NOT_BANNED(MsgCat.COMMAND, "{p} &4{player} &cisn't banned!"),
+    CMD_KICK_KICKED(MsgCat.COMMAND, "{p} &6You've kicked &a{player}&6!\n&6Reason&8: &7&o{reason}"),
+    CMD_KICK_BROADCAST(MsgCat.COMMAND, "{p} &4&l{player} &cgot kicked by &4&l{punisher}&c!"),
 
     //Command modifiers
     MOD_SETSPAWN_PLAYER(MsgCat.COMMAND_MODIFIERS, "Set personal spawn at specified player location."),

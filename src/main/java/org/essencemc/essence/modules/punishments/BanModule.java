@@ -35,6 +35,7 @@ import org.essencemc.essencecore.database.Database;
 import org.essencemc.essencecore.database.Operator;
 import org.essencemc.essencecore.message.Param;
 import org.essencemc.essencecore.modules.*;
+import org.essencemc.essencecore.util.Debug;
 import org.essencemc.essencecore.util.Duration;
 import org.essencemc.essencecore.util.Util;
 
@@ -139,7 +140,7 @@ public class BanModule extends SqlStorageModule implements PlayerStorageModule {
             executeUpdate(statement, new SqlUpdateCallback() {
                 @Override
                 public void onExecute(int rowsChanged) {
-                    if (rowsChanged < 1) {
+                    if (rowsChanged > 0) {
                         return;
                     }
 
@@ -210,6 +211,14 @@ public class BanModule extends SqlStorageModule implements PlayerStorageModule {
             return bans.get(uuid);
         }
         return new ArrayList<Ban>();
+    }
+
+    /**
+     * Get a map with all Ban instances of all players.
+     * @return Map<UUID, List<Ban>> with all bans.
+     */
+    public Map<UUID, List<Ban>> getBans() {
+        return bans;
     }
 
     /**

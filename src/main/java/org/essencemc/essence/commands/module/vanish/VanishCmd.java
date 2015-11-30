@@ -88,11 +88,10 @@ public class VanishCmd extends EssenceCommand {
                 (Boolean)cmdOptions.get("scoreboard-team").getArg().getValue(), (Boolean)cmdOptions.get("invisibility-potion").getArg().getValue());
 
         Player player = (Player)result.getArg("player", castPlayer(sender));
-        UUID uuid = player.getUniqueId();
         Boolean state = (Boolean)result.getArg("state");
 
-        if ((state != null && state == false) || vanish.isVanished(uuid)) {
-            if (vanish.unvanish(uuid)) {
+        if ((state != null && state == false) || vanish.isVanished(player.getUniqueId())) {
+            if (vanish.unvanish(player)) {
                 if (result.hasModifier("-fj")) {
                     //TODO: Send fake join message
                 }
@@ -101,17 +100,19 @@ public class VanishCmd extends EssenceCommand {
                 //TODO: Send message
             }
         } else {
-            if (vanish.vanish(uuid, new VanishData((Boolean)result.getOptionalArg("chat"), (Boolean)result.getOptionalArg("attack"),
-                    (Boolean)result.getOptionalArg("damage"), (Boolean)result.getOptionalArg("interact"), (Boolean)result.getOptionalArg("pickup"),
+            if (vanish.vanish(player, new VanishData((Boolean) result.getOptionalArg("chat"), (Boolean) result.getOptionalArg("attack"),
+                    (Boolean) result.getOptionalArg("damage"), (Boolean) result.getOptionalArg("interact"), (Boolean) result.getOptionalArg("pickup"),
                     (Boolean)result.getOptionalArg("target")))) {
                 if (result.hasModifier("-fq")) {
                     //TODO: Send fake quit message
                 }
-                //TODO: Send message
             } else {
                 //TODO: Send message
             }
         }
+
+        sender.sendMessage("Vanished: " + vanish.isVanished(player.getUniqueId()));
+
         return true;
     }
 }

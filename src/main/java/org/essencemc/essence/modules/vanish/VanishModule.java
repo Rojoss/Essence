@@ -25,6 +25,19 @@
 
 package org.essencemc.essence.modules.vanish;
 
+import org.bukkit.Bukkit;
+import org.bukkit.entity.Player;
+import org.bukkit.event.EventHandler;
+import org.bukkit.event.block.BlockBreakEvent;
+import org.bukkit.event.block.BlockPlaceEvent;
+import org.bukkit.event.entity.EntityDamageByEntityEvent;
+import org.bukkit.event.entity.EntityDamageEvent;
+import org.bukkit.event.entity.EntityTargetEvent;
+import org.bukkit.event.player.*;
+import org.bukkit.potion.PotionEffect;
+import org.bukkit.potion.PotionEffectType;
+import org.bukkit.scoreboard.Scoreboard;
+import org.bukkit.scoreboard.Team;
 import org.essencemc.essence.Essence;
 import org.essencemc.essencecore.database.Column;
 import org.essencemc.essencecore.database.Database;
@@ -42,6 +55,7 @@ public class VanishModule extends SqlStorageModule implements PlayerStorageModul
     private List<UUID> added = new ArrayList<UUID>();
     private List<UUID> removed = new ArrayList<UUID>();
 
+    //TODO: Set the booleans to a configurable variable.
     private boolean silentJoin = true;
     private boolean silentQuit = true;
     private boolean scoreboardTeams = true;
@@ -140,7 +154,7 @@ public class VanishModule extends SqlStorageModule implements PlayerStorageModul
             values.add(data.canPickup());
             values.add(data.canBeTargeted());
             final PreparedStatement statement = getDatabase().createQuery().insertInto(getTable()).
-                    values(Arrays.asList("uuid", "chat", "attack", "damage", "interact", "pickup", "target"), values).getStatement();
+                    values(Arrays.asList("uuid", "chat", "attack", "damage", "interact", "pickup", "drop", "target"), values).getStatement();
             executeUpdate(statement);
             added.remove(uuid);
         }
@@ -168,22 +182,106 @@ public class VanishModule extends SqlStorageModule implements PlayerStorageModul
         this.invisEffect = invisEffect;
     }
 
-    public boolean vanish(UUID uuid, VanishData data) {
-        if (isVanished(uuid)) {
+    public boolean vanish(Player player, VanishData data) {
+        if (isVanished(player.getUniqueId())) {
             return false;
         }
-        vanished.put(uuid, data);
-        added.add(uuid);
+
+        vanished.put(player.getUniqueId(), data);
+        added.add(player.getUniqueId());
+
+        if(invisEffect) {
+            player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, Integer.MAX_VALUE, 1, false, false));
+        }
+
+        updateShownPlayers(player);
         return true;
     }
 
-    public boolean unvanish(UUID uuid) {
-        if (!isVanished(uuid)) {
+    public boolean unvanish(Player player) {
+        if (!isVanished(player.getUniqueId())) {
             return false;
         }
-        vanished.remove(uuid);
-        removed.add(uuid);
+
+        vanished.remove(player.getUniqueId());
+        removed.add(player.getUniqueId());
+
+        if(invisEffect) {
+            player.removePotionEffect(PotionEffectType.INVISIBILITY);
+        }
+
+        updateShownPlayers(player);
         return true;
+    }
+
+    //TODO: This method can probably be improved.
+    private void updateShownPlayers(Player player) {
+        boolean vanished = isVanished(player.getUniqueId());
+
+        for(Player target : Bukkit.getOnlinePlayers()) {
+            if(scoreboardTeams) {
+                updateScoreboard(target);
+            }
+
+            if(player.getUniqueId().equals(target.getUniqueId())) {
+                continue;
+            }
+
+            if(vanished) {
+                player.showPlayer(target);
+
+                if(isVanished(target.getUniqueId())) {
+                    target.showPlayer(player);
+                } else {
+                    target.hidePlayer(player);
+                }
+            } else {
+                target.showPlayer(player);
+
+                if(isVanished(target.getUniqueId())) {
+                    player.hidePlayer(target);
+                } else {
+                    player.showPlayer(target);
+                }
+            }
+        }
+    }
+
+    //TODO: This method can probably be improved.
+    private void updateScoreboard(Player player) {
+        Scoreboard scoreboard = player.getScoreboard();
+
+        if(!isVanished(player.getUniqueId()) && (scoreboard != null)) {
+            Team team = scoreboard.getTeam("vanished");
+
+            if(team != null) {
+                team.unregister();
+            }
+
+            return;
+        }
+
+        if(scoreboard == null) {
+            scoreboard = Bukkit.getScoreboardManager().getNewScoreboard();
+        }
+
+        Team team = ((scoreboard.getTeam("vanished") == null) ? scoreboard.registerNewTeam("vanished") : scoreboard.getTeam("vanished"));
+
+        for(String entry : new HashSet<>(team.getEntries())) {
+            team.removeEntry(entry);
+        }
+
+        for(Player target : Bukkit.getOnlinePlayers()) {
+            if(isVanished(target.getUniqueId())) {
+                team.addEntry(target.getName());
+            }
+        }
+
+        team.setCanSeeFriendlyInvisibles(true);
+
+        if(player.getScoreboard() == null){
+            player.setScoreboard(scoreboard);
+        }
     }
 
     public boolean isVanished(UUID uuid) {
@@ -201,14 +299,148 @@ public class VanishModule extends SqlStorageModule implements PlayerStorageModul
         return vanished;
     }
 
-    //TODO: Actually vanish the players.
+    @EventHandler
+    public void onPlayerJoin(PlayerJoinEvent event) {
+        updateShownPlayers(event.getPlayer());
 
-    //TODO: Handle silent join and silent quit.
+        if(silentJoin) {
+            event.setJoinMessage(null);
+        }
+    }
 
-    //TODO: Scoreboard teams for vanished players
+    @EventHandler
+    public void onPlayerQuit(PlayerQuitEvent event) {
+        updateShownPlayers(event.getPlayer());
 
-    //TODO:Invis potion effect for vanished players.
+        if(silentQuit) {
+            event.setQuitMessage(null);
+        }
+    }
 
-    //TODO: Handle all events like cancel chat, interact, damage etc.
+    @EventHandler
+    public void onPlayerChat(AsyncPlayerChatEvent event) {
+        VanishData data = getVanishData(event.getPlayer().getUniqueId());
+
+        if((data == null) || data.canChat()) {
+            return;
+        }
+
+        for(Player recipient : new HashSet<>(event.getRecipients())) {
+            if(!isVanished(recipient.getUniqueId())) {
+                event.getRecipients().remove(recipient);
+            }
+        }
+    }
+
+    @EventHandler
+    public void onEntityDamageByEntity(EntityDamageByEntityEvent event) {
+        if(!(event.getDamager() instanceof Player)) {
+            return;
+        }
+
+        VanishData data = getVanishData(event.getDamager().getUniqueId());
+
+        if((data == null) || data.canAttack()) {
+            return;
+        }
+
+        event.setCancelled(true);
+    }
+
+    @EventHandler
+    public void onEntityDamage(EntityDamageEvent event) {
+        if(!(event.getEntity() instanceof Player)) {
+            return;
+        }
+
+        VanishData data = getVanishData(event.getEntity().getUniqueId());
+
+        if((data == null) || data.canDamage()) {
+            return;
+        }
+
+        event.setCancelled(true);
+    }
+
+    @EventHandler
+    public void onPlayerInteract(PlayerInteractEvent event) {
+        VanishData data = getVanishData(event.getPlayer().getUniqueId());
+
+        if((data == null) || data.canInteract()) {
+            return;
+        }
+
+        event.setCancelled(true);
+    }
+
+    @EventHandler
+    public void onBlockBreak(BlockBreakEvent event) {
+        VanishData data = getVanishData(event.getPlayer().getUniqueId());
+
+        if((data == null) || data.canInteract()) {
+            return;
+        }
+
+        event.setCancelled(true);
+    }
+
+    @EventHandler
+    public void onBlockPlace(BlockPlaceEvent event) {
+        VanishData data = getVanishData(event.getPlayer().getUniqueId());
+
+        if((data == null) || data.canInteract()) {
+            return;
+        }
+
+        event.setCancelled(true);
+    }
+
+    @EventHandler
+    public void onPlayerArmorStandManipulate(PlayerArmorStandManipulateEvent event) {
+        VanishData data = getVanishData(event.getPlayer().getUniqueId());
+
+        if((data == null) || data.canInteract()) {
+            return;
+        }
+
+        event.setCancelled(true);
+    }
+
+    @EventHandler
+    public void onPlayerPickupItem(PlayerPickupItemEvent event) {
+        VanishData data = getVanishData(event.getPlayer().getUniqueId());
+
+        if((data == null) || data.canPickup()) {
+            return;
+        }
+
+        event.setCancelled(true);
+    }
+
+    @EventHandler
+    public void onPlayerDropItem(PlayerDropItemEvent event) {
+        VanishData data = getVanishData(event.getPlayer().getUniqueId());
+
+        if((data == null) || data.canPickup()) {
+            return;
+        }
+
+        event.setCancelled(true);
+    }
+
+    @EventHandler
+    public void onEntityTarget(EntityTargetEvent event) {
+        if(!(event.getTarget() instanceof Player)) {
+            return;
+        }
+
+        VanishData data = getVanishData(event.getTarget().getUniqueId());
+
+        if((data == null) || data.canBeTargeted()) {
+            return;
+        }
+
+        event.setCancelled(true);
+    }
 }
 

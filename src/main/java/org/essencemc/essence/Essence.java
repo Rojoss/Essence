@@ -15,6 +15,7 @@ import org.essencemc.essence.commands.module.kits.SetKitCmd;
 import org.essencemc.essence.commands.module.shops.ShopItemCmd;
 import org.essencemc.essence.commands.module.signs.BreakSignCmd;
 import org.essencemc.essence.commands.module.signs.SignsCmd;
+import org.essencemc.essence.commands.module.vanish.VanishCmd;
 import org.essencemc.essence.commands.player.*;
 import org.essencemc.essence.commands.player_status.*;
 import org.essencemc.essence.commands.plugin.MainPluginCmd;
@@ -30,6 +31,7 @@ import org.essencemc.essence.modules.god.GodModule;
 import org.essencemc.essence.modules.punishments.KickModule;
 import org.essencemc.essence.modules.shops.ShopsModule;
 import org.essencemc.essence.modules.spawn.SpawnModule;
+import org.essencemc.essence.modules.vanish.VanishModule;
 import org.essencemc.essence.modules.warps.WarpModule;
 import org.essencemc.essence.modules.punishments.BanModule;
 import org.essencemc.essence.modules.kits.KitModule;
@@ -138,6 +140,7 @@ public class Essence extends JavaPlugin {
         cmds.registerCommand(this, ShopItemCmd.class, "shopitems", "shops", "shopitems", "Shop item management.", new String[]{"shopitem"});
         cmds.registerCommand(this, LaunchCmd.class, "launch", "", "launch", "Launch a projectile.", new String[] {"projectile"});
         cmds.registerCommand(this, SkullCmd.class, "skull", "", "skull", "Get the skull from a player.", new String[] {"head"});
+        cmds.registerCommand(this, VanishCmd.class, "vanish", "vanish", "vanish", "Vanish yourself from the other players.", new String[] {"hide"});
     }
 
     public void registerModules() {
@@ -153,6 +156,7 @@ public class Essence extends JavaPlugin {
         modules.registerModule(KitModule.class, "kits", "kits");
         modules.registerModule(WarpModule.class, "warps", "warps");
         modules.registerModule(ShopsModule.class, "shops", "shops");
+        modules.registerModule(VanishModule.class, "vanish", "vanish");
     }
 
 

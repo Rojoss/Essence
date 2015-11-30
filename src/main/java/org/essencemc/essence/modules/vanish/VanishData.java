@@ -88,7 +88,6 @@ public class VanishData {
         this.pickup = pickup;
     }
 
-
     public boolean canBeTargeted() {
         return target;
     }

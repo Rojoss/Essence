@@ -20,6 +20,7 @@ import org.essencemc.essence.commands.player_status.*;
 import org.essencemc.essence.commands.plugin.MainPluginCmd;
 import org.essencemc.essence.commands.punishments.BanCmd;
 import org.essencemc.essence.commands.punishments.KickCmd;
+import org.essencemc.essence.commands.punishments.UnbanCmd;
 import org.essencemc.essence.commands.teleport.*;
 import org.essencemc.essence.commands.world.LightningCmd;
 import org.essencemc.essence.commands.world.TreeCmd;
@@ -117,6 +118,7 @@ public class Essence extends JavaPlugin {
         cmds.registerCommand(this, TpHereCmd.class, "tphere", "", "tphere", "Teleports a player to your location.", new String[]{});
         cmds.registerCommand(this, SudoCmd.class, "sudo", "", "sudo", "Execute a command on someone's behalf.", new String[]{});
         cmds.registerCommand(this, BanCmd.class, "ban", "punishments", "ban", "Bans a player from the server.", new String[]{});
+        cmds.registerCommand(this, UnbanCmd.class, "unban", "punishments", "unban", "Unban a banned player.", new String[]{"pardon"});
         cmds.registerCommand(this, KickCmd.class, "kick", "punishments", "kick", "Kicks a player from the server.", new String[]{});
         cmds.registerCommand(this, SummonCmd.class, "summon", "", "summon", "Summons any entity with any specified data.", new String[]{"spawnmob", "sm", "spawnentity", "se"});
         cmds.registerCommand(this, MessageCmd.class, "message", "", "message", "Sends a private message to another online player.", new String[]{"msg", "tell"});

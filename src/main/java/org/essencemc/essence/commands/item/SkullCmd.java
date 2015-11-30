@@ -26,11 +26,12 @@
 package org.essencemc.essence.commands.item;
 
 import org.bukkit.Material;
+import org.bukkit.SkullType;
+import org.bukkit.block.Block;
+import org.bukkit.block.Skull;
 import org.bukkit.command.Command;
 import org.bukkit.command.CommandSender;
 import org.bukkit.entity.Player;
-import org.bukkit.inventory.ItemStack;
-import org.bukkit.inventory.meta.SkullMeta;
 import org.bukkit.plugin.Plugin;
 import org.essencemc.essence.EssMessage;
 import org.essencemc.essencecore.arguments.StringArg;
@@ -41,6 +42,7 @@ import org.essencemc.essencecore.message.Message;
 import org.essencemc.essencecore.message.Param;
 
 import java.util.List;
+import java.util.Set;
 
 public class SkullCmd extends EssenceCommand {
     public SkullCmd(Plugin plugin, String label, String description, String permission, List<String> aliases) {
@@ -64,23 +66,30 @@ public class SkullCmd extends EssenceCommand {
             return true;
         }
 
+        Block block = castPlayer(sender).getTargetBlock(((Set<Material>) null), 6);
+
+        if((block == null) || block.getType().equals(Material.AIR)) {
+            EssMessage.CMD_SKULL_INVALID_BLOCK.msg().send(sender);
+            return true;
+        }
+
         String owner = ((String) result.getArg("owner"));
-        castPlayer(sender).getInventory().addItem(getSkull(owner));
+
+        block.setType(Material.SKULL);
+
+        if(owner.length() > 16) {
+            ess.getSkull().setSkullUrl(owner, block);
+        } else {
+            Skull skull = ((Skull) block.getState());
+            skull.setSkullType(SkullType.PLAYER);
+            skull.setOwner(owner);
+            skull.update(true);
+        }
 
         if(!result.hasModifier("-s")) {
-            EssMessage.CMD_SKULL_GIVE.msg().send(sender, Param.P("owner", owner));
+            EssMessage.CMD_SKULL_SET.msg().send(sender, Param.P("owner", owner));
         }
 
         return true;
-    }
-
-    private ItemStack getSkull(String owner) {
-        ItemStack stack = new ItemStack(Material.SKULL_ITEM, 1, ((short) 3));
-        SkullMeta meta = ((SkullMeta) stack.getItemMeta());
-
-        meta.setOwner(owner);
-        stack.setItemMeta(meta);
-
-        return stack;
     }
 }

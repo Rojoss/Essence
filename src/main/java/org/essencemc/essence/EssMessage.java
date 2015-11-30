@@ -170,7 +170,8 @@ public enum EssMessage {
     CMD_BAN_BANNED(MsgCat.COMMAND, "{p} &6You've banned &a{player}&6!\n&6Duration&8: &7{duration}\n&6Reason&8: &7&o{reason}"),
     CMD_BAN_ALREADY_BANNED(MsgCat.COMMAND, "{p} &4{player} &cis already banned!"),
     CMD_BAN_BROADCAST(MsgCat.COMMAND, "{p} &4&l{player} &cgot banned by &4&l{punisher}&c!"),
-    CMD_SKULL_GIVE(MsgCat.COMMAND,"{p} &6You have been given the skull from &a{owner}&6."),
+    CMD_SKULL_SET(MsgCat.COMMAND,"{p} &6The block you're looking at has been set to a skull: &a{owner}"),
+    CMD_SKULL_INVALID_BLOCK(MsgCat.COMMAND, "{p} &cYou're not looking at a block."),
 
     //Command modifiers
     MOD_SETSPAWN_PLAYER(MsgCat.COMMAND_MODIFIERS, "Set personal spawn at specified player location."),

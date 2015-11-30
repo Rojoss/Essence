@@ -51,8 +51,7 @@ public class Essence extends JavaPlugin {
     private static EssenceCore core;
 
     private final Logger log = Logger.getLogger("Essence");
-
-
+    
     @Override
     public void onDisable() {
         instance = null;
@@ -73,7 +72,6 @@ public class Essence extends JavaPlugin {
         log("loaded successfully");
     }
 
-
     public void log(Object msg) {
         log.info("[Essence " + getDescription().getVersion() + "] " + msg.toString());
     }
@@ -83,7 +81,6 @@ public class Essence extends JavaPlugin {
     public void logError(Object msg) {
         log.severe("[Essence " + getDescription().getVersion() + "] " + msg.toString());
     }
-
 
     public void registerCommands() {
         Commands cmds = core.getCommands();
@@ -160,7 +157,6 @@ public class Essence extends JavaPlugin {
         modules.registerModule(ShopsModule.class, "shops", "shops");
         modules.registerModule(VanishModule.class, "vanish", "vanish");
     }
-
 
     public static Essence inst() {
         return instance;

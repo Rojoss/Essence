@@ -33,6 +33,7 @@ import org.bukkit.event.block.BlockPlaceEvent;
 import org.bukkit.event.entity.EntityDamageByEntityEvent;
 import org.bukkit.event.entity.EntityDamageEvent;
 import org.bukkit.event.entity.EntityTargetEvent;
+import org.bukkit.event.hanging.HangingBreakByEntityEvent;
 import org.bukkit.event.player.*;
 import org.bukkit.potion.PotionEffect;
 import org.bukkit.potion.PotionEffectType;
@@ -191,7 +192,7 @@ public class VanishModule extends SqlStorageModule implements PlayerStorageModul
         added.add(player.getUniqueId());
 
         if(invisEffect) {
-            player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, Integer.MAX_VALUE, 1, false, false));
+            player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, Integer.MAX_VALUE, 1, true, false));
         }
 
         updateShownPlayers(player);
@@ -278,10 +279,7 @@ public class VanishModule extends SqlStorageModule implements PlayerStorageModul
         }
 
         team.setCanSeeFriendlyInvisibles(true);
-
-        if(player.getScoreboard() == null){
-            player.setScoreboard(scoreboard);
-        }
+        player.setScoreboard(scoreboard);
     }
 
     public boolean isVanished(UUID uuid) {
@@ -374,6 +372,17 @@ public class VanishModule extends SqlStorageModule implements PlayerStorageModul
     }
 
     @EventHandler
+    public void onPlayerInteractEntity(PlayerInteractEntityEvent event) {
+        VanishData data = getVanishData(event.getPlayer().getUniqueId());
+
+        if((data == null) || data.canInteract()) {
+            return;
+        }
+
+        event.setCancelled(true);
+    }
+
+    @EventHandler
     public void onBlockBreak(BlockBreakEvent event) {
         VanishData data = getVanishData(event.getPlayer().getUniqueId());
 
@@ -398,6 +407,21 @@ public class VanishModule extends SqlStorageModule implements PlayerStorageModul
     @EventHandler
     public void onPlayerArmorStandManipulate(PlayerArmorStandManipulateEvent event) {
         VanishData data = getVanishData(event.getPlayer().getUniqueId());
+
+        if((data == null) || data.canInteract()) {
+            return;
+        }
+
+        event.setCancelled(true);
+    }
+
+    @EventHandler
+    public void onHangingBreakByEntity(HangingBreakByEntityEvent event) {
+        if(!(event.getRemover() instanceof Player)) {
+            return;
+        }
+
+        VanishData data = getVanishData(event.getRemover().getUniqueId());
 
         if((data == null) || data.canInteract()) {
             return;

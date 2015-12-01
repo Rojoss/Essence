@@ -372,6 +372,17 @@ public class VanishModule extends SqlStorageModule implements PlayerStorageModul
     }
 
     @EventHandler
+    public void onPlayerInteractEntity(PlayerInteractEntityEvent event) {
+        VanishData data = getVanishData(event.getPlayer().getUniqueId());
+
+        if((data == null) || data.canInteract()) {
+            return;
+        }
+
+        event.setCancelled(true);
+    }
+
+    @EventHandler
     public void onBlockBreak(BlockBreakEvent event) {
         VanishData data = getVanishData(event.getPlayer().getUniqueId());
 

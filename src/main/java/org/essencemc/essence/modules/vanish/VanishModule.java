@@ -278,10 +278,7 @@ public class VanishModule extends SqlStorageModule implements PlayerStorageModul
         }
 
         team.setCanSeeFriendlyInvisibles(true);
-
-        if(player.getScoreboard() == null){
-            player.setScoreboard(scoreboard);
-        }
+        player.setScoreboard(scoreboard);
     }
 
     public boolean isVanished(UUID uuid) {

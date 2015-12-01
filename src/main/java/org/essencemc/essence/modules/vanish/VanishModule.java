@@ -154,7 +154,7 @@ public class VanishModule extends SqlStorageModule implements PlayerStorageModul
             values.add(data.canPickup());
             values.add(data.canBeTargeted());
             final PreparedStatement statement = getDatabase().createQuery().insertInto(getTable()).
-                    values(Arrays.asList("uuid", "chat", "attack", "damage", "interact", "pickup", "drop", "target"), values).getStatement();
+                    values(Arrays.asList("uuid", "chat", "attack", "damage", "interact", "pickup", "target"), values).getStatement();
             executeUpdate(statement);
             added.remove(uuid);
         }

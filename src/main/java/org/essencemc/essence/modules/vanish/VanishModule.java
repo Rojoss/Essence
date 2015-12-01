@@ -191,7 +191,7 @@ public class VanishModule extends SqlStorageModule implements PlayerStorageModul
         added.add(player.getUniqueId());
 
         if(invisEffect) {
-            player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, Integer.MAX_VALUE, 1, false, false));
+            player.addPotionEffect(new PotionEffect(PotionEffectType.INVISIBILITY, Integer.MAX_VALUE, 1, true, false));
         }
 
         updateShownPlayers(player);
